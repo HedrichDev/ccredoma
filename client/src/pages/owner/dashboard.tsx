@@ -138,6 +138,15 @@ export default function OwnerDashboard() {
                 <FileText className="h-4 w-4 mr-2" />
                 Comprobantes de Pago
               </Button>
+              <Button
+                variant="outline"
+                className="w-full justify-start"
+                onClick={() => setLocation("/owner/maintenance-requests")}
+                data-testid="button-maintenance-requests"
+              >
+                <FileText className="h-4 w-4 mr-2" />
+                Solicitudes de Mantenimiento
+              </Button>
               <Button variant="outline" className="w-full justify-start" data-testid="button-terminos">
                 <FileText className="h-4 w-4 mr-2" />
                 Términos y Condiciones

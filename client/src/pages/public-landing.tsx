@@ -111,6 +111,11 @@ export default function PublicLanding() {
               <span className="text-xl font-bold tracking-tight">ERP Centro Comercial</span>
             </div>
             <div className="flex items-center gap-4">
+              <Link href="/catalog">
+                <Button variant="ghost" data-testid="button-catalog">
+                  Catálogo
+                </Button>
+              </Link>
               <Link href="/login">
                 <Button variant="ghost" data-testid="button-login">
                   Iniciar Sesión
@@ -345,6 +350,20 @@ export default function PublicLanding() {
       {/* Footer */}
       <footer className="bg-card py-8 border-t">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-muted-foreground">
+          <div className="flex justify-center gap-4 mb-4">
+            <Link href="/catalog">
+              <Button variant="link">Catálogo</Button>
+            </Link>
+            <Link href="/about">
+              <Button variant="link">Sobre Nosotros</Button>
+            </Link>
+            <Link href="/rent-simulator">
+              <Button variant="link">Simulador de Renta</Button>
+            </Link>
+            <Link href="/contact">
+              <Button variant="link">Contacto</Button>
+            </Link>
+          </div>
           <p>© 2024 ERP Centro Comercial. Todos los derechos reservados.</p>
         </div>
       </footer>
