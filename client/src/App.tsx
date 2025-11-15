@@ -7,10 +7,10 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { DashboardLayout } from "@/components/dashboard-layout";
 
 import PublicLanding from "@/pages/public-landing";
-import PublicCatalog from "@/pages/public/catalog";
-import ContactPage from "@/pages/public/contact";
-import AboutPage from "@/pages/public/about";
-import RentSimulatorPage from "@/pages/public/rent-simulator";
+import PublicCatalog from "@/pages/catalog";
+import ContactPage from "@/pages/contact";
+import AboutPage from "@/pages/about";
+import RentSimulatorPage from "@/pages/rent-simulator";
 import Login from "@/pages/login";
 import AdminDashboard from "@/pages/admin/dashboard";
 import AdminLocales from "@/pages/admin/locales";
