@@ -3,7 +3,7 @@ import { MetricCard } from "@/components/metric-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { StatusBadge } from "@/components/status-badge";
-import { Building2, DollarSign, AlertCircle, TrendingUp } from "lucide-react";
+import { Building2, DollarSign, AlertCircle, TrendingUp, Shield, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
 import type { LocalComercial, ContratoAlquiler, PagoAlquiler, EstadoPago } from "@shared/schema";
