@@ -352,16 +352,16 @@ export default function PublicLanding() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-muted-foreground">
           <div className="flex justify-center gap-4 mb-4">
             <Link href="/catalog">
-              <Button variant="link">Catálogo</Button>
+              <Button variant="ghost">Catálogo</Button>
             </Link>
             <Link href="/about">
-              <Button variant="link">Sobre Nosotros</Button>
+              <Button variant="ghost">Sobre Nosotros</Button>
             </Link>
             <Link href="/rent-simulator">
-              <Button variant="link">Simulador de Renta</Button>
+              <Button variant="ghost">Simulador de Renta</Button>
             </Link>
             <Link href="/contact">
-              <Button variant="link">Contacto</Button>
+              <Button variant="ghost">Contacto</Button>
             </Link>
           </div>
           <p>© 2024 ERP Centro Comercial. Todos los derechos reservados.</p>
