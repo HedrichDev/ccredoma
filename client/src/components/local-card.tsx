@@ -2,7 +2,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "./status-badge";
 import { Building2, Maximize2, MapPin } from "lucide-react";
-import type { LocalComercial } from "@shared/schema";
+import type { LocalComercial, EstadoLocal } from "@shared/schema";
 
 interface LocalCardProps {
   local: LocalComercial & { centroComercial?: { nombre: string } };
@@ -45,7 +45,7 @@ export function LocalCard({ local, onViewDetails, onRequestInfo, showActions = t
               </p>
             )}
           </div>
-          <StatusBadge status={local.estado} />
+          <StatusBadge status={local.estado as EstadoLocal} />
         </div>
       </CardHeader>
       <CardContent className="space-y-3">

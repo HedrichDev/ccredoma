@@ -30,14 +30,14 @@ export async function signIn(email: string, password: string): Promise<AuthUser 
     .eq('email', email)
     .single();
 
-  if (userError || !userData) {
-    throw new Error('Usuario no encontrado en la base de datos');
+  if (userError || !userData || !userData.roles || !Array.isArray(userData.roles) || userData.roles.length === 0) {
+    throw new Error('Usuario no encontrado o sin rol asignado');
   }
 
   return {
     id: userData.id,
     email: userData.email,
-    rol: userData.roles.nombre_rol as RolNombre,
+    rol: userData.roles[0].nombre_rol as RolNombre,
     datosPersonales: userData.datos_personales,
   };
 }
@@ -68,14 +68,14 @@ export async function getCurrentUser(): Promise<AuthUser | null> {
     .eq('email', user.email)
     .single();
 
-  if (error || !userData) {
+  if (error || !userData || !userData.roles || !Array.isArray(userData.roles) || userData.roles.length === 0) {
     return null;
   }
 
   return {
     id: userData.id,
     email: userData.email,
-    rol: userData.roles.nombre_rol as RolNombre,
+    rol: userData.roles[0].nombre_rol as RolNombre,
     datosPersonales: userData.datos_personales,
   };
 }

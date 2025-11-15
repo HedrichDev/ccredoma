@@ -6,7 +6,7 @@ import { StatusBadge } from "@/components/status-badge";
 import { Building2, DollarSign, AlertCircle, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
-import type { LocalComercial, ContratoAlquiler, PagoAlquiler } from "@shared/schema";
+import type { LocalComercial, ContratoAlquiler, PagoAlquiler, EstadoPago } from "@shared/schema";
 
 export default function AdminDashboard() {
   const [, setLocation] = useLocation();
@@ -130,7 +130,7 @@ export default function AdminDashboard() {
                       <TableCell className="font-medium">{pago.mesAnio}</TableCell>
                       <TableCell>${Number(pago.monto).toLocaleString()}</TableCell>
                       <TableCell>
-                        <StatusBadge status={pago.estadoPago} />
+                        <StatusBadge status={pago.estadoPago as EstadoPago} />
                       </TableCell>
                     </TableRow>
                   ))

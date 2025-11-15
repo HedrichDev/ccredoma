@@ -135,7 +135,7 @@ export default function Login() {
           </Form>
           <div className="mt-6 text-center">
             <Button
-              variant="link"
+              variant="ghost"
               onClick={() => setLocation("/")}
               data-testid="button-back"
             >

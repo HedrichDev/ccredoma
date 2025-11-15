@@ -5,7 +5,7 @@ import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
 import { Building2, Calendar, DollarSign, FileText, Download } from "lucide-react";
 import { useLocation } from "wouter";
-import type { ContratoAlquiler, PagoAlquiler, LocalComercial } from "@shared/schema";
+import type { ContratoAlquiler, PagoAlquiler, LocalComercial, EstadoContrato, EstadoPago } from "@shared/schema";
 
 export default function OwnerDashboard() {
   const [, setLocation] = useLocation();
@@ -49,7 +49,7 @@ export default function OwnerDashboard() {
                 <div>
                   <p className="text-sm text-muted-foreground">Estado del Contrato</p>
                   <div className="mt-1">
-                    <StatusBadge status={contrato.estadoContrato} />
+                    <StatusBadge status={contrato.estadoContrato as EstadoContrato} />
                   </div>
                 </div>
                 <div>
@@ -173,7 +173,7 @@ export default function OwnerDashboard() {
                       {pago.fechaPago ? new Date(pago.fechaPago).toLocaleDateString() : "-"}
                     </TableCell>
                     <TableCell>
-                      <StatusBadge status={pago.estadoPago} />
+                      <StatusBadge status={pago.estadoPago as EstadoPago} />
                     </TableCell>
                   </TableRow>
                 ))

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { FileText, Search } from "lucide-react";
 import { useState } from "react";
-import type { ContratoAlquiler } from "@shared/schema";
+import type { ContratoAlquiler, EstadoContrato } from "@shared/schema";
 
 export default function AdminContratos() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -85,7 +85,7 @@ export default function AdminContratos() {
                       <TableCell>{new Date(contrato.fechaFin).toLocaleDateString()}</TableCell>
                       <TableCell>${Number(contrato.rentaMensual).toLocaleString()}</TableCell>
                       <TableCell>
-                        <StatusBadge status={contrato.estadoContrato} />
+                        <StatusBadge status={contrato.estadoContrato as EstadoContrato} />
                       </TableCell>
                       <TableCell>
                         <Button variant="ghost" size="sm" data-testid={`button-view-${contrato.id}`}>
