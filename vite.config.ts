@@ -5,9 +5,7 @@ import path from "path";
 export default defineConfig({
   plugins: [react()],
   resolve: {
-    alias: {
-      // No aliases for now
-    },
+    // No aliases
   },
   root: path.resolve(import.meta.dirname, "client"),
   build: {
