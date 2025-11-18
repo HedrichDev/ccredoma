@@ -7,7 +7,8 @@ import { authenticateUser, requireRole, type AuthenticatedRequest } from "./midd
 
 export async function registerRoutes(app: Express): Promise<Server> {
   
-  app.get("/api/locales", async (req, res) => {
+  // Public route for browsing locales
+  app.get("/api/locales", authenticateUser, async (req, res) => {
     try {
       const { data, error } = await supabase
         .from('locales_comerciales')
@@ -25,7 +26,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/locales", async (req, res) => {
+  // Admin route to create a new local
+  app.post("/api/locales", authenticateUser, requireRole('CentroComercialAdmin'), async (req, res) => {
     try {
       const validatedData = insertLocalComercialSchema.parse(req.body);
       
@@ -53,7 +55,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/contratos", async (req, res) => {
+  // Admin route to get all contracts
+  app.get("/api/contratos", authenticateUser, requireRole('CentroComercialAdmin'), async (req, res) => {
     try {
       const { data, error } = await supabase
         .from('contratos_alquiler')
@@ -72,7 +75,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/pagos", async (req, res) => {
+  // Admin route to get all payments
+  app.get("/api/pagos", authenticateUser, requireRole('CentroComercialAdmin'), async (req, res) => {
     try {
       const { data, error } = await supabase
         .from('pagos_alquiler')
@@ -87,7 +91,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/solicitudes", async (req, res) => {
+  // Admin route to get all solicitudes
+  app.get("/api/solicitudes", authenticateUser, requireRole('CentroComercialAdmin'), async (req, res) => {
     try {
       const { data, error } = await supabase
         .from('solicitudes_informacion')
@@ -105,6 +110,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Public route for submitting a new solicitud
   app.post("/api/solicitudes", async (req, res) => {
     try {
       const validatedData = insertSolicitudInformacionSchema.parse(req.body);
@@ -130,7 +136,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.patch("/api/solicitudes/:id", async (req, res) => {
+  // Admin route to update a solicitud
+  app.patch("/api/solicitudes/:id", authenticateUser, requireRole('CentroComercialAdmin'), async (req, res) => {
     try {
       const { id } = req.params;
       const { estadoSolicitud } = req.body;
@@ -153,7 +160,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/centros", async (req, res) => {
+  // Authenticated route for browsing centros comerciales
+  app.get("/api/centros", authenticateUser, async (req, res) => {
     try {
       const { data, error } = await supabase
         .from('centros_comerciales')
@@ -168,7 +176,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put("/api/locales/:id", async (req, res) => {
+  // Admin route to update a local
+  app.put("/api/locales/:id", authenticateUser, requireRole('CentroComercialAdmin'), async (req, res) => {
     try {
       const { id } = req.params;
       const updates = req.body;
@@ -188,7 +197,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/locales/:id", async (req, res) => {
+  // Admin route to delete a local
+  app.delete("/api/locales/:id", authenticateUser, requireRole('CentroComercialAdmin'), async (req, res) => {
     try {
       const { id } = req.params;
 
@@ -205,11 +215,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/mi-contrato", async (req, res) => {
+  // Owner route to get their specific contract
+  app.get("/api/mi-contrato", authenticateUser, requireRole('LocalOwner'), async (req: AuthenticatedRequest, res) => {
     try {
-      const authHeader = req.headers.authorization;
-      if (!authHeader) {
-        return res.status(401).json({ error: 'No autorizado' });
+      const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ error: 'No autorizado - ID de usuario no encontrado' });
       }
 
       const { data, error } = await supabase
@@ -218,6 +229,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           *,
           local:locales_comerciales(*)
         `)
+        .eq('usuario_id', userId)
         .eq('estado_contrato', 'activo')
         .limit(1)
         .single();
@@ -230,16 +242,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/mis-pagos", async (req, res) => {
+  // Owner route to get their specific payments
+  app.get("/api/mis-pagos", authenticateUser, requireRole('LocalOwner'), async (req: AuthenticatedRequest, res) => {
     try {
-      const authHeader = req.headers.authorization;
-      if (!authHeader) {
-        return res.status(401).json({ error: 'No autorizado' });
+      const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ error: 'No autorizado - ID de usuario no encontrado' });
+      }
+      
+      // First, get the user's contract to identify the contract ID
+      const { data: contrato, error: contratoError } = await supabase
+        .from('contratos_alquiler')
+        .select('id')
+        .eq('usuario_id', userId)
+        .limit(1)
+        .single();
+
+      if (contratoError || !contrato) {
+        return res.status(404).json({ error: 'No se encontró un contrato para este usuario.' });
       }
 
       const { data, error } = await supabase
         .from('pagos_alquiler')
         .select('*')
+        .eq('contrato_id', contrato.id)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -250,7 +276,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/system/stats", async (req, res) => {
+  // Admin/Developer route for system statistics
+  app.get("/api/system/stats", authenticateUser, requireRole('CentroComercialAdmin', 'SystemDeveloper'), async (req, res) => {
     try {
       const [
         { count: totalUsers },
@@ -269,7 +296,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         totalLocales: totalLocales || 0,
         totalContratos: totalContratos || 0,
         totalPagos: totalPagos || 0,
-        activeUsers: 0,
+        activeUsers: 0, 
       });
     } catch (error) {
       console.error('Error fetching system stats:', error);

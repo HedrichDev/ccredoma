@@ -4,7 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "./components/ui/toaster";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { ThemeProvider } from "./components/theme-provider";
-import { DashboardLayout } from "./components/dashboard-layout";
+import { ProtectedRoute } from "./components/protected-route";
 
 import PublicLanding from "./pages/public-landing";
 import PublicCatalog from "./pages/catalog";
@@ -27,6 +27,7 @@ import NotFound from "./pages/not-found";
 function Router() {
   return (
     <Switch>
+      {/* Public Routes */}
       <Route path="/" component={PublicLanding} />
       <Route path="/catalog" component={PublicCatalog} />
       <Route path="/contact" component={ContactPage} />
@@ -34,86 +35,23 @@ function Router() {
       <Route path="/rent-simulator" component={RentSimulatorPage} />
       <Route path="/login" component={Login} />
       
-      <Route path="/admin/dashboard">
-        {() => (
-          <DashboardLayout requiredRol="CentroComercialAdmin">
-            <AdminDashboard />
-          </DashboardLayout>
-        )}
-      </Route>
+      {/* Admin Routes */}
+      <ProtectedRoute path="/admin/dashboard" component={AdminDashboard} requiredRol="CentroComercialAdmin" />
+      <ProtectedRoute path="/admin/locales" component={AdminLocales} requiredRol="CentroComercialAdmin" />
+      <ProtectedRoute path="/admin/contratos" component={AdminContratos} requiredRol="CentroComercialAdmin" />
+      <ProtectedRoute path="/admin/solicitudes" component={AdminSolicitudes} requiredRol="CentroComercialAdmin" />
+      <ProtectedRoute path="/admin/owner-approvals" component={OwnerApprovalsPage} requiredRol="CentroComercialAdmin" />
+      <ProtectedRoute path="/admin/financial-reports" component={FinancialReportsPage} requiredRol="CentroComercialAdmin" />
+      <ProtectedRoute path="/admin/rates-promotions" component={RatesPromotionsPage} requiredRol="CentroComercialAdmin" />
       
-      <Route path="/admin/locales">
-        {() => (
-          <DashboardLayout requiredRol="CentroComercialAdmin">
-            <AdminLocales />
-          </DashboardLayout>
-        )}
-      </Route>
+      {/* Owner Routes */}
+      <ProtectedRoute path="/owner/dashboard" component={OwnerDashboard} requiredRol="LocalOwner" />
+      <ProtectedRoute path="/owner/maintenance-requests" component={OwnerMaintenanceRequestsPage} requiredRol="LocalOwner" />
       
-      <Route path="/admin/contratos">
-        {() => (
-          <DashboardLayout requiredRol="CentroComercialAdmin">
-            <AdminContratos />
-          </DashboardLayout>
-        )}
-      </Route>
+      {/* Developer Routes */}
+      <ProtectedRoute path="/developer/dashboard" component={DeveloperDashboard} requiredRol="SystemDeveloper" />
       
-      <Route path="/admin/solicitudes">
-        {() => (
-          <DashboardLayout requiredRol="CentroComercialAdmin">
-            <AdminSolicitudes />
-          </DashboardLayout>
-        )}
-      </Route>
-
-      <Route path="/admin/owner-approvals">
-        {() => (
-          <DashboardLayout requiredRol="CentroComercialAdmin">
-            <OwnerApprovalsPage />
-          </DashboardLayout>
-        )}
-      </Route>
-
-      <Route path="/admin/financial-reports">
-        {() => (
-          <DashboardLayout requiredRol="CentroComercialAdmin">
-            <FinancialReportsPage />
-          </DashboardLayout>
-        )}
-      </Route>
-
-      <Route path="/admin/rates-promotions">
-        {() => (
-          <DashboardLayout requiredRol="CentroComercialAdmin">
-            <RatesPromotionsPage />
-          </DashboardLayout>
-        )}
-      </Route>
-      
-      <Route path="/owner/dashboard">
-        {() => (
-          <DashboardLayout requiredRol="LocalOwner">
-            <OwnerDashboard />
-          </DashboardLayout>
-        )}
-      </Route>
-
-      <Route path="/owner/maintenance-requests">
-        {() => (
-          <DashboardLayout requiredRol="LocalOwner">
-            <OwnerMaintenanceRequestsPage />
-          </DashboardLayout>
-        )}
-      </Route>
-      
-      <Route path="/developer/dashboard">
-        {() => (
-          <DashboardLayout requiredRol="SystemDeveloper">
-            <DeveloperDashboard />
-          </DashboardLayout>
-        )}
-      </Route>
-      
+      {/* Not Found */}
       <Route component={NotFound} />
     </Switch>
   );
