@@ -35,7 +35,7 @@ export default function AdminLocales() {
     queryKey: ["/api/locales"],
   });
 
-  const { data: centros } = useQuery({
+  const { data: centros } = useQuery<{ id: string; nombre: string }[]>({
     queryKey: ["/api/centros"],
   });
 

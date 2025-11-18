@@ -3,10 +3,10 @@ import { MetricCard } from "@/components/metric-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { StatusBadge } from "@/components/status-badge";
-import { Building2, DollarSign, AlertCircle, TrendingUp } from "lucide-react";
+import { Building2, DollarSign, AlertCircle, TrendingUp, Shield, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
-import type { LocalComercial, ContratoAlquiler, PagoAlquiler } from "@shared/schema";
+import type { LocalComercial, ContratoAlquiler, PagoAlquiler, EstadoPago } from "@shared/schema";
 
 export default function AdminDashboard() {
   const [, setLocation] = useLocation();
@@ -130,7 +130,7 @@ export default function AdminDashboard() {
                       <TableCell className="font-medium">{pago.mesAnio}</TableCell>
                       <TableCell>${Number(pago.monto).toLocaleString()}</TableCell>
                       <TableCell>
-                        <StatusBadge status={pago.estadoPago} />
+                        <StatusBadge status={pago.estadoPago as EstadoPago} />
                       </TableCell>
                     </TableRow>
                   ))
@@ -152,7 +152,7 @@ export default function AdminDashboard() {
           <CardTitle>Acciones Rápidas</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-4">
             <Button
               variant="outline"
               className="h-auto py-6 flex-col gap-2"
@@ -161,6 +161,33 @@ export default function AdminDashboard() {
             >
               <Building2 className="h-6 w-6" />
               <span>Gestionar Locales</span>
+            </Button>
+            <Button
+              variant="outline"
+              className="h-auto py-6 flex-col gap-2"
+              onClick={() => setLocation("/admin/owner-approvals")}
+              data-testid="button-approve-owners"
+            >
+              <Shield className="h-6 w-6" />
+              <span>Aprobar Propietarios</span>
+            </Button>
+            <Button
+              variant="outline"
+              className="h-auto py-6 flex-col gap-2"
+              onClick={() => setLocation("/admin/financial-reports")}
+              data-testid="button-financial-reports"
+            >
+              <FileText className="h-6 w-6" />
+              <span>Reportes Financieros</span>
+            </Button>
+            <Button
+              variant="outline"
+              className="h-auto py-6 flex-col gap-2"
+              onClick={() => setLocation("/admin/rates-promotions")}
+              data-testid="button-rates-promotions"
+            >
+              <DollarSign className="h-6 w-6" />
+              <span>Tarifas y Promociones</span>
             </Button>
             <Button
               variant="outline"

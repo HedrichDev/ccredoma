@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { MessageSquare, Mail, Phone } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
-import type { SolicitudInformacion } from "@shared/schema";
+import type { SolicitudInformacion, EstadoSolicitud } from "@shared/schema";
 
 export default function AdminSolicitudes() {
   const { toast } = useToast();
@@ -121,7 +121,7 @@ export default function AdminSolicitudes() {
                         <p className="text-sm truncate">{solicitud.mensaje}</p>
                       </TableCell>
                       <TableCell>
-                        <StatusBadge status={solicitud.estadoSolicitud} />
+                        <StatusBadge status={solicitud.estadoSolicitud as EstadoSolicitud} />
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">

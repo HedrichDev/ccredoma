@@ -36,14 +36,14 @@ export async function authenticateUser(req: AuthenticatedRequest, res: Response,
       .eq('email', user.email)
       .single();
 
-    if (userError || !userData) {
-      return res.status(401).json({ error: 'Usuario no encontrado' });
+    if (userError || !userData || !userData.roles || !Array.isArray(userData.roles) || userData.roles.length === 0) {
+      return res.status(401).json({ error: 'Usuario no encontrado o sin rol asignado' });
     }
 
     req.user = {
       id: userData.id,
       email: userData.email,
-      rol: userData.roles.nombre_rol,
+      rol: userData.roles[0].nombre_rol,
     };
 
     next();
