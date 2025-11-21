@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useLocation, type RouteProps } from "wouter";
+import { useLocation } from "wouter";
 import { getCurrentUser, type AuthUser } from "../lib/auth";
 import { DashboardLayout } from "./dashboard-layout";
 import { Skeleton } from "./ui/skeleton";

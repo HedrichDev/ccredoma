@@ -34,7 +34,7 @@ export function DashboardLayout({
         }
 
         setUser(currentUser);
-      } catch (error) {
+      } catch {
         setLocation("/login");
       } finally {
         setLoading(false);

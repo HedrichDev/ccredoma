@@ -43,7 +43,7 @@ export function AppSidebar({ rol, userName }: AppSidebarProps) {
         description: "Has cerrado sesión correctamente",
       });
       setLocation("/login");
-    } catch (error) {
+    } catch {
       toast({
         title: "Error",
         description: "No se pudo cerrar la sesión",
