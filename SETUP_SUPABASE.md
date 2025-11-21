@@ -21,6 +21,7 @@
 5. Haz clic en **Run** para ejecutar el script
 
 Esto creará:
+
 - ✅ Todas las tablas necesarias (roles, usuarios, centros_comerciales, locales_comerciales, contratos_alquiler, pagos_alquiler, solicitudes_informacion)
 - ✅ Índices para optimizar las consultas
 - ✅ Políticas RLS (Row Level Security) para control de acceso
@@ -112,14 +113,17 @@ El sistema implementa Row Level Security para proteger los datos:
 ## Solución de Problemas
 
 ### Error: "relation does not exist"
+
 - Asegúrate de haber ejecutado el script `supabase-schema.sql` completamente
 - Verifica que todas las tablas se crearon en el Table Editor
 
 ### Error: "row-level security policy"
+
 - Verifica que las políticas RLS se hayan creado correctamente
 - Asegúrate de estar autenticado con un usuario válido
 
 ### Error de autenticación
+
 - Verifica que el email del usuario exista tanto en la tabla `usuarios` como en Supabase Auth
 - Asegúrate de que el `rol_id` del usuario sea correcto
 

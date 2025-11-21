@@ -1,6 +1,7 @@
 # ERP Centro Comercial - Sistema de Gestión de Alquileres
 
 ## Overview
+
 Sistema ERP completo para la gestión integral de centros comerciales, enfocado en el manejo de alquileres, contratos, pagos y solicitudes de información. El sistema cuenta con 4 roles de usuario diferentes con interfaces y funcionalidades específicas.
 
 ## Roles del Sistema
@@ -16,6 +17,7 @@ Sistema ERP completo para la gestión integral de centros comerciales, enfocado 
 ## Stack Tecnológico
 
 ### Frontend
+
 - React 18 con TypeScript
 - Tailwind CSS + Shadcn UI
 - React Query (TanStack Query v5)
@@ -24,12 +26,14 @@ Sistema ERP completo para la gestión integral de centros comerciales, enfocado 
 - Fuentes: Inter (UI) y Work Sans (texto)
 
 ### Backend
+
 - Supabase (PostgreSQL + Auth + Storage)
 - Express.js para API routes
 - Drizzle ORM para tipos y validación
 - Row Level Security (RLS) en Supabase
 
 ### Integrations
+
 - Supabase para base de datos y autenticación
 - GitHub para control de versiones
 
@@ -48,22 +52,27 @@ Sistema ERP completo para la gestión integral de centros comerciales, enfocado 
 ## Variables de Entorno
 
 ### Backend
+
 - `SUPABASE_URL`: URL del proyecto de Supabase
 - `SUPABASE_ANON_KEY`: Clave pública de Supabase
 - `SESSION_SECRET`: Secreto para sesiones de Express
 
 ### Frontend (Vite)
+
 Las variables se pasan automáticamente desde las variables de entorno de Replit:
+
 - `VITE_SUPABASE_URL` (se mapea desde `SUPABASE_URL`)
 - `VITE_SUPABASE_ANON_KEY` (se mapea desde `SUPABASE_ANON_KEY`)
 
 ## Páginas y Rutas
 
 ### Públicas
+
 - `/` - Landing page con hero, catálogo de locales y formulario de contacto
 - `/login` - Página de inicio de sesión
 
 ### CentroComercialAdmin
+
 - `/admin/dashboard` - Dashboard con métricas y resumen
 - `/admin/locales` - Gestión de locales comerciales
 - `/admin/contratos` - Gestión de contratos
@@ -72,11 +81,13 @@ Las variables se pasan automáticamente desde las variables de entorno de Replit
 - `/admin/usuarios` - Gestión de usuarios
 
 ### LocalOwner
+
 - `/owner/dashboard` - Dashboard con información del contrato y pagos
 - `/owner/contrato` - Detalles del contrato
 - `/owner/pagos` - Historial de pagos
 
 ### SystemDeveloper
+
 - `/developer/dashboard` - Monitoreo del sistema
 - `/developer/logs` - Logs técnicos
 
@@ -99,6 +110,7 @@ Las variables se pasan automáticamente desde las variables de entorno de Replit
 ## Diseño y UI/UX
 
 Siguiendo las guías en `design_guidelines.md`:
+
 - Sistema de diseño híbrido: estilo Airbnb/Zillow para público, Material Design para dashboards
 - Paleta de colores profesional con primary blue (#2563EB)
 - Componentes reutilizables de Shadcn UI
@@ -109,11 +121,13 @@ Siguiendo las guías en `design_guidelines.md`:
 ## Comandos
 
 ### Desarrollo
+
 ```bash
 npm run dev
 ```
 
 ### Build
+
 ```bash
 npm run build
 ```
