@@ -1,183 +1,77 @@
-# ccredoma
 
-# ERP Simplificado para Centro Comercial - Proyecto 2 Semanas ## 
-🎯 **Enfoque Principal: Sistema de Alquileres** 
+# 🏢 CCredoma: Gestión Inteligente y Eficiente para Centros Comerciales
 
-### **Roles del Sistema**
-🏢 CentroComercialAdmin (Administrador del Centro Comercial)
+## Visión General del Proyecto
 
-Gestiona todos los locales y contratos
-Supervisa pagos y estados de alquiler
-Configura el sistema
-🏪 LocalOwner (Dueño/Arrendatario del Local)
+**CCredoma** es una plataforma de software integral diseñada específicamente para optimizar la administración y operación de centros comerciales. Nuestra solución busca centralizar y automatizar los procesos clave de gestión de propiedades, alquileres, contratos y comunicaciones, transformando la manera en que los administradores, inquilinos y potenciales clientes interactúan con el espacio comercial. Con CCredoma, su centro comercial operará con mayor eficiencia, transparencia y profesionalismo.
 
-Visualiza su contrato y estado de pagos
-Reporta incidencias del local
-Accede a documentos contractuales
-👥 VisitanteExterno (Potencial Cliente/Inversionista)
+---
 
-Explora locales disponibles
-Solicita información para alquiler
-Ve promociones y disponibilidad
-👨‍💻 SystemDeveloper (Desarrollador del Sistema)
+## ✨ Beneficios Clave y Funcionalidades Adaptadas por Rol
 
-Acceso técnico completo
-Monitoreo y mantenimiento
-Resolución de problemas técnicos
+CCredoma está diseñado con una arquitectura basada en roles para asegurar que cada usuario tenga acceso a las herramientas e información más relevantes para sus necesidades, mejorando la productividad y la experiencia general.
 
-## 📊 **Base de Datos Supabase - Estructura Completa** 
+### 🤵 Administrador del Centro Comercial (`CentroComercialAdmin`)
 
-### **Tablas Principales** 
+Nuestro módulo para administradores ofrece un control total y una visión 360 grados de la operación del centro comercial:
 
-#### **1. roles**
-id (UUID, PK)
-nombre_rol (CentroComercialAdmin, LocalOwner, VisitanteExterno, SystemDeveloper)
-permisos (JSON)
-created_at
+-   **📊 Dashboard de Control Total:** Acceso a un panel intuitivo que proporciona métricas críticas en tiempo real sobre la ocupación, rentabilidad, estado de los locales y flujos de ingreso.
+-   **🏘️ Gestión Integral de Locales:** Herramientas completas para la administración del inventario de locales comerciales, incluyendo el seguimiento de disponibilidad, estado de mantenimiento, características detalladas y documentación asociada.
+-   **✒️ Administración Proactiva de Contratos y Pagos:** Centralización de todos los contratos de alquiler, con seguimiento automatizado de fechas de vencimiento, estados de pago y notificaciones, minimizando retrasos y optimizando la recaudación.
+-   **📈 Reportes Financieros y Operativos Automatizados:** Generación de informes personalizables y detallados sobre el rendimiento financiero, la ocupación y otras métricas operativas clave, facilitando la toma de decisiones estratégicas.
 
-#### **2. usuarios**
-id (UUID, PK)
-email
-password_hash
-rol_id (FK a roles)
-datos_personales (JSON)
-estado (activo/inactivo)
-created_at
+### 🧑‍💼 Propietario/Inquilino de Local (`LocalOwner`)
 
-#### **3. centros_comerciales**
-id (UUID, PK)
-nombre
-direccion
-telefono
-email_contacto
-configuraciones (JSON)
-logo_url
+Ofrecemos un portal dedicado a los inquilinos, fomentando la transparencia y la autogestión:
 
+-   **📄 Portal Personalizado y Seguro:** Un espacio privado donde los inquilinos pueden consultar toda la información relacionada con su alquiler de forma organizada y segura.
+-   **📑 Acceso a Contratos y Documentos Digitales:** Disponibilidad inmediata de su contrato de alquiler, anexos y otra documentación relevante, eliminando la necesidad de trámites físicos.
+-   **💳 Historial de Pagos Detallado y Próximos Vencimientos:** Transparencia total sobre los movimientos financieros, con un registro claro de pagos realizados y recordatorios de próximos vencimientos.
+-   **🛠️ Gestión Eficiente de Solicitudes y Soporte:** Un canal directo para reportar incidencias, solicitar mantenimiento o comunicarse con la administración, asegurando una respuesta rápida y documentada.
 
-#### **4. locales_comerciales**
-id (UUID, PK)
-centro_comercial_id (FK)
-codigo_local (ej: "LC-101")
-area_m2
-tipo_local (tienda, restaurante, servicio, entretenimiento)
-piso
-estado (disponible, ocupado, en_mantenimiento)
-caracteristicas (JSON)
-fotos_urls (Array)
+### 🙋 Potencial Cliente/Inversionista (`VisitanteExterno`)
 
-#### **5. contratos_alquiler**
-id (UUID, PK)
-local_id (FK)
-local_owner_id (FK a usuarios)
-fecha_inicio
-fecha_fin
-renta_mensual
-deposito_garantia
-estado_contrato (activo, vencido, terminado)
-terminos_especiales (JSON)
-documento_contrato_url
+Diseñado para atraer y facilitar la interacción con interesados en arrendar un local:
 
-#### **6. pagos_alquiler**
-id (UUID, PK)
-contrato_id (FK)
-mes_año (ej: "2024-03")
-monto
-fecha_vencimiento
-fecha_pago
-estado_pago (pendiente, pagado, vencido)
-metodo_pago
-comprobante_url
+-   **🔍 Catálogo Interactivo de Locales Disponibles:** Una galería visual e intuitiva que permite explorar locales por tipo, tamaño, ubicación y otras características relevantes.
+-   **ℹ️ Información Detallada y Multimedia:** Fichas completas de cada local con descripciones, fotografías de alta calidad y planos, proporcionando una visión clara de las oportunidades.
+-   **📞 Canal de Contacto Directo y Simplificado:** Un formulario de solicitud de información o para agendar visitas, diseñado para captar el interés y facilitar el proceso de consulta.
 
-#### **7. solicitudes_informacion**
-id (UUID, PK)
-visitante_id (FK a usuarios)
-local_id (FK)
-mensaje
-estado_solicitud (nueva, contactada, cerrada)
-fecha_contacto
+---
 
---- ## 🚀 **Funcionalidades por Rol**
+## 🖥️ Experiencia de Usuario: Un Recorrido Visual
 
- ### **Para CentroComercialAdmin:**
-Dashboard de ocupación y rentabilidad
-Gestión completa de locales
-Aprobación de nuevos LocalOwners
-Reportes financieros automáticos
-Configuración de tarifas y promociones
+CCredoma ha sido diseñado pensando en la usabilidad y una estética moderna:
 
-### **Para LocalOwner:**
-Panel personalizado de su local
-Estado de pagos y vencimientos
-Solicitudes de mantenimiento
-Documentos contractuales digitales
-Historial de transacciones
+-   **Página de Aterrizaje Pública:** Una introducción atractiva y profesional que sirve como escaparate digital del centro comercial y sus oportunidades.
+-   **Dashboard de Administración:** Una interfaz clara y funcional que pone el control en las manos del administrador, con acceso rápido a las funciones más utilizadas.
+-   **Panel del Inquilino:** Un diseño intuitivo que permite a los propietarios de locales gestionar sus asuntos de alquiler con facilidad, desde cualquier dispositivo.
 
-### **Para VisitanteExterno:**
-Catálogo visual de locales disponibles
-Filtros por tipo, área y precio
-Formulario de contacto automatizado
-Información del centro comercial
-Simulador de costos de alquiler
+---
 
-### **Para SystemDeveloper:**
-Monitoreo de rendimiento
-Logs del sistema
-Mantenimiento de base de datos
-Actualizaciones y parches
+## 🔒 Seguridad y Fiabilidad
 
---- ## 📱 **Vistas Principales** 
-### **Página Pública (VisitanteExterno)**
-Hero section con centros comerciales
-Galería de locales disponibles
-Filtros avanzados
-Formulario de solicitud
+La seguridad de sus datos es nuestra máxima prioridad. CCredoma implementa:
 
-### **Dashboard CentroComercialAdmin**
-Métricas clave (ocupación, ingresos)
-Lista de locales con estados
-Calendario de vencimientos
-Reportes ejecutivos
+-   **Autenticación Robusta:** Gestión de usuarios a través de Supabase Auth, incluyendo confirmación por correo electrónico.
+-   **Control de Acceso Basado en Roles (RBAC):** Permisos finos que aseguran que cada usuario solo pueda acceder a la información y funcionalidades pertinentes a su rol.
+-   **Seguridad a Nivel de Fila (RLS):** Protección de datos directamente en la base de datos, garantizando que solo los usuarios autorizados puedan ver o modificar registros específicos.
 
-### **Panel LocalOwner**
-Resumen de contrato activo
-Estado de pagos
-Documentos importantes
-Soporte y contacto
+---
 
---- ## 🔐 **Seguridad y Autenticación**
-Autenticación: Supabase Auth con confirmación por email
-Autorización: RBAC (Role-Based Access Control)
-Políticas RLS: Row Level Security en todas las tablas
-Auditoría: Triggers para logs de cambios críticos
+## 🚀 Arquitectura Tecnológica de Vanguardia
 
---- ## 📈 **Métricas y KPIs** 
+Construido sobre un stack tecnológico moderno y escalable para garantizar rendimiento, seguridad y facilidad de mantenimiento:
 
-### **Para Centro Comercial:**
-Tasa de ocupación (%)
-Ingresos mensuales por alquiler
-Locales disponibles vs ocupados
-Pagos pendientes vs completados
+-   **Backend:** Desarrollado con **Express.js** en TypeScript, utilizando **Supabase** como nuestra robusta base de datos (PostgreSQL), sistema de autenticación y almacenamiento de archivos.
+-   **Frontend:** Una interfaz de usuario dinámica y responsiva creada con **React**, aprovechando la eficiencia de **Vite** para el desarrollo rápido.
+-   **Alojamiento y Despliegue:** Optimizado para **Netlify**, garantizando despliegues continuos y un rendimiento global excepcional.
 
-### **Para LocalOwner:**
-Próximos vencimientos
-Historial de pagos
-Estado de contrato
-Documentos pendientes
+---
 
---- ## 🛠 **Tecnologías y Herramientas**
-Backend: Supabase (PostgreSQL + Auth + Storage)
-Frontend: React/Next.js o Vue/Nuxt
-Hosting: Netlify
-Email: Supabase Edge Functions
-Pagos: Stripe Connect (para futuras expansiones)
+## 📞 Próximos Pasos
 
---- ## 📅 **Plan de 2 Semanas** 
-### **Semana 1:**
-Día 1-2: Configuración Supabase y autenticación
-Día 3-4: Estructura base de datos y RLS
-Día 5: Vistas públicas para VisitanteExterno
+Estamos entusiasmados de presentarle CCredoma y discutir cómo esta solución puede potenciar la gestión de su centro comercial.
 
-### **Semana 2:**
-Día 6-7: Dashboard CentroComercialAdmin
-Día 8-9: Panel LocalOwner
-Día 10: Testing, ajustes y deployment
+Para una demostración personalizada, responder a sus preguntas o explorar oportunidades de colaboración, por favor, no dude en contactarnos.
+Estamos a su disposición para cualquier consulta.
