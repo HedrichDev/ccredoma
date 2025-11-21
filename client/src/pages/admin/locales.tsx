@@ -2,10 +2,36 @@ import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { LocalCard } from "@/components/local-card";
 import { Plus, Search } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -55,7 +81,8 @@ export default function AdminLocales() {
     onError: (error) => {
       toast({
         title: "Error",
-        description: error instanceof Error ? error.message : "No se pudo crear el local",
+        description:
+          error instanceof Error ? error.message : "No se pudo crear el local",
         variant: "destructive",
       });
     },
@@ -84,17 +111,23 @@ export default function AdminLocales() {
     });
   };
 
-  const filteredLocales = locales?.filter(local =>
-    local.codigoLocal.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    local.tipoLocal.toLowerCase().includes(searchTerm.toLowerCase())
-  ) || [];
+  const filteredLocales =
+    locales?.filter(
+      (local) =>
+        local.codigoLocal.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        local.tipoLocal.toLowerCase().includes(searchTerm.toLowerCase())
+    ) || [];
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Gestión de Locales</h1>
-          <p className="text-muted-foreground">Administra los locales comerciales</p>
+          <h1 className="text-3xl font-bold tracking-tight">
+            Gestión de Locales
+          </h1>
+          <p className="text-muted-foreground">
+            Administra los locales comerciales
+          </p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
@@ -111,7 +144,10 @@ export default function AdminLocales() {
               </DialogDescription>
             </DialogHeader>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
                 <div className="grid md:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
@@ -120,7 +156,11 @@ export default function AdminLocales() {
                       <FormItem>
                         <FormLabel>Código del Local</FormLabel>
                         <FormControl>
-                          <Input placeholder="LC-101" {...field} data-testid="input-codigo" />
+                          <Input
+                            placeholder="LC-101"
+                            {...field}
+                            data-testid="input-codigo"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -132,7 +172,10 @@ export default function AdminLocales() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Centro Comercial</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
                             <SelectTrigger data-testid="select-centro">
                               <SelectValue placeholder="Seleccionar" />
@@ -157,7 +200,12 @@ export default function AdminLocales() {
                       <FormItem>
                         <FormLabel>Área (m²)</FormLabel>
                         <FormControl>
-                          <Input type="number" placeholder="100" {...field} data-testid="input-area" />
+                          <Input
+                            type="number"
+                            placeholder="100"
+                            {...field}
+                            data-testid="input-area"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -170,7 +218,12 @@ export default function AdminLocales() {
                       <FormItem>
                         <FormLabel>Renta Mensual ($)</FormLabel>
                         <FormControl>
-                          <Input type="number" placeholder="5000" {...field} data-testid="input-renta" />
+                          <Input
+                            type="number"
+                            placeholder="5000"
+                            {...field}
+                            data-testid="input-renta"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -182,7 +235,10 @@ export default function AdminLocales() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Tipo de Local</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
                             <SelectTrigger data-testid="select-tipo">
                               <SelectValue />
@@ -190,9 +246,13 @@ export default function AdminLocales() {
                           </FormControl>
                           <SelectContent>
                             <SelectItem value="tienda">Tienda</SelectItem>
-                            <SelectItem value="restaurante">Restaurante</SelectItem>
+                            <SelectItem value="restaurante">
+                              Restaurante
+                            </SelectItem>
                             <SelectItem value="servicio">Servicio</SelectItem>
-                            <SelectItem value="entretenimiento">Entretenimiento</SelectItem>
+                            <SelectItem value="entretenimiento">
+                              Entretenimiento
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -206,7 +266,11 @@ export default function AdminLocales() {
                       <FormItem>
                         <FormLabel>Piso</FormLabel>
                         <FormControl>
-                          <Input placeholder="1" {...field} data-testid="input-piso" />
+                          <Input
+                            placeholder="1"
+                            {...field}
+                            data-testid="input-piso"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -218,16 +282,23 @@ export default function AdminLocales() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Estado</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
                             <SelectTrigger data-testid="select-estado">
                               <SelectValue />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="disponible">Disponible</SelectItem>
+                            <SelectItem value="disponible">
+                              Disponible
+                            </SelectItem>
                             <SelectItem value="ocupado">Ocupado</SelectItem>
-                            <SelectItem value="en_mantenimiento">En Mantenimiento</SelectItem>
+                            <SelectItem value="en_mantenimiento">
+                              En Mantenimiento
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -235,7 +306,12 @@ export default function AdminLocales() {
                     )}
                   />
                 </div>
-                <Button type="submit" className="w-full" disabled={createLocalMutation.isPending} data-testid="button-submit">
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={createLocalMutation.isPending}
+                  data-testid="button-submit"
+                >
                   {createLocalMutation.isPending ? "Creando..." : "Crear Local"}
                 </Button>
               </form>

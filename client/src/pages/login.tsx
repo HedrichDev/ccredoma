@@ -1,9 +1,22 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Building2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,15 +30,19 @@ const loginSchema = z.object({
   password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
 });
 
-const registerSchema = z.object({
-  nombre: z.string().min(2, "El nombre es requerido"),
-  email: z.string().email("Email inválido"),
-  password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
-  confirmPassword: z.string().min(6, "Confirma tu contraseña"),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Las contraseñas no coinciden",
-  path: ["confirmPassword"],
-});
+const registerSchema = z
+  .object({
+    nombre: z.string().min(2, "El nombre es requerido"),
+    email: z.string().email("Email inválido"),
+    password: z
+      .string()
+      .min(6, "La contraseña debe tener al menos 6 caracteres"),
+    confirmPassword: z.string().min(6, "Confirma tu contraseña"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Las contraseñas no coinciden",
+    path: ["confirmPassword"],
+  });
 
 export default function Login() {
   const [, setLocation] = useLocation();
@@ -55,7 +72,7 @@ export default function Login() {
     setIsLoading(true);
     try {
       const user = await signIn(data.email, data.password);
-      
+
       if (user) {
         toast({
           title: "Inicio de sesión exitoso",
@@ -79,7 +96,8 @@ export default function Login() {
     } catch (error) {
       toast({
         title: "Error al iniciar sesión",
-        description: error instanceof Error ? error.message : "Credenciales inválidas",
+        description:
+          error instanceof Error ? error.message : "Credenciales inválidas",
         variant: "destructive",
       });
     } finally {
@@ -93,13 +111,17 @@ export default function Login() {
       await signUp(data.nombre, data.email, data.password);
       toast({
         title: "Registro exitoso",
-        description: "Por favor, verifica tu correo electrónico para activar tu cuenta.",
+        description:
+          "Por favor, verifica tu correo electrónico para activar tu cuenta.",
       });
       setIsRegistering(false); // Switch back to login view
     } catch (error) {
       toast({
         title: "Error al registrarse",
-        description: error instanceof Error ? error.message : "Error desconocido al registrarse",
+        description:
+          error instanceof Error
+            ? error.message
+            : "Error desconocido al registrarse",
         variant: "destructive",
       });
     } finally {
@@ -112,23 +134,30 @@ export default function Login() {
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
-      
+
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-4 text-center">
           <div className="mx-auto h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
             <Building2 className="h-6 w-6 text-primary" />
           </div>
           <div>
-            <CardTitle className="text-2xl">{isRegistering ? "Registrarse" : "Iniciar Sesión"}</CardTitle>
+            <CardTitle className="text-2xl">
+              {isRegistering ? "Registrarse" : "Iniciar Sesión"}
+            </CardTitle>
             <CardDescription className="mt-2">
-              {isRegistering ? "Crea una nueva cuenta" : "Ingresa tus credenciales para acceder al sistema"}
+              {isRegistering
+                ? "Crea una nueva cuenta"
+                : "Ingresa tus credenciales para acceder al sistema"}
             </CardDescription>
           </div>
         </CardHeader>
         <CardContent>
           {isRegistering ? (
             <Form {...registerForm}>
-              <form onSubmit={registerForm.handleSubmit(onRegisterSubmit)} className="space-y-4">
+              <form
+                onSubmit={registerForm.handleSubmit(onRegisterSubmit)}
+                className="space-y-4"
+              >
                 <FormField
                   control={registerForm.control}
                   name="nombre"
@@ -213,7 +242,10 @@ export default function Login() {
             </Form>
           ) : (
             <Form {...loginForm}>
-              <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-4">
+              <form
+                onSubmit={loginForm.handleSubmit(onLoginSubmit)}
+                className="space-y-4"
+              >
                 <FormField
                   control={loginForm.control}
                   name="email"
@@ -267,7 +299,9 @@ export default function Login() {
               onClick={() => setIsRegistering(!isRegistering)}
               data-testid="button-toggle-register"
             >
-              {isRegistering ? "¿Ya tienes una cuenta? Inicia Sesión" : "¿No tienes una cuenta? Regístrate"}
+              {isRegistering
+                ? "¿Ya tienes una cuenta? Inicia Sesión"
+                : "¿No tienes una cuenta? Regístrate"}
             </Button>
             <Button
               variant="ghost"

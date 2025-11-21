@@ -1,27 +1,34 @@
-import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { useLocation, type RouteProps } from 'wouter';
-import { getCurrentUser, type AuthUser } from '../lib/auth';
-import { DashboardLayout } from './dashboard-layout';
-import { Skeleton } from './ui/skeleton';
-import type { RolNombre } from '@shared/schema';
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useLocation, type RouteProps } from "wouter";
+import { getCurrentUser, type AuthUser } from "../lib/auth";
+import { DashboardLayout } from "./dashboard-layout";
+import { Skeleton } from "./ui/skeleton";
+import type { RolNombre } from "@shared/schema";
 
 interface ProtectedRouteProps {
   component: React.ComponentType<any>;
   requiredRol: RolNombre;
 }
 
-export function ProtectedRoute({ component: Component, requiredRol }: ProtectedRouteProps) {
+export function ProtectedRoute({
+  component: Component,
+  requiredRol,
+}: ProtectedRouteProps) {
   const [, setLocation] = useLocation();
-  const { data: user, isLoading, isError } = useQuery<AuthUser | null>({
-    queryKey: ['currentUser'],
+  const {
+    data: user,
+    isLoading,
+    isError,
+  } = useQuery<AuthUser | null>({
+    queryKey: ["currentUser"],
     queryFn: getCurrentUser,
     retry: false, // Do not retry on failure, just redirect
   });
 
   React.useEffect(() => {
     if (!isLoading && (isError || !user)) {
-      setLocation('/login');
+      setLocation("/login");
     }
   }, [isLoading, isError, user, setLocation]);
 
@@ -45,7 +52,7 @@ export function ProtectedRoute({ component: Component, requiredRol }: ProtectedR
   if (user.rol !== requiredRol) {
     // Optional: You could render a dedicated "Unauthorized" component
     // For now, redirecting to a safe page.
-    setLocation('/');
+    setLocation("/");
     return null;
   }
 

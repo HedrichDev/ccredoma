@@ -1,6 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,21 +18,33 @@ import type { ContratoAlquiler, EstadoContrato } from "@shared/schema";
 export default function AdminContratos() {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { data: contratos, isLoading } = useQuery<(ContratoAlquiler & { local: any; usuario: any })[]>({
+  const { data: contratos, isLoading } = useQuery<
+    (ContratoAlquiler & { local: any; usuario: any })[]
+  >({
     queryKey: ["/api/contratos"],
   });
 
-  const filteredContratos = contratos?.filter(contrato =>
-    contrato.local?.codigoLocal?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    contrato.usuario?.email?.toLowerCase().includes(searchTerm.toLowerCase())
-  ) || [];
+  const filteredContratos =
+    contratos?.filter(
+      (contrato) =>
+        contrato.local?.codigoLocal
+          ?.toLowerCase()
+          .includes(searchTerm.toLowerCase()) ||
+        contrato.usuario?.email
+          ?.toLowerCase()
+          .includes(searchTerm.toLowerCase())
+    ) || [];
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Gestión de Contratos</h1>
-          <p className="text-muted-foreground">Administra los contratos de alquiler</p>
+          <h1 className="text-3xl font-bold tracking-tight">
+            Gestión de Contratos
+          </h1>
+          <p className="text-muted-foreground">
+            Administra los contratos de alquiler
+          </p>
         </div>
         <Button data-testid="button-add-contrato">
           <FileText className="h-4 w-4 mr-2" />
@@ -81,14 +100,26 @@ export default function AdminContratos() {
                         {contrato.local?.codigoLocal || "N/A"}
                       </TableCell>
                       <TableCell>{contrato.usuario?.email || "N/A"}</TableCell>
-                      <TableCell>{new Date(contrato.fechaInicio).toLocaleDateString()}</TableCell>
-                      <TableCell>{new Date(contrato.fechaFin).toLocaleDateString()}</TableCell>
-                      <TableCell>${Number(contrato.rentaMensual).toLocaleString()}</TableCell>
                       <TableCell>
-                        <StatusBadge status={contrato.estadoContrato as EstadoContrato} />
+                        {new Date(contrato.fechaInicio).toLocaleDateString()}
                       </TableCell>
                       <TableCell>
-                        <Button variant="ghost" size="sm" data-testid={`button-view-${contrato.id}`}>
+                        {new Date(contrato.fechaFin).toLocaleDateString()}
+                      </TableCell>
+                      <TableCell>
+                        ${Number(contrato.rentaMensual).toLocaleString()}
+                      </TableCell>
+                      <TableCell>
+                        <StatusBadge
+                          status={contrato.estadoContrato as EstadoContrato}
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          data-testid={`button-view-${contrato.id}`}
+                        >
                           Ver
                         </Button>
                       </TableCell>
@@ -96,7 +127,10 @@ export default function AdminContratos() {
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={7} className="text-center text-muted-foreground">
+                    <TableCell
+                      colSpan={7}
+                      className="text-center text-muted-foreground"
+                    >
                       No se encontraron contratos
                     </TableCell>
                   </TableRow>

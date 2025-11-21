@@ -1,6 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { MetricCard } from "@/components/metric-card";
 import { Activity, Database, Users, AlertTriangle } from "lucide-react";
 
@@ -10,17 +17,45 @@ export default function DeveloperDashboard() {
   });
 
   const recentLogs = [
-    { id: "1", timestamp: new Date().toISOString(), level: "INFO", message: "Usuario admin@example.com inició sesión", source: "auth" },
-    { id: "2", timestamp: new Date().toISOString(), level: "INFO", message: "Nuevo local creado: LC-101", source: "locales" },
-    { id: "3", timestamp: new Date().toISOString(), level: "WARN", message: "Intento de acceso no autorizado detectado", source: "security" },
-    { id: "4", timestamp: new Date().toISOString(), level: "INFO", message: "Pago registrado exitosamente", source: "pagos" },
+    {
+      id: "1",
+      timestamp: new Date().toISOString(),
+      level: "INFO",
+      message: "Usuario admin@example.com inició sesión",
+      source: "auth",
+    },
+    {
+      id: "2",
+      timestamp: new Date().toISOString(),
+      level: "INFO",
+      message: "Nuevo local creado: LC-101",
+      source: "locales",
+    },
+    {
+      id: "3",
+      timestamp: new Date().toISOString(),
+      level: "WARN",
+      message: "Intento de acceso no autorizado detectado",
+      source: "security",
+    },
+    {
+      id: "4",
+      timestamp: new Date().toISOString(),
+      level: "INFO",
+      message: "Pago registrado exitosamente",
+      source: "pagos",
+    },
   ];
 
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight mb-2">Panel de Desarrollo</h1>
-        <p className="text-muted-foreground">Monitoreo y administración del sistema</p>
+        <h1 className="text-3xl font-bold tracking-tight mb-2">
+          Panel de Desarrollo
+        </h1>
+        <p className="text-muted-foreground">
+          Monitoreo y administración del sistema
+        </p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -81,7 +116,9 @@ export default function DeveloperDashboard() {
                       {log.level}
                     </span>
                   </TableCell>
-                  <TableCell className="font-mono text-sm">{log.source}</TableCell>
+                  <TableCell className="font-mono text-sm">
+                    {log.source}
+                  </TableCell>
                   <TableCell className="text-sm">{log.message}</TableCell>
                 </TableRow>
               ))}
@@ -102,23 +139,34 @@ export default function DeveloperDashboard() {
                 <span className="text-sm font-medium">12%</span>
               </div>
               <div className="w-full bg-muted rounded-full h-2">
-                <div className="bg-primary h-2 rounded-full" style={{ width: "12%" }} />
+                <div
+                  className="bg-primary h-2 rounded-full"
+                  style={{ width: "12%" }}
+                />
               </div>
-              
+
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Memoria</span>
                 <span className="text-sm font-medium">45%</span>
               </div>
               <div className="w-full bg-muted rounded-full h-2">
-                <div className="bg-primary h-2 rounded-full" style={{ width: "45%" }} />
+                <div
+                  className="bg-primary h-2 rounded-full"
+                  style={{ width: "45%" }}
+                />
               </div>
-              
+
               <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">Almacenamiento</span>
+                <span className="text-sm text-muted-foreground">
+                  Almacenamiento
+                </span>
                 <span className="text-sm font-medium">67%</span>
               </div>
               <div className="w-full bg-muted rounded-full h-2">
-                <div className="bg-primary h-2 rounded-full" style={{ width: "67%" }} />
+                <div
+                  className="bg-primary h-2 rounded-full"
+                  style={{ width: "67%" }}
+                />
               </div>
             </div>
           </CardContent>
@@ -132,19 +180,27 @@ export default function DeveloperDashboard() {
             <div className="space-y-3">
               <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
                 <span className="text-sm font-medium">Usuarios</span>
-                <span className="text-lg font-bold">{systemStats?.totalUsers || 0}</span>
+                <span className="text-lg font-bold">
+                  {systemStats?.totalUsers || 0}
+                </span>
               </div>
               <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
                 <span className="text-sm font-medium">Locales</span>
-                <span className="text-lg font-bold">{systemStats?.totalLocales || 0}</span>
+                <span className="text-lg font-bold">
+                  {systemStats?.totalLocales || 0}
+                </span>
               </div>
               <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
                 <span className="text-sm font-medium">Contratos</span>
-                <span className="text-lg font-bold">{systemStats?.totalContratos || 0}</span>
+                <span className="text-lg font-bold">
+                  {systemStats?.totalContratos || 0}
+                </span>
               </div>
               <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
                 <span className="text-sm font-medium">Pagos</span>
-                <span className="text-lg font-bold">{systemStats?.totalPagos || 0}</span>
+                <span className="text-lg font-bold">
+                  {systemStats?.totalPagos || 0}
+                </span>
               </div>
             </div>
           </CardContent>

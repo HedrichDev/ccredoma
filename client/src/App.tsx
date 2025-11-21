@@ -34,23 +34,63 @@ function Router() {
       <Route path="/about" component={AboutPage} />
       <Route path="/rent-simulator" component={RentSimulatorPage} />
       <Route path="/login" component={Login} />
-      
+
       {/* Admin Routes */}
-      <ProtectedRoute path="/admin/dashboard" component={AdminDashboard} requiredRol="CentroComercialAdmin" />
-      <ProtectedRoute path="/admin/locales" component={AdminLocales} requiredRol="CentroComercialAdmin" />
-      <ProtectedRoute path="/admin/contratos" component={AdminContratos} requiredRol="CentroComercialAdmin" />
-      <ProtectedRoute path="/admin/solicitudes" component={AdminSolicitudes} requiredRol="CentroComercialAdmin" />
-      <ProtectedRoute path="/admin/owner-approvals" component={OwnerApprovalsPage} requiredRol="CentroComercialAdmin" />
-      <ProtectedRoute path="/admin/financial-reports" component={FinancialReportsPage} requiredRol="CentroComercialAdmin" />
-      <ProtectedRoute path="/admin/rates-promotions" component={RatesPromotionsPage} requiredRol="CentroComercialAdmin" />
-      
+      <ProtectedRoute
+        path="/admin/dashboard"
+        component={AdminDashboard}
+        requiredRol="CentroComercialAdmin"
+      />
+      <ProtectedRoute
+        path="/admin/locales"
+        component={AdminLocales}
+        requiredRol="CentroComercialAdmin"
+      />
+      <ProtectedRoute
+        path="/admin/contratos"
+        component={AdminContratos}
+        requiredRol="CentroComercialAdmin"
+      />
+      <ProtectedRoute
+        path="/admin/solicitudes"
+        component={AdminSolicitudes}
+        requiredRol="CentroComercialAdmin"
+      />
+      <ProtectedRoute
+        path="/admin/owner-approvals"
+        component={OwnerApprovalsPage}
+        requiredRol="CentroComercialAdmin"
+      />
+      <ProtectedRoute
+        path="/admin/financial-reports"
+        component={FinancialReportsPage}
+        requiredRol="CentroComercialAdmin"
+      />
+      <ProtectedRoute
+        path="/admin/rates-promotions"
+        component={RatesPromotionsPage}
+        requiredRol="CentroComercialAdmin"
+      />
+
       {/* Owner Routes */}
-      <ProtectedRoute path="/owner/dashboard" component={OwnerDashboard} requiredRol="LocalOwner" />
-      <ProtectedRoute path="/owner/maintenance-requests" component={OwnerMaintenanceRequestsPage} requiredRol="LocalOwner" />
-      
+      <ProtectedRoute
+        path="/owner/dashboard"
+        component={OwnerDashboard}
+        requiredRol="LocalOwner"
+      />
+      <ProtectedRoute
+        path="/owner/maintenance-requests"
+        component={OwnerMaintenanceRequestsPage}
+        requiredRol="LocalOwner"
+      />
+
       {/* Developer Routes */}
-      <ProtectedRoute path="/developer/dashboard" component={DeveloperDashboard} requiredRol="SystemDeveloper" />
-      
+      <ProtectedRoute
+        path="/developer/dashboard"
+        component={DeveloperDashboard}
+        requiredRol="SystemDeveloper"
+      />
+
       {/* Not Found */}
       <Route component={NotFound} />
     </Switch>

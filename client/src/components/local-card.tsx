@@ -1,4 +1,9 @@
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "./status-badge";
 import { Building2, Maximize2, MapPin } from "lucide-react";
@@ -11,10 +16,16 @@ interface LocalCardProps {
   showActions?: boolean;
 }
 
-export function LocalCard({ local, onViewDetails, onRequestInfo, showActions = true }: LocalCardProps) {
-  const imageUrl = local.fotosUrls && local.fotosUrls.length > 0 
-    ? local.fotosUrls[0] 
-    : "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop";
+export function LocalCard({
+  local,
+  onViewDetails,
+  onRequestInfo,
+  showActions = true,
+}: LocalCardProps) {
+  const imageUrl =
+    local.fotosUrls && local.fotosUrls.length > 0
+      ? local.fotosUrls[0]
+      : "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop";
 
   const tipoLocalLabels: Record<string, string> = {
     tienda: "Tienda",
@@ -24,7 +35,10 @@ export function LocalCard({ local, onViewDetails, onRequestInfo, showActions = t
   };
 
   return (
-    <Card className="overflow-hidden hover-elevate transition-all" data-testid={`card-local-${local.id}`}>
+    <Card
+      className="overflow-hidden hover-elevate transition-all"
+      data-testid={`card-local-${local.id}`}
+    >
       <div className="aspect-[4/3] overflow-hidden bg-muted">
         <img
           src={imageUrl}
@@ -35,7 +49,10 @@ export function LocalCard({ local, onViewDetails, onRequestInfo, showActions = t
       <CardHeader className="space-y-2">
         <div className="flex items-start justify-between gap-2">
           <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-lg tracking-tight" data-testid={`text-local-code-${local.id}`}>
+            <h3
+              className="font-semibold text-lg tracking-tight"
+              data-testid={`text-local-code-${local.id}`}
+            >
               {local.codigoLocal}
             </h3>
             {local.centroComercial && (
@@ -52,7 +69,9 @@ export function LocalCard({ local, onViewDetails, onRequestInfo, showActions = t
         <div className="grid grid-cols-2 gap-3 text-sm">
           <div className="flex items-center gap-2">
             <Building2 className="h-4 w-4 text-muted-foreground" />
-            <span className="text-muted-foreground">{tipoLocalLabels[local.tipoLocal]}</span>
+            <span className="text-muted-foreground">
+              {tipoLocalLabels[local.tipoLocal]}
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <Maximize2 className="h-4 w-4 text-muted-foreground" />
@@ -61,7 +80,10 @@ export function LocalCard({ local, onViewDetails, onRequestInfo, showActions = t
         </div>
         <div className="pt-2 border-t">
           <p className="text-sm text-muted-foreground">Piso {local.piso}</p>
-          <p className="text-xl font-semibold mt-1" data-testid={`text-rent-${local.id}`}>
+          <p
+            className="text-xl font-semibold mt-1"
+            data-testid={`text-rent-${local.id}`}
+          >
             ${Number(local.rentaMensual).toLocaleString()}/mes
           </p>
         </div>

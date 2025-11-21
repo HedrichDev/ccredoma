@@ -2,7 +2,13 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
 import { LocalCard } from "@/components/local-card";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -18,11 +24,15 @@ export default function CatalogPage() {
     queryKey: ["/api/locales", tipoFiltro],
   });
 
-  const filteredLocales = locales?.filter(local => {
-    const matchesTipo = tipoFiltro === "todos" || local.tipoLocal === tipoFiltro;
-    const matchesSearch = local.codigoLocal.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesTipo && matchesSearch && local.estado === "disponible";
-  }) || [];
+  const filteredLocales =
+    locales?.filter((local) => {
+      const matchesTipo =
+        tipoFiltro === "todos" || local.tipoLocal === tipoFiltro;
+      const matchesSearch = local.codigoLocal
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      return matchesTipo && matchesSearch && local.estado === "disponible";
+    }) || [];
 
   return (
     <div className="min-h-screen">
@@ -32,7 +42,9 @@ export default function CatalogPage() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-2">
               <Building2 className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold tracking-tight">ERP Centro Comercial</span>
+              <span className="text-xl font-bold tracking-tight">
+                ERP Centro Comercial
+              </span>
             </div>
             <div className="flex items-center gap-4">
               <Link href="/catalog">
@@ -74,8 +86,16 @@ export default function CatalogPage() {
                   data-testid="input-search-local"
                 />
               </div>
-              <Select value={tipoFiltro} onValueChange={(value) => setTipoFiltro(value as TipoLocal | "todos")}>
-                <SelectTrigger className="h-12 text-foreground" data-testid="select-tipo-local">
+              <Select
+                value={tipoFiltro}
+                onValueChange={(value) =>
+                  setTipoFiltro(value as TipoLocal | "todos")
+                }
+              >
+                <SelectTrigger
+                  className="h-12 text-foreground"
+                  data-testid="select-tipo-local"
+                >
                   <SelectValue placeholder="Tipo" />
                 </SelectTrigger>
                 <SelectContent>
@@ -83,10 +103,16 @@ export default function CatalogPage() {
                   <SelectItem value="tienda">Tienda</SelectItem>
                   <SelectItem value="restaurante">Restaurante</SelectItem>
                   <SelectItem value="servicio">Servicio</SelectItem>
-                  <SelectItem value="entretenimiento">Entretenimiento</SelectItem>
+                  <SelectItem value="entretenimiento">
+                    Entretenimiento
+                  </SelectItem>
                 </SelectContent>
               </Select>
-              <Button size="lg" className="h-12 px-8" data-testid="button-search">
+              <Button
+                size="lg"
+                className="h-12 px-8"
+                data-testid="button-search"
+              >
                 Buscar
               </Button>
             </div>
@@ -106,7 +132,10 @@ export default function CatalogPage() {
               ))}
             </div>
           ) : filteredLocales.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" data-testid="grid-locales">
+            <div
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+              data-testid="grid-locales"
+            >
               {filteredLocales.map((local) => (
                 <LocalCard
                   key={local.id}
@@ -118,7 +147,8 @@ export default function CatalogPage() {
           ) : (
             <div className="text-center py-12">
               <p className="text-lg text-muted-foreground">
-                No se encontraron locales disponibles con los filtros seleccionados.
+                No se encontraron locales disponibles con los filtros
+                seleccionados.
               </p>
             </div>
           )}
@@ -128,7 +158,9 @@ export default function CatalogPage() {
       {/* Contact Info (simplified from PublicLanding) */}
       <section className="py-12 bg-card">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold tracking-tight mb-4">¿Necesitas Ayuda?</h2>
+          <h2 className="text-3xl font-bold tracking-tight mb-4">
+            ¿Necesitas Ayuda?
+          </h2>
           <p className="text-lg text-muted-foreground mb-6 font-serif">
             Contacta con nosotros para encontrar tu local ideal.
           </p>

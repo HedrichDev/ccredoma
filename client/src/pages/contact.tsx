@@ -1,5 +1,5 @@
 // client/src/pages/contact.tsx
-import React from 'react';
+import React from "react";
 
 const ContactPage = () => {
   return (

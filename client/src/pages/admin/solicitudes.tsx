@@ -1,6 +1,13 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -12,13 +19,17 @@ import type { SolicitudInformacion, EstadoSolicitud } from "@shared/schema";
 export default function AdminSolicitudes() {
   const { toast } = useToast();
 
-  const { data: solicitudes, isLoading } = useQuery<(SolicitudInformacion & { local: any })[]>({
+  const { data: solicitudes, isLoading } = useQuery<
+    (SolicitudInformacion & { local: any })[]
+  >({
     queryKey: ["/api/solicitudes"],
   });
 
   const updateStatusMutation = useMutation({
     mutationFn: async ({ id, status }: { id: string; status: string }) => {
-      return await apiRequest("PATCH", `/api/solicitudes/${id}`, { estadoSolicitud: status });
+      return await apiRequest("PATCH", `/api/solicitudes/${id}`, {
+        estadoSolicitud: status,
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/solicitudes"] });
@@ -29,15 +40,22 @@ export default function AdminSolicitudes() {
     },
   });
 
-  const nuevas = solicitudes?.filter(s => s.estadoSolicitud === "nueva").length || 0;
-  const contactadas = solicitudes?.filter(s => s.estadoSolicitud === "contactada").length || 0;
-  const cerradas = solicitudes?.filter(s => s.estadoSolicitud === "cerrada").length || 0;
+  const nuevas =
+    solicitudes?.filter((s) => s.estadoSolicitud === "nueva").length || 0;
+  const contactadas =
+    solicitudes?.filter((s) => s.estadoSolicitud === "contactada").length || 0;
+  const cerradas =
+    solicitudes?.filter((s) => s.estadoSolicitud === "cerrada").length || 0;
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight mb-2">Solicitudes de Información</h1>
-        <p className="text-muted-foreground">Gestiona las solicitudes de los visitantes</p>
+        <h1 className="text-3xl font-bold tracking-tight mb-2">
+          Solicitudes de Información
+        </h1>
+        <p className="text-muted-foreground">
+          Gestiona las solicitudes de los visitantes
+        </p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-3">
@@ -101,10 +119,14 @@ export default function AdminSolicitudes() {
                       <TableCell className="font-medium">
                         {new Date(solicitud.createdAt).toLocaleDateString()}
                       </TableCell>
-                      <TableCell>{solicitud.local?.codigoLocal || "N/A"}</TableCell>
+                      <TableCell>
+                        {solicitud.local?.codigoLocal || "N/A"}
+                      </TableCell>
                       <TableCell>
                         <div className="space-y-1">
-                          <p className="font-medium">{solicitud.nombreContacto}</p>
+                          <p className="font-medium">
+                            {solicitud.nombreContacto}
+                          </p>
                           <p className="text-sm text-muted-foreground flex items-center gap-1">
                             <Mail className="h-3 w-3" />
                             {solicitud.emailContacto}
@@ -121,7 +143,9 @@ export default function AdminSolicitudes() {
                         <p className="text-sm truncate">{solicitud.mensaje}</p>
                       </TableCell>
                       <TableCell>
-                        <StatusBadge status={solicitud.estadoSolicitud as EstadoSolicitud} />
+                        <StatusBadge
+                          status={solicitud.estadoSolicitud as EstadoSolicitud}
+                        />
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
@@ -129,7 +153,12 @@ export default function AdminSolicitudes() {
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => updateStatusMutation.mutate({ id: solicitud.id, status: "contactada" })}
+                              onClick={() =>
+                                updateStatusMutation.mutate({
+                                  id: solicitud.id,
+                                  status: "contactada",
+                                })
+                              }
                               data-testid={`button-contactar-${solicitud.id}`}
                             >
                               Contactar
@@ -139,7 +168,12 @@ export default function AdminSolicitudes() {
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => updateStatusMutation.mutate({ id: solicitud.id, status: "cerrada" })}
+                              onClick={() =>
+                                updateStatusMutation.mutate({
+                                  id: solicitud.id,
+                                  status: "cerrada",
+                                })
+                              }
                               data-testid={`button-cerrar-${solicitud.id}`}
                             >
                               Cerrar
@@ -151,7 +185,10 @@ export default function AdminSolicitudes() {
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={6} className="text-center text-muted-foreground">
+                    <TableCell
+                      colSpan={6}
+                      className="text-center text-muted-foreground"
+                    >
                       No hay solicitudes registradas
                     </TableCell>
                   </TableRow>

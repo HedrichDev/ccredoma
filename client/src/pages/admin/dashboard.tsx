@@ -1,12 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
 import { MetricCard } from "@/components/metric-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { StatusBadge } from "@/components/status-badge";
-import { Building2, DollarSign, AlertCircle, TrendingUp, Shield, FileText } from "lucide-react";
+import {
+  Building2,
+  DollarSign,
+  AlertCircle,
+  TrendingUp,
+  Shield,
+  FileText,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
-import type { LocalComercial, ContratoAlquiler, PagoAlquiler, EstadoPago } from "@shared/schema";
+import type {
+  LocalComercial,
+  ContratoAlquiler,
+  PagoAlquiler,
+  EstadoPago,
+} from "@shared/schema";
 
 export default function AdminDashboard() {
   const [, setLocation] = useLocation();
@@ -24,25 +43,37 @@ export default function AdminDashboard() {
   });
 
   const totalLocales = locales?.length || 0;
-  const localesOcupados = locales?.filter(l => l.estado === "ocupado").length || 0;
-  const localesDisponibles = locales?.filter(l => l.estado === "disponible").length || 0;
-  const tasaOcupacion = totalLocales > 0 ? ((localesOcupados / totalLocales) * 100).toFixed(0) : "0";
+  const localesOcupados =
+    locales?.filter((l) => l.estado === "ocupado").length || 0;
+  const localesDisponibles =
+    locales?.filter((l) => l.estado === "disponible").length || 0;
+  const tasaOcupacion =
+    totalLocales > 0
+      ? ((localesOcupados / totalLocales) * 100).toFixed(0)
+      : "0";
 
-  const pagosVencidos = pagos?.filter(p => p.estadoPago === "vencido").length || 0;
-  
-  const ingresosMensuales = pagos
-    ?.filter(p => p.estadoPago === "pagado")
-    .reduce((sum, p) => sum + Number(p.monto), 0) || 0;
+  const pagosVencidos =
+    pagos?.filter((p) => p.estadoPago === "vencido").length || 0;
 
-  const contratosActivos = contratos?.filter(c => c.estadoContrato === "activo").length || 0;
+  const ingresosMensuales =
+    pagos
+      ?.filter((p) => p.estadoPago === "pagado")
+      .reduce((sum, p) => sum + Number(p.monto), 0) || 0;
+
+  const contratosActivos =
+    contratos?.filter((c) => c.estadoContrato === "activo").length || 0;
 
   const recentPagos = pagos?.slice(0, 5) || [];
 
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight mb-2">Dashboard Administrativo</h1>
-        <p className="text-muted-foreground">Vista general del centro comercial</p>
+        <h1 className="text-3xl font-bold tracking-tight mb-2">
+          Dashboard Administrativo
+        </h1>
+        <p className="text-muted-foreground">
+          Vista general del centro comercial
+        </p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -88,7 +119,9 @@ export default function AdminDashboard() {
           <CardContent>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">Total de contratos activos</span>
+                <span className="text-sm text-muted-foreground">
+                  Total de contratos activos
+                </span>
                 <span className="text-2xl font-bold">{contratosActivos}</span>
               </div>
               <Button
@@ -127,8 +160,12 @@ export default function AdminDashboard() {
                 {recentPagos.length > 0 ? (
                   recentPagos.map((pago) => (
                     <TableRow key={pago.id}>
-                      <TableCell className="font-medium">{pago.mesAnio}</TableCell>
-                      <TableCell>${Number(pago.monto).toLocaleString()}</TableCell>
+                      <TableCell className="font-medium">
+                        {pago.mesAnio}
+                      </TableCell>
+                      <TableCell>
+                        ${Number(pago.monto).toLocaleString()}
+                      </TableCell>
                       <TableCell>
                         <StatusBadge status={pago.estadoPago as EstadoPago} />
                       </TableCell>
@@ -136,7 +173,10 @@ export default function AdminDashboard() {
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={3} className="text-center text-muted-foreground">
+                    <TableCell
+                      colSpan={3}
+                      className="text-center text-muted-foreground"
+                    >
                       No hay pagos registrados
                     </TableCell>
                   </TableRow>

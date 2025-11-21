@@ -11,10 +11,12 @@
 ## Typography
 
 **Font Families** (Google Fonts):
+
 - **Primary**: Inter (headers, UI elements, buttons)
 - **Secondary**: Work Sans (body text, descriptions)
 
 **Hierarchy**:
+
 - H1: 2.5rem/3rem (60/72px), font-bold, tracking-tight
 - H2: 2rem/2.5rem (48/60px), font-semibold
 - H3: 1.5rem/2rem (36/48px), font-semibold
@@ -30,11 +32,13 @@
 **Spacing Primitives**: Use Tailwind units of **2, 4, 8, 12, 16, 20, 24** (e.g., p-4, m-8, gap-12)
 
 **Grid Structure**:
+
 - Container: max-w-7xl for content, max-w-full for hero sections
 - Cards Grid: grid-cols-1 md:grid-cols-2 lg:grid-cols-3 for property listings
 - Dashboard: 12-column grid with sidebar navigation
 
 **Responsive Breakpoints**:
+
 - Mobile: base (single column)
 - Tablet: md (2 columns max)
 - Desktop: lg (3-4 columns)
@@ -46,6 +50,7 @@
 ### Core Components
 
 **Cards (Property/Local Listings)**:
+
 - Border-radius: rounded-xl (12px)
 - Shadow: shadow-md with hover:shadow-xl transition
 - Image aspect ratio: 4:3 for property photos
@@ -53,12 +58,14 @@
 - Include: Image, title, area (m²), price, status badge, action button
 
 **Navigation**:
+
 - **Public Header**: Transparent overlay on hero, becomes solid white on scroll, sticky top-0
 - **Dashboard Sidebar**: Fixed w-64, dark background, collapsible on mobile
 - Logo placement: top-left, h-8 to h-10
 - Navigation items: py-3 px-4 with hover states
 
 **Forms & Inputs**:
+
 - Height: h-12 for all inputs
 - Border: border border-gray-300 with focus:ring-2
 - Rounded: rounded-lg
@@ -66,12 +73,14 @@
 - Helper text: text-sm text-gray-600 below input
 
 **Buttons**:
+
 - Primary: h-12, px-8, rounded-lg, font-medium
 - Secondary: Same dimensions, outlined variant
 - Icon buttons: h-10 w-10, rounded-full for actions
 - On images: Backdrop blur (backdrop-blur-md) with semi-transparent background
 
 **Data Tables (Dashboards)**:
+
 - Alternating row backgrounds for readability
 - Sticky header: top-0
 - Actions column: right-aligned
@@ -79,11 +88,13 @@
 - Include: sortable columns, filters, search, pagination
 
 **Status Badges**:
+
 - Pill shape: rounded-full, px-3 py-1
 - Semantic colors: Available (green), Occupied (blue), Maintenance (yellow), Overdue (red)
 - Text: text-sm font-medium
 
 **Metrics Cards (KPI Display)**:
+
 - Grid layout: 2-4 cards per row
 - Include: Large number, label, trend indicator (↑↓), icon
 - Padding: p-6
@@ -96,6 +107,7 @@
 ### Public Landing Page (VisitanteExterno)
 
 **Hero Section**:
+
 - Full-width background image of modern shopping mall interior
 - Height: min-h-screen on desktop, min-h-[60vh] on mobile
 - Overlay: Semi-transparent dark gradient (bg-gradient-to-b from-black/40 to-black/60)
@@ -103,6 +115,7 @@
 - Search bar: Large, prominent, with filters (type, area, price range)
 
 **Sections** (5-7 total):
+
 1. **Available Locals Showcase**: 3-column grid of property cards with filtering sidebar
 2. **Featured Properties**: Larger cards with detailed specs (2-column layout)
 3. **Benefits/Features**: 4-column grid with icons, titles, descriptions (why rent here)
@@ -116,11 +129,13 @@
 ### Dashboard (CentroComercialAdmin)
 
 **Layout**:
+
 - Sidebar navigation (w-64): Logo, role indicator, menu items grouped by function
 - Main content area: max-w-7xl, px-8
 - Top bar: Breadcrumbs, search, notifications, user profile
 
 **Main Dashboard View**:
+
 - KPI row: 4 metric cards (Occupancy Rate, Monthly Revenue, Available Locals, Overdue Payments)
 - Revenue chart: Full-width card with line/bar chart
 - Recent Activity: Table with latest contracts, payments, requests (h-96, scrollable)
@@ -129,6 +144,7 @@
 ### Panel LocalOwner
 
 **Contract Overview Card**: Full-width, prominent positioning
+
 - Split layout: Contract details (left) | Payment status (right)
 - Include: Property photo, contract dates, rental amount, status badge
 
@@ -139,6 +155,7 @@
 ### SystemDeveloper Panel
 
 **Monitoring Dashboard**: Technical metrics in grid layout
+
 - System health indicators
 - Activity logs table (monospace font for technical data)
 - Database stats visualization
@@ -160,6 +177,7 @@
 ## Animations
 
 **Minimal Use Only**:
+
 - Card hover: Subtle lift (translate-y-1) with shadow increase
 - Button hover: Scale slightly (scale-105)
 - Page transitions: Fade only, no complex animations

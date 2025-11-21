@@ -1,16 +1,43 @@
 import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
-import { Building2, Calendar, DollarSign, FileText, Download } from "lucide-react";
+import {
+  Building2,
+  Calendar,
+  DollarSign,
+  FileText,
+  Download,
+} from "lucide-react";
 import { useLocation } from "wouter";
-import type { ContratoAlquiler, PagoAlquiler, LocalComercial, EstadoContrato, EstadoPago } from "@shared/schema";
+import type {
+  ContratoAlquiler,
+  PagoAlquiler,
+  LocalComercial,
+  EstadoContrato,
+  EstadoPago,
+} from "@shared/schema";
 
 export default function OwnerDashboard() {
   const [, setLocation] = useLocation();
 
-  const { data: contrato } = useQuery<ContratoAlquiler & { local: LocalComercial }>({
+  const { data: contrato } = useQuery<
+    ContratoAlquiler & { local: LocalComercial }
+  >({
     queryKey: ["/api/mi-contrato"],
   });
 
@@ -18,10 +45,15 @@ export default function OwnerDashboard() {
     queryKey: ["/api/mis-pagos"],
   });
 
-  const pagosPendientes = pagos?.filter(p => p.estadoPago === "pendiente").length || 0;
+  const pagosPendientes =
+    pagos?.filter((p) => p.estadoPago === "pendiente").length || 0;
   const proximoVencimiento = pagos
-    ?.filter(p => p.estadoPago === "pendiente")
-    .sort((a, b) => new Date(a.fechaVencimiento).getTime() - new Date(b.fechaVencimiento).getTime())[0];
+    ?.filter((p) => p.estadoPago === "pendiente")
+    .sort(
+      (a, b) =>
+        new Date(a.fechaVencimiento).getTime() -
+        new Date(b.fechaVencimiento).getTime()
+    )[0];
 
   const recentPagos = pagos?.slice(0, 10) || [];
 
@@ -40,41 +72,60 @@ export default function OwnerDashboard() {
               Mi Local - {contrato.local?.codigoLocal}
             </CardTitle>
             <CardDescription>
-              Contrato vigente desde {new Date(contrato.fechaInicio).toLocaleDateString()}
+              Contrato vigente desde{" "}
+              {new Date(contrato.fechaInicio).toLocaleDateString()}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <div>
-                  <p className="text-sm text-muted-foreground">Estado del Contrato</p>
+                  <p className="text-sm text-muted-foreground">
+                    Estado del Contrato
+                  </p>
                   <div className="mt-1">
-                    <StatusBadge status={contrato.estadoContrato as EstadoContrato} />
+                    <StatusBadge
+                      status={contrato.estadoContrato as EstadoContrato}
+                    />
                   </div>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Área del Local</p>
-                  <p className="text-lg font-semibold mt-1">{contrato.local?.areaM2} m²</p>
+                  <p className="text-sm text-muted-foreground">
+                    Área del Local
+                  </p>
+                  <p className="text-lg font-semibold mt-1">
+                    {contrato.local?.areaM2} m²
+                  </p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Tipo de Local</p>
-                  <p className="text-lg font-semibold mt-1 capitalize">{contrato.local?.tipoLocal}</p>
+                  <p className="text-lg font-semibold mt-1 capitalize">
+                    {contrato.local?.tipoLocal}
+                  </p>
                 </div>
               </div>
               <div className="space-y-4">
                 <div>
                   <p className="text-sm text-muted-foreground">Renta Mensual</p>
-                  <p className="text-2xl font-bold mt-1">${Number(contrato.rentaMensual).toLocaleString()}</p>
+                  <p className="text-2xl font-bold mt-1">
+                    ${Number(contrato.rentaMensual).toLocaleString()}
+                  </p>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Fecha de Finalización</p>
+                  <p className="text-sm text-muted-foreground">
+                    Fecha de Finalización
+                  </p>
                   <p className="text-lg font-semibold mt-1 flex items-center gap-2">
                     <Calendar className="h-4 w-4" />
                     {new Date(contrato.fechaFin).toLocaleDateString()}
                   </p>
                 </div>
                 {contrato.documentoContratoUrl && (
-                  <Button variant="outline" className="w-full" data-testid="button-download-contrato">
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    data-testid="button-download-contrato"
+                  >
                     <Download className="h-4 w-4 mr-2" />
                     Descargar Contrato
                   </Button>
@@ -97,13 +148,17 @@ export default function OwnerDashboard() {
             <div className="space-y-4">
               <div className="text-center py-4">
                 <p className="text-4xl font-bold">{pagosPendientes}</p>
-                <p className="text-sm text-muted-foreground mt-2">Pagos por realizar</p>
+                <p className="text-sm text-muted-foreground mt-2">
+                  Pagos por realizar
+                </p>
               </div>
               {proximoVencimiento && (
                 <div className="p-4 bg-status-maintenance/10 rounded-lg border border-status-maintenance/20">
                   <p className="text-sm font-medium">Próximo vencimiento</p>
                   <p className="text-lg font-bold mt-1">
-                    {new Date(proximoVencimiento.fechaVencimiento).toLocaleDateString()}
+                    {new Date(
+                      proximoVencimiento.fechaVencimiento
+                    ).toLocaleDateString()}
                   </p>
                   <p className="text-sm text-muted-foreground mt-1">
                     ${Number(proximoVencimiento.monto).toLocaleString()}
@@ -130,11 +185,19 @@ export default function OwnerDashboard() {
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              <Button variant="outline" className="w-full justify-start" data-testid="button-contrato">
+              <Button
+                variant="outline"
+                className="w-full justify-start"
+                data-testid="button-contrato"
+              >
                 <FileText className="h-4 w-4 mr-2" />
                 Contrato de Alquiler
               </Button>
-              <Button variant="outline" className="w-full justify-start" data-testid="button-comprobantes">
+              <Button
+                variant="outline"
+                className="w-full justify-start"
+                data-testid="button-comprobantes"
+              >
                 <FileText className="h-4 w-4 mr-2" />
                 Comprobantes de Pago
               </Button>
@@ -147,7 +210,11 @@ export default function OwnerDashboard() {
                 <FileText className="h-4 w-4 mr-2" />
                 Solicitudes de Mantenimiento
               </Button>
-              <Button variant="outline" className="w-full justify-start" data-testid="button-terminos">
+              <Button
+                variant="outline"
+                className="w-full justify-start"
+                data-testid="button-terminos"
+              >
                 <FileText className="h-4 w-4 mr-2" />
                 Términos y Condiciones
               </Button>
@@ -175,11 +242,19 @@ export default function OwnerDashboard() {
               {recentPagos.length > 0 ? (
                 recentPagos.map((pago) => (
                   <TableRow key={pago.id}>
-                    <TableCell className="font-medium">{pago.mesAnio}</TableCell>
-                    <TableCell>${Number(pago.monto).toLocaleString()}</TableCell>
-                    <TableCell>{new Date(pago.fechaVencimiento).toLocaleDateString()}</TableCell>
+                    <TableCell className="font-medium">
+                      {pago.mesAnio}
+                    </TableCell>
                     <TableCell>
-                      {pago.fechaPago ? new Date(pago.fechaPago).toLocaleDateString() : "-"}
+                      ${Number(pago.monto).toLocaleString()}
+                    </TableCell>
+                    <TableCell>
+                      {new Date(pago.fechaVencimiento).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell>
+                      {pago.fechaPago
+                        ? new Date(pago.fechaPago).toLocaleDateString()
+                        : "-"}
                     </TableCell>
                     <TableCell>
                       <StatusBadge status={pago.estadoPago as EstadoPago} />
@@ -188,7 +263,10 @@ export default function OwnerDashboard() {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={5} className="text-center text-muted-foreground">
+                  <TableCell
+                    colSpan={5}
+                    className="text-center text-muted-foreground"
+                  >
                     No hay pagos registrados
                   </TableCell>
                 </TableRow>

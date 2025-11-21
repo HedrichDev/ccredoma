@@ -11,7 +11,10 @@ interface DashboardLayoutProps {
   requiredRol?: RolNombre;
 }
 
-export function DashboardLayout({ children, requiredRol }: DashboardLayoutProps) {
+export function DashboardLayout({
+  children,
+  requiredRol,
+}: DashboardLayoutProps) {
   const [, setLocation] = useLocation();
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
@@ -24,12 +27,12 @@ export function DashboardLayout({ children, requiredRol }: DashboardLayoutProps)
           setLocation("/login");
           return;
         }
-        
+
         if (requiredRol && currentUser.rol !== requiredRol) {
           setLocation("/login");
           return;
         }
-        
+
         setUser(currentUser);
       } catch (error) {
         setLocation("/login");
@@ -71,9 +74,7 @@ export function DashboardLayout({ children, requiredRol }: DashboardLayoutProps)
             <ThemeToggle />
           </header>
           <main className="flex-1 overflow-y-auto p-8 bg-background">
-            <div className="max-w-7xl mx-auto">
-              {children}
-            </div>
+            <div className="max-w-7xl mx-auto">{children}</div>
           </main>
         </div>
       </div>

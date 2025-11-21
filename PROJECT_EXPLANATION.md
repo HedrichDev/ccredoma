@@ -1,4 +1,3 @@
-
 # Explicación del Proyecto CCredoma
 
 ## Visión General del Proyecto
@@ -81,12 +80,14 @@ La base de datos (gestionada en Supabase) incluye las siguientes tablas principa
 Para configurar y ejecutar el proyecto localmente, sigue estos pasos:
 
 1. **Clona el repositorio:**
+
    ```bash
    git clone <URL_DEL_REPOSITORIO>
    cd ccredoma
    ```
 
 2. **Instala las dependencias:**
+
    ```bash
    npm install
    ```
@@ -101,6 +102,7 @@ Para configurar y ejecutar el proyecto localmente, sigue estos pasos:
      ```
 
 4. **Ejecuta la aplicación en modo de desarrollo:**
+
    ```bash
    npm run dev
    ```

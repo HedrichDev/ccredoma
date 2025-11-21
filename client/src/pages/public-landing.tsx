@@ -2,14 +2,49 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { LocalCard } from "@/components/local-card";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Building2, MapPin, Shield, TrendingUp, Phone, Mail, Search, Menu } from "lucide-react";
+import {
+  Building2,
+  MapPin,
+  Shield,
+  TrendingUp,
+  Phone,
+  Mail,
+  Search,
+  Menu,
+} from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -19,7 +54,9 @@ import type { LocalComercial, TipoLocal } from "@shared/schema";
 import { Link } from "wouter";
 
 const contactFormSchema = z.object({
-  nombreContacto: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
+  nombreContacto: z
+    .string()
+    .min(2, "El nombre debe tener al menos 2 caracteres"),
   emailContacto: z.string().email("Email inválido"),
   telefonoContacto: z.string().optional(),
   mensaje: z.string().min(10, "El mensaje debe tener al menos 10 caracteres"),
@@ -48,12 +85,12 @@ export default function PublicLanding() {
 
   const onSubmit = async (data: z.infer<typeof contactFormSchema>) => {
     if (!selectedLocal) return;
-    
+
     toast({
       title: "Solicitud enviada",
       description: "Nos pondremos en contacto contigo pronto.",
     });
-    
+
     form.reset();
     setDialogOpen(false);
     setSelectedLocal(null);
@@ -64,11 +101,15 @@ export default function PublicLanding() {
     setDialogOpen(true);
   };
 
-  const filteredLocales = locales?.filter(local => {
-    const matchesTipo = tipoFiltro === "todos" || local.tipoLocal === tipoFiltro;
-    const matchesSearch = local.codigoLocal.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesTipo && matchesSearch && local.estado === "disponible";
-  }) || [];
+  const filteredLocales =
+    locales?.filter((local) => {
+      const matchesTipo =
+        tipoFiltro === "todos" || local.tipoLocal === tipoFiltro;
+      const matchesSearch = local.codigoLocal
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      return matchesTipo && matchesSearch && local.estado === "disponible";
+    }) || [];
 
   const stats = [
     { value: "50+", label: "Espacios Disponibles" },
@@ -81,7 +122,8 @@ export default function PublicLanding() {
     {
       icon: MapPin,
       title: "Ubicación Premium",
-      description: "En el corazón de la ciudad con fácil acceso y alta visibilidad",
+      description:
+        "En el corazón de la ciudad con fácil acceso y alta visibilidad",
     },
     {
       icon: Shield,
@@ -96,7 +138,8 @@ export default function PublicLanding() {
     {
       icon: TrendingUp,
       title: "Alto Tráfico",
-      description: "Miles de visitantes diarios garantizan exposición constante",
+      description:
+        "Miles de visitantes diarios garantizan exposición constante",
     },
   ];
 
@@ -108,7 +151,9 @@ export default function PublicLanding() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-2">
               <Building2 className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold tracking-tight">ERP Centro Comercial</span>
+              <span className="text-xl font-bold tracking-tight">
+                ERP Centro Comercial
+              </span>
             </div>
             <div className="flex items-center gap-4">
               <Link href="/catalog">
@@ -134,15 +179,19 @@ export default function PublicLanding() {
           style={{ backgroundImage: `url(${heroImage})` }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60" />
-        
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white py-32">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6" data-testid="text-hero-title">
+          <h1
+            className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
+            data-testid="text-hero-title"
+          >
             Encuentra Tu Espacio Comercial Ideal
           </h1>
           <p className="text-xl md:text-2xl mb-12 text-white/90 max-w-3xl mx-auto font-serif">
-            Espacios modernos en ubicaciones premium para hacer crecer tu negocio
+            Espacios modernos en ubicaciones premium para hacer crecer tu
+            negocio
           </p>
-          
+
           {/* Search Bar */}
           <div className="max-w-4xl mx-auto bg-white/95 dark:bg-card/95 backdrop-blur-md rounded-xl p-6 shadow-2xl">
             <div className="grid md:grid-cols-[1fr,200px,auto] gap-4">
@@ -156,8 +205,16 @@ export default function PublicLanding() {
                   data-testid="input-search-local"
                 />
               </div>
-              <Select value={tipoFiltro} onValueChange={(value) => setTipoFiltro(value as TipoLocal | "todos")}>
-                <SelectTrigger className="h-12 text-foreground" data-testid="select-tipo-local">
+              <Select
+                value={tipoFiltro}
+                onValueChange={(value) =>
+                  setTipoFiltro(value as TipoLocal | "todos")
+                }
+              >
+                <SelectTrigger
+                  className="h-12 text-foreground"
+                  data-testid="select-tipo-local"
+                >
                   <SelectValue placeholder="Tipo" />
                 </SelectTrigger>
                 <SelectContent>
@@ -165,10 +222,16 @@ export default function PublicLanding() {
                   <SelectItem value="tienda">Tienda</SelectItem>
                   <SelectItem value="restaurante">Restaurante</SelectItem>
                   <SelectItem value="servicio">Servicio</SelectItem>
-                  <SelectItem value="entretenimiento">Entretenimiento</SelectItem>
+                  <SelectItem value="entretenimiento">
+                    Entretenimiento
+                  </SelectItem>
                 </SelectContent>
               </Select>
-              <Button size="lg" className="h-12 px-8" data-testid="button-search">
+              <Button
+                size="lg"
+                className="h-12 px-8"
+                data-testid="button-search"
+              >
                 Buscar
               </Button>
             </div>
@@ -180,7 +243,9 @@ export default function PublicLanding() {
       <section className="py-20 md:py-32 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold tracking-tight mb-4">Locales Disponibles</h2>
+            <h2 className="text-4xl font-bold tracking-tight mb-4">
+              Locales Disponibles
+            </h2>
             <p className="text-xl text-muted-foreground font-serif">
               Explora nuestros espacios comerciales disponibles
             </p>
@@ -195,7 +260,10 @@ export default function PublicLanding() {
               ))}
             </div>
           ) : filteredLocales.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" data-testid="grid-locales">
+            <div
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+              data-testid="grid-locales"
+            >
               {filteredLocales.map((local) => (
                 <LocalCard
                   key={local.id}
@@ -207,7 +275,8 @@ export default function PublicLanding() {
           ) : (
             <div className="text-center py-12">
               <p className="text-lg text-muted-foreground">
-                No se encontraron locales disponibles con los filtros seleccionados.
+                No se encontraron locales disponibles con los filtros
+                seleccionados.
               </p>
             </div>
           )}
@@ -218,7 +287,9 @@ export default function PublicLanding() {
       <section className="py-20 md:py-32 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold tracking-tight mb-4">¿Por Qué Elegir Nuestro Centro?</h2>
+            <h2 className="text-4xl font-bold tracking-tight mb-4">
+              ¿Por Qué Elegir Nuestro Centro?
+            </h2>
             <p className="text-xl text-muted-foreground font-serif">
               Beneficios que impulsan tu éxito
             </p>
@@ -259,7 +330,9 @@ export default function PublicLanding() {
       {/* Contact CTA */}
       <section className="py-20 md:py-32 bg-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold tracking-tight mb-6">¿Listo para Empezar?</h2>
+          <h2 className="text-4xl font-bold tracking-tight mb-6">
+            ¿Listo para Empezar?
+          </h2>
           <p className="text-xl text-muted-foreground mb-8 font-serif">
             Contacta con nuestro equipo para más información
           </p>
@@ -307,7 +380,11 @@ export default function PublicLanding() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input type="email" {...field} data-testid="input-email" />
+                      <Input
+                        type="email"
+                        {...field}
+                        data-testid="input-email"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -333,13 +410,21 @@ export default function PublicLanding() {
                   <FormItem>
                     <FormLabel>Mensaje</FormLabel>
                     <FormControl>
-                      <Textarea {...field} rows={4} data-testid="input-mensaje" />
+                      <Textarea
+                        {...field}
+                        rows={4}
+                        data-testid="input-mensaje"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full" data-testid="button-submit-request">
+              <Button
+                type="submit"
+                className="w-full"
+                data-testid="button-submit-request"
+              >
                 Enviar Solicitud
               </Button>
             </form>

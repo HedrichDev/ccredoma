@@ -1,4 +1,15 @@
-import { Building2, Home, LayoutDashboard, FileText, DollarSign, Users, MessageSquare, Settings, LogOut, BarChart3 } from "lucide-react";
+import {
+  Building2,
+  Home,
+  LayoutDashboard,
+  FileText,
+  DollarSign,
+  Users,
+  MessageSquare,
+  Settings,
+  LogOut,
+  BarChart3,
+} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -61,11 +72,12 @@ export function AppSidebar({ rol, userName }: AppSidebarProps) {
     { title: "Logs del Sistema", url: "/developer/logs", icon: Settings },
   ];
 
-  const items = rol === "CentroComercialAdmin" 
-    ? adminItems 
-    : rol === "LocalOwner" 
-    ? ownerItems 
-    : developerItems;
+  const items =
+    rol === "CentroComercialAdmin"
+      ? adminItems
+      : rol === "LocalOwner"
+        ? ownerItems
+        : developerItems;
 
   return (
     <Sidebar>
@@ -75,7 +87,9 @@ export function AppSidebar({ rol, userName }: AppSidebarProps) {
             <Building2 className="h-8 w-8 text-primary" />
             <div>
               <h2 className="font-bold text-lg tracking-tight">ERP Centro</h2>
-              <p className="text-xs text-muted-foreground">{rol.replace(/([A-Z])/g, ' $1').trim()}</p>
+              <p className="text-xs text-muted-foreground">
+                {rol.replace(/([A-Z])/g, " $1").trim()}
+              </p>
             </div>
           </div>
         </div>
@@ -89,9 +103,15 @@ export function AppSidebar({ rol, userName }: AppSidebarProps) {
                   <SidebarMenuButton
                     asChild
                     isActive={location === item.url}
-                    data-testid={`nav-${item.title.toLowerCase().replace(/\s+/g, '-')}`}
+                    data-testid={`nav-${item.title.toLowerCase().replace(/\s+/g, "-")}`}
                   >
-                    <a href={item.url} onClick={(e) => { e.preventDefault(); setLocation(item.url); }}>
+                    <a
+                      href={item.url}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setLocation(item.url);
+                      }}
+                    >
                       <item.icon className="h-4 w-4" />
                       <span>{item.title}</span>
                     </a>
@@ -106,16 +126,17 @@ export function AppSidebar({ rol, userName }: AppSidebarProps) {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton onClick={handleLogout} data-testid="button-logout">
+            <SidebarMenuButton
+              onClick={handleLogout}
+              data-testid="button-logout"
+            >
               <LogOut className="h-4 w-4" />
               <span>Cerrar Sesión</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
         {userName && (
-          <div className="p-4 text-sm text-muted-foreground">
-            {userName}
-          </div>
+          <div className="p-4 text-sm text-muted-foreground">{userName}</div>
         )}
       </SidebarFooter>
     </Sidebar>

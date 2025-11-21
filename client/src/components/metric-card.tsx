@@ -12,9 +12,17 @@ interface MetricCardProps {
   };
 }
 
-export function MetricCard({ title, value, icon: Icon, description, trend }: MetricCardProps) {
+export function MetricCard({
+  title,
+  value,
+  icon: Icon,
+  description,
+  trend,
+}: MetricCardProps) {
   return (
-    <Card data-testid={`card-metric-${title.toLowerCase().replace(/\s+/g, '-')}`}>
+    <Card
+      data-testid={`card-metric-${title.toLowerCase().replace(/\s+/g, "-")}`}
+    >
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium text-muted-foreground">
           {title}
@@ -22,7 +30,10 @@ export function MetricCard({ title, value, icon: Icon, description, trend }: Met
         <Icon className="h-5 w-5 text-muted-foreground" />
       </CardHeader>
       <CardContent>
-        <div className="text-3xl font-bold tracking-tight" data-testid={`text-metric-value-${title.toLowerCase().replace(/\s+/g, '-')}`}>
+        <div
+          className="text-3xl font-bold tracking-tight"
+          data-testid={`text-metric-value-${title.toLowerCase().replace(/\s+/g, "-")}`}
+        >
           {value}
         </div>
         {description && (
@@ -30,10 +41,16 @@ export function MetricCard({ title, value, icon: Icon, description, trend }: Met
         )}
         {trend && (
           <p className="text-sm text-muted-foreground mt-2">
-            <span className={trend.value > 0 ? "text-status-available" : "text-status-overdue"}>
+            <span
+              className={
+                trend.value > 0
+                  ? "text-status-available"
+                  : "text-status-overdue"
+              }
+            >
               {trend.value > 0 ? "↑" : "↓"} {Math.abs(trend.value)}%
-            </span>
-            {" "}{trend.label}
+            </span>{" "}
+            {trend.label}
           </p>
         )}
       </CardContent>
