@@ -1,4 +1,4 @@
-# Configuración de Supabase para ERP Centro Comercial
+# Configuración de Supabase para Centro Comercial - LA REDOMA
 
 ## Pasos para Configurar la Base de Datos
 
