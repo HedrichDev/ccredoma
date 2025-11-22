@@ -2,6 +2,12 @@
   "include": ["client/src/**/*", "client/src/declarations.d.ts"],
   "exclude": ["node_modules", "build", "dist", "**/*.test.ts"],
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["client/src/*"],
+      "@shared/*": ["shared/*"],
+      "@assets/*": ["attached_assets/*"]
+    },
     "incremental": true,
     "tsBuildInfoFile": "./node_modules/typescript/tsbuildinfo",
     "noEmit": true,
