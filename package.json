@@ -11,6 +11,7 @@
     "db:push": "cross-env drizzle-kit push",
     "test": "vitest",
     "db:seed": "tsx server/seed.ts",
+    "db:diagnose": "tsx server/diagnose.ts",
     "lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write ."
   },

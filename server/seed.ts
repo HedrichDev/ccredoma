@@ -3,10 +3,31 @@ import { drizzle } from "drizzle-orm/neon-http";
 import { neon } from "@neondatabase/serverless";
 import * as schema from "../shared/schema";
 import { config } from "dotenv";
+import path from "path";
 
-config({ path: ".env" });
+// Load environment variables from .env file
+const envPath = path.resolve(process.cwd(), ".env");
+const result = config({ path: envPath });
 
-const sql = neon(process.env.DATABASE_URL!);
+if (result.error) {
+  console.error("Error loading .env file:", result.error);
+  process.exit(1);
+}
+
+const connectionString = process.env.DATABASE_URL;
+
+if (!connectionString) {
+  console.error(
+    "Error: DATABASE_URL is not set in your .env file." +
+      "\n" +
+      "Please make sure your .env file exists in the project root and contains:" +
+      "\n" +
+      'DATABASE_URL="postgresql://user:password@host:port/dbname"'
+  );
+  process.exit(1);
+}
+
+const sql = neon(connectionString);
 const db = drizzle(sql, { schema });
 
 async function main() {
