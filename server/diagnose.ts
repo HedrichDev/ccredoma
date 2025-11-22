@@ -100,6 +100,33 @@ async function main() {
     console.error("Error fetching commercial spaces:", error);
   }
 
+  // 4. Check Users
+  console.log("\nUsers:");
+  console.log("----------");
+  try {
+    const users = await db.query.usuarios.findMany({
+      with: {
+        rol: {
+          columns: {
+            nombreRol: true,
+          },
+        },
+      },
+    });
+    if (users.length === 0) {
+      console.log("No users found.");
+    } else {
+      users.forEach((user) => {
+        console.log(`- Email: ${user.email} (ID: ${user.id})`);
+        console.log(`  Role: ${user.rol?.nombreRol || "N/A"}`);
+        console.log(`  Personal Data: ${JSON.stringify(user.datosPersonales)}`);
+        console.log(`  Status: ${user.estado}`);
+      });
+    }
+  } catch (error) {
+    console.error("Error fetching users:", error);
+  }
+
   console.log("\n=================================");
   console.log("Diagnostics complete.");
 }

@@ -12,6 +12,7 @@
     "test": "vitest",
     "db:seed": "tsx server/seed.ts",
     "db:diagnose": "tsx server/diagnose.ts",
+    "env:verify": "tsx server/verify-env.ts",
     "lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write ."
   },
