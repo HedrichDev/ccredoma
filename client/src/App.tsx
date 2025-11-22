@@ -25,32 +25,25 @@ import OwnerMaintenanceRequestsPage from "./pages/owner/maintenance-requests";
 import DeveloperDashboard from "./pages/developer/dashboard";
 import NotFound from "./pages/not-found";
 
-// New component for public routes wrapped in PublicLayout
-function PublicRoutes() {
-  return (
-    <PublicLayout>
-      <Switch>
-        <Route path="/" component={PublicLanding} />
-        <Route path="/catalog" component={PublicCatalog} />
-        <Route path="/contact" component={ContactPage} />
-        <Route path="/about" component={AboutPage} />
-        <Route path="/rent-simulator" component={RentSimulatorPage} />
-        <Route path="/login" component={Login} />
-        <Route component={NotFound} />{" "}
-        {/* Not Found for public routes if not matched */}
-      </Switch>
-    </PublicLayout>
-  );
-}
+
 
 function Router() {
   return (
     <Switch>
       {/* Public Routes */}
-      <Route path="/login" component={Login} />{" "}
-      {/* Login can be outside PublicLayout if desired, or inside */}
-      <Route path="/:rest*" component={PublicRoutes} />{" "}
-      {/* Catch-all for public routes */}
+      <Route path="/login" component={Login} /> {/* Direct Login */}
+      <Route path="/"> {/* Grouped public routes under PublicLayout */}
+        <PublicLayout>
+          <Switch>
+            <Route path="/" component={PublicLanding} />
+            <Route path="/catalog" component={PublicCatalog} />
+            <Route path="/contact" component={ContactPage} />
+            <Route path="/about" component={AboutPage} />
+            <Route path="/rent-simulator" component={RentSimulatorPage} />
+            <Route component={NotFound} /> {/* Not Found for public paths inside PublicLayout */}
+          </Switch>
+        </PublicLayout>
+      </Route>
       {/* Admin Routes */}
       <Route path="/admin/dashboard">
         <ProtectedRoute
