@@ -17,7 +17,7 @@ export default function AboutPage() {
         />
         <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
           <h1 className="text-5xl font-bold text-white tracking-tight">
-            Sobre Mall Central
+            Sobre CC REDOMA
           </h1>
         </div>
       </header>
@@ -28,7 +28,7 @@ export default function AboutPage() {
             Tu Destino para Compras, Gastronomía y Entretenimiento
           </h2>
           <p className="text-lg text-muted-foreground">
-            En Mall Central, redefinimos la experiencia de compra. Somos más que
+            En CC REDOMA, redefinimos la experiencia de compra. Somos más que
             un centro comercial; somos una comunidad vibrante donde las mejores
             marcas, sabores exquisitos y momentos inolvidables se encuentran.
             Desde nuestra apertura, nos hemos dedicado a ofrecer un espacio

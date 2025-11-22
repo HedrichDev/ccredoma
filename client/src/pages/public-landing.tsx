@@ -150,9 +150,9 @@ export default function PublicLanding() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-2">
-              <Building2 className="h-8 w-8 text-primary" />
+              <img src="/Favicon.png" alt="CC REDOMA Logo" className="h-8 w-8" />
               <span className="text-xl font-bold tracking-tight">
-                ERP Centro Comercial
+                CC REDOMA
               </span>
             </div>
             <div className="flex items-center gap-4">
@@ -449,7 +449,7 @@ export default function PublicLanding() {
               <Button variant="ghost">Contacto</Button>
             </Link>
           </div>
-          <p>© 2024 ERP Centro Comercial. Todos los derechos reservados.</p>
+          <p>© 2024 CC REDOMA. Todos los derechos reservados.</p>
         </div>
       </footer>
     </div>

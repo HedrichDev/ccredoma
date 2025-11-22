@@ -43,7 +43,7 @@ export default function CatalogPage() {
             <div className="flex items-center gap-2">
               <Building2 className="h-8 w-8 text-primary" />
               <span className="text-xl font-bold tracking-tight">
-                ERP Centro Comercial
+  CC REDOMA
               </span>
             </div>
             <div className="flex items-center gap-4">
@@ -194,7 +194,7 @@ export default function CatalogPage() {
               <Button variant="ghost">Contacto</Button>
             </Link>
           </div>
-          <p>© 2025 ERP Centro Comercial. Todos los derechos reservados.</p>
+          <p>© 2025 CC REDOMA. Todos los derechos reservados.</p>
         </div>
       </footer>
     </div>

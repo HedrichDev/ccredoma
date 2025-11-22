@@ -84,9 +84,9 @@ export function AppSidebar({ rol, userName }: AppSidebarProps) {
       <SidebarContent>
         <div className="p-6 border-b">
           <div className="flex items-center gap-2">
-            <Building2 className="h-8 w-8 text-primary" />
+            <img src="/Favicon.png" alt="CC REDOMA Logo" className="h-8 w-8" />
             <div>
-              <h2 className="font-bold text-lg tracking-tight">ERP Centro</h2>
+              <h2 className="font-bold text-lg tracking-tight">CC REDOMA</h2>
               <p className="text-xs text-muted-foreground">
                 {rol.replace(/([A-Z])/g, " $1").trim()}
               </p>

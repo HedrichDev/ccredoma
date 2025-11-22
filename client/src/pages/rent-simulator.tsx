@@ -83,7 +83,7 @@ export default function RentSimulatorPage() {
           </h1>
           <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
             Calcula una estimación del costo de alquiler para tu próximo local
-            comercial en Mall Central. Completa los siguientes campos para
+            comercial en CC REDOMA. Completa los siguientes campos para
             obtener una proyección.
           </p>
         </div>

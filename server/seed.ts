@@ -35,7 +35,7 @@ async function main() {
 
   // 1. Create a default shopping center if it doesn't exist
   let centroComercial = await db.query.centrosComerciales.findFirst({
-    where: (table, { eq }) => eq(table.nombre, "Mall Central"),
+    where: (table, { eq }) => eq(table.nombre, "CC REDOMA"),
   });
 
   if (!centroComercial) {
@@ -43,7 +43,7 @@ async function main() {
     const inserted = await db
       .insert(schema.centrosComerciales)
       .values({
-        nombre: "Mall Central",
+        nombre: "CC REDOMA",
         direccion: "123 Main St, Cityville",
         telefono: "555-1234",
         emailContacto: "contacto@mallcentral.com",
