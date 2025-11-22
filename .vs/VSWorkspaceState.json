@@ -1,5 +1,11 @@
 {
-  "ExpandedNodes": ["", "\\attached_assets"],
-  "SelectedNode": "\\design_guidelines.md",
+  "ExpandedNodes": [
+    "",
+    "\\attached_assets",
+    "\\client",
+    "\\client\\src",
+    "\\client\\src\\pages"
+  ],
+  "SelectedNode": "\\.env",
   "PreviewInSolutionExplorer": false
 }

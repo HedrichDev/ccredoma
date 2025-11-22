@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import { DollarSign, SlidersHorizontal } from "lucide-react";
 
 // --- Calculation Logic ---
-const BASE_PRICE_PER_M2 = 25; // $25 per square meter
+const BASE_PRICE_PER_M2 = 20; // $20 per square meter
 
 const TIPO_LOCAL_MULTIPLIERS = {
   tienda: 1.0,

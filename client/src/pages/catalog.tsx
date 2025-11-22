@@ -167,11 +167,11 @@ export default function CatalogPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <div className="flex items-center gap-2 text-muted-foreground">
               <Phone className="h-5 w-5" />
-              <span>+58 (420) 123-4567</span>
+              <span>+58 (424) 123-4567</span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
               <Mail className="h-5 w-5" />
-              <span>info@centrocomercial.com</span>
+              <span>Contacto@ccRedoma.com</span>
             </div>
           </div>
         </div>
@@ -195,6 +195,7 @@ export default function CatalogPage() {
             </Link>
           </div>
           <p>© 2025 CC REDOMA. Todos los derechos reservados.</p>
+          <p>Development HedrichDev & Asociados</p> 
         </div>
       </footer>
     </div>

@@ -1,2 +1,4 @@
 # Visual Studio related files
 .vs/
+# Node modules
+node_modules/

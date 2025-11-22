@@ -40,7 +40,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold text-lg">Dirección</h3>
                   <p className="text-muted-foreground">
-                    123 Main St, Cityville, PA 12345
+                    Los Robles, Centro Comercial La Redoma
                   </p>
                 </div>
               </div>
@@ -50,7 +50,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg">Teléfono</h3>
-                  <p className="text-muted-foreground">(555) 123-4567</p>
+                  <p className="text-muted-foreground">(+58) 424-123-4567</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -60,7 +60,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold text-lg">Email</h3>
                   <p className="text-muted-foreground">
-                    contacto@mallcentral.com
+                    contacto@CCRedoma.com
                   </p>
                 </div>
               </div>

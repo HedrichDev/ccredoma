@@ -7,7 +7,7 @@ export default function AboutPage() {
       <header className="relative h-[400px] w-full">
         <img
           src="https://images.unsplash.com/photo-1559899476-b3b3d0335e06?q=80&w=2070&auto=format&fit=crop"
-          alt="Modern shopping mall interior"
+                  alt="[📸]  CC Redoma Fachada"
           className="h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
