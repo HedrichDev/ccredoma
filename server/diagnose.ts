@@ -1,4 +1,3 @@
-
 import { drizzle } from "drizzle-orm/neon-http";
 import { neon } from "@neondatabase/serverless";
 import * as schema from "../shared/schema";
@@ -85,12 +84,8 @@ async function main() {
       console.log("No commercial spaces found.");
     } else {
       locales.forEach((local) => {
-        console.log(
-          `- Code: ${local.codigoLocal} (Status: ${local.estado})`
-        );
-        console.log(
-          `  Center: ${local.centroComercial?.nombre || "N/A"}`
-        );
+        console.log(`- Code: ${local.codigoLocal} (Status: ${local.estado})`);
+        console.log(`  Center: ${local.centroComercial?.nombre || "N/A"}`);
         console.log(
           `  Type: ${local.tipoLocal}, Area: ${local.areaM2} m², Rent: $${local.rentaMensual}`
         );

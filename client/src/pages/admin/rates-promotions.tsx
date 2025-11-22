@@ -1,4 +1,3 @@
-
 const RatesPromotionsPage = () => {
   return (
     <div>

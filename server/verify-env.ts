@@ -1,4 +1,3 @@
-
 import { config } from "dotenv";
 import path from "path";
 
@@ -19,9 +18,7 @@ if (connectionString && connectionString.length > 0) {
   console.error(
     "Please make sure your .env file exists and contains a line like:"
   );
-  console.error(
-    'DATABASE_URL="postgresql://user:password@host:port/dbname"'
-  );
+  console.error('DATABASE_URL="postgresql://user:password@host:port/dbname"');
 }
 
 console.log("========================================");

@@ -1,4 +1,3 @@
-
 import { drizzle } from "drizzle-orm/neon-http";
 import { neon } from "@neondatabase/serverless";
 import * as schema from "../shared/schema";
@@ -73,9 +72,7 @@ async function main() {
         iluminacion: "LED",
         acabados: "de lujo",
       },
-      fotosUrls: [
-        "https://placehold.co/600x400/EEE/31343C?text=Local+A-101",
-      ],
+      fotosUrls: ["https://placehold.co/600x400/EEE/31343C?text=Local+A-101"],
       rentaMensual: "2500.00",
     },
     {
@@ -90,9 +87,7 @@ async function main() {
         terraza: "sí",
         aforo: 50,
       },
-      fotosUrls: [
-        "https://placehold.co/600x400/EEE/31343C?text=Local+B-205",
-      ],
+      fotosUrls: ["https://placehold.co/600x400/EEE/31343C?text=Local+B-205"],
       rentaMensual: "3200.00",
     },
     {
@@ -104,11 +99,9 @@ async function main() {
       estado: "disponible",
       caracteristicas: {
         mostrador: "amplio",
-        "sala_espera": true,
+        sala_espera: true,
       },
-      fotosUrls: [
-        "https://placehold.co/600x400/EEE/31343C?text=Local+C-110",
-      ],
+      fotosUrls: ["https://placehold.co/600x400/EEE/31343C?text=Local+C-110"],
       rentaMensual: "1800.00",
     },
     {
@@ -119,12 +112,10 @@ async function main() {
       piso: "3",
       estado: "en_mantenimiento",
       caracteristicas: {
-        "doble_altura": true,
-        "salidas_emergencia": 2,
+        doble_altura: true,
+        salidas_emergencia: 2,
       },
-      fotosUrls: [
-        "https://placehold.co/600x400/EEE/31343C?text=Local+D-301",
-      ],
+      fotosUrls: ["https://placehold.co/600x400/EEE/31343C?text=Local+D-301"],
       rentaMensual: "5500.00",
     },
   ];
@@ -134,14 +125,14 @@ async function main() {
   for (const local of localesDeEjemplo) {
     // Check if local already exists by codigoLocal
     const existing = await db.query.localesComerciales.findFirst({
-        where: (table, { eq }) => eq(table.codigoLocal, local.codigoLocal!),
-      });
+      where: (table, { eq }) => eq(table.codigoLocal, local.codigoLocal!),
+    });
 
     if (!existing) {
-        await db.insert(schema.localesComerciales).values(local);
-        console.log(`  -> Inserted local ${local.codigoLocal}`);
+      await db.insert(schema.localesComerciales).values(local);
+      console.log(`  -> Inserted local ${local.codigoLocal}`);
     } else {
-        console.log(`  -> Local ${local.codigoLocal} already exists. Skipping.`);
+      console.log(`  -> Local ${local.codigoLocal} already exists. Skipping.`);
     }
   }
 

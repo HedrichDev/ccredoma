@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import {
   Card,
@@ -83,8 +82,8 @@ export default function RentSimulatorPage() {
           </h1>
           <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
             Calcula una estimación del costo de alquiler para tu próximo local
-            comercial en CC REDOMA. Completa los siguientes campos para
-            obtener una proyección.
+            comercial en CC REDOMA. Completa los siguientes campos para obtener
+            una proyección.
           </p>
         </div>
       </header>
@@ -121,9 +120,9 @@ export default function RentSimulatorPage() {
               <Label htmlFor="tipoLocal">Tipo de Local</Label>
               <Select
                 value={tipoLocal}
-                onValueChange={(
-                  value: keyof typeof TIPO_LOCAL_MULTIPLIERS
-                ) => setTipoLocal(value)}
+                onValueChange={(value: keyof typeof TIPO_LOCAL_MULTIPLIERS) =>
+                  setTipoLocal(value)
+                }
               >
                 <SelectTrigger id="tipoLocal">
                   <SelectValue placeholder="Selecciona un tipo" />
@@ -189,7 +188,8 @@ export default function RentSimulatorPage() {
                     {formatCurrency(rentaEstimada)}
                   </p>
                   <p className="text-sm text-muted-foreground mt-2">
-                    Basado en {formatCurrency(rentaEstimada / (parseFloat(area) || 1))}/m²
+                    Basado en{" "}
+                    {formatCurrency(rentaEstimada / (parseFloat(area) || 1))}/m²
                   </p>
                 </CardContent>
               </Card>
@@ -199,7 +199,9 @@ export default function RentSimulatorPage() {
                   <CardDescription>(2 meses de renta)</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-4xl font-bold">{formatCurrency(deposito)}</p>
+                  <p className="text-4xl font-bold">
+                    {formatCurrency(deposito)}
+                  </p>
                 </CardContent>
               </Card>
               <Card>

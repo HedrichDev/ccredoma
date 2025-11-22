@@ -1,4 +1,3 @@
-
 const OwnerApprovalsPage = () => {
   return (
     <div>

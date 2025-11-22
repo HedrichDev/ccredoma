@@ -38,7 +38,12 @@ export async function signIn(
     .eq("email", email)
     .single();
 
-  if (userError || !userData || !Array.isArray(userData.roles) || userData.roles.length === 0) {
+  if (
+    userError ||
+    !userData ||
+    !Array.isArray(userData.roles) ||
+    userData.roles.length === 0
+  ) {
     throw new Error("Usuario no encontrado o sin rol asignado");
   }
 
@@ -122,7 +127,12 @@ export async function getCurrentUser(): Promise<AuthUser | null> {
     .eq("email", user.email)
     .single();
 
-  if (error || !userData || !Array.isArray(userData.roles) || userData.roles.length === 0) {
+  if (
+    error ||
+    !userData ||
+    !Array.isArray(userData.roles) ||
+    userData.roles.length === 0
+  ) {
     return null;
   }
 

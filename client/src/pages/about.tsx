@@ -1,10 +1,5 @@
 import { Building, Target, Eye } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function AboutPage() {
   return (
@@ -28,8 +23,8 @@ export default function AboutPage() {
             Tu Destino para Compras, Gastronomía y Entretenimiento
           </h2>
           <p className="text-lg text-muted-foreground">
-            En CC REDOMA, redefinimos la experiencia de compra. Somos más que
-            un centro comercial; somos una comunidad vibrante donde las mejores
+            En CC REDOMA, redefinimos la experiencia de compra. Somos más que un
+            centro comercial; somos una comunidad vibrante donde las mejores
             marcas, sabores exquisitos y momentos inolvidables se encuentran.
             Desde nuestra apertura, nos hemos dedicado a ofrecer un espacio
             seguro, moderno y acogedor para familias, amigos y visitantes.
@@ -48,8 +43,8 @@ export default function AboutPage() {
               <p className="text-muted-foreground">
                 Ser el centro comercial líder y el corazón de la comunidad,
                 reconocido por nuestra innovación, excelente servicio al cliente
-                y por crear experiencias memorables que superen las
-                expectativas de nuestros visitantes.
+                y por crear experiencias memorables que superen las expectativas
+                de nuestros visitantes.
               </p>
             </CardContent>
           </Card>
@@ -80,8 +75,8 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                Contamos con más de 200 locales comerciales, un moderno patio
-                de comidas, salas de cine de última generación, amplias zonas de
+                Contamos con más de 200 locales comerciales, un moderno patio de
+                comidas, salas de cine de última generación, amplias zonas de
                 aparcamiento y espacios dedicados para el esparcimiento
                 familiar, todo diseñado para tu comodidad.
               </p>
@@ -90,17 +85,19 @@ export default function AboutPage() {
         </section>
 
         <section className="mt-20 text-center">
-             <h2 className="text-3xl font-bold text-primary mb-4">
-                ¿Interesado en formar parte de nuestra comunidad?
-             </h2>
-             <p className="text-lg text-muted-foreground">
-                Descubre las oportunidades que tenemos para tu negocio.
-             </p>
-             <a href="/contact" className="mt-8 inline-block bg-primary text-primary-foreground font-bold py-3 px-8 rounded-lg hover:bg-primary/90 transition-colors">
-                Contáctanos
-             </a>
+          <h2 className="text-3xl font-bold text-primary mb-4">
+            ¿Interesado en formar parte de nuestra comunidad?
+          </h2>
+          <p className="text-lg text-muted-foreground">
+            Descubre las oportunidades que tenemos para tu negocio.
+          </p>
+          <a
+            href="/contact"
+            className="mt-8 inline-block bg-primary text-primary-foreground font-bold py-3 px-8 rounded-lg hover:bg-primary/90 transition-colors"
+          >
+            Contáctanos
+          </a>
         </section>
-
       </main>
     </div>
   );

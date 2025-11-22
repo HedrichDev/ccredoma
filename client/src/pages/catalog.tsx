@@ -43,7 +43,7 @@ export default function CatalogPage() {
             <div className="flex items-center gap-2">
               <Building2 className="h-8 w-8 text-primary" />
               <span className="text-xl font-bold tracking-tight">
-  CC REDOMA
+                CC REDOMA
               </span>
             </div>
             <div className="flex items-center gap-4">

@@ -1,4 +1,3 @@
-
 const FinancialReportsPage = () => {
   return (
     <div>

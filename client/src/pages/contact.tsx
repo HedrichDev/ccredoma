@@ -66,9 +66,15 @@ export default function ContactPage() {
               </div>
             </div>
             <div className="pt-8">
-                <h3 className="font-semibold text-lg mb-2">Horario de Atención</h3>
-                <p className="text-muted-foreground">Lunes a Viernes: 9:00 AM - 8:00 PM</p>
-                <p className="text-muted-foreground">Sábados y Domingos: 10:00 AM - 9:00 PM</p>
+              <h3 className="font-semibold text-lg mb-2">
+                Horario de Atención
+              </h3>
+              <p className="text-muted-foreground">
+                Lunes a Viernes: 9:00 AM - 8:00 PM
+              </p>
+              <p className="text-muted-foreground">
+                Sábados y Domingos: 10:00 AM - 9:00 PM
+              </p>
             </div>
           </div>
 
@@ -88,25 +94,19 @@ export default function ContactPage() {
                   onSubmit={(e) => {
                     e.preventDefault();
                     // Here you would handle form submission
-                    alert("¡Gracias por tu mensaje! Formulario enviado (simulación).");
+                    alert(
+                      "¡Gracias por tu mensaje! Formulario enviado (simulación)."
+                    );
                   }}
                 >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="firstName">Nombre</Label>
-                      <Input
-                        id="firstName"
-                        placeholder="Tu nombre"
-                        required
-                      />
+                      <Input id="firstName" placeholder="Tu nombre" required />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="lastName">Apellido</Label>
-                      <Input
-                        id="lastName"
-                        placeholder="Tu apellido"
-                        required
-                      />
+                      <Input id="lastName" placeholder="Tu apellido" required />
                     </div>
                   </div>
                   <div className="space-y-2">

@@ -39,9 +39,9 @@ export default [
     files: ["**/*.tsx"],
     ...pluginReactConfig,
     rules: {
-        ...pluginReactConfig.rules,
-        "react/react-in-jsx-scope": "off",
-        "react/prop-types": "off"
+      ...pluginReactConfig.rules,
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
     },
     settings: {
       react: {
