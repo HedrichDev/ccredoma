@@ -10,6 +10,7 @@
     "check": "tsc",
     "db:push": "cross-env drizzle-kit push",
     "test": "vitest",
+    "db:seed": "tsx server/seed.ts",
     "lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write ."
   },
