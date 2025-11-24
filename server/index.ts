@@ -44,22 +44,9 @@ app.use((req, res, next) => {
     // Initialize database
     await initializeDatabase();
 
-    // Register routes
-    logger.info("Registrando rutas de la API...", { prefix: "SERVER" });
-    const server = await registerRoutes(app);
-    logger.success("Rutas registradas exitosamente", { prefix: "SERVER" });
-
-    // Error handler
-    app.use((err: Error & { status?: number; statusCode?: number }, _req: Request, res: Response) => {
-      const status = err.status || err.statusCode || 500;
-      const message = err.message || "Internal Server Error";
-
-      logger.error("Error no manejado en la aplicación", err, {
-        prefix: "SERVER",
-      });
-
-      res.status(status).json({ message });
-    });
+    // Create HTTP server first (needed for Vite HMR)
+    const { createServer } = await import("http");
+    const server = createServer(app);
 
     // Setup Vite in development or serve static in production
     const isDevelopment = app.get("env") === "development";
@@ -71,6 +58,23 @@ app.use((req, res, next) => {
       logger.info("Sirviendo archivos estáticos...", { prefix: "SERVER" });
       serveStatic(app);
     }
+
+    // Register API routes (after Vite setup)
+    logger.info("Registrando rutas de la API...", { prefix: "SERVER" });
+    await registerRoutes(app);
+    logger.success("Rutas registradas exitosamente", { prefix: "SERVER" });
+
+    // Error handler (must be last)
+    app.use((err: Error & { status?: number; statusCode?: number }, _req: Request, res: Response) => {
+      const status = err.status || err.statusCode || 500;
+      const message = err.message || "Internal Server Error";
+
+      logger.error("Error no manejado en la aplicación", err, {
+        prefix: "SERVER",
+      });
+
+      res.status(status).json({ message });
+    });
 
     // Start server
     const port = parseInt(process.env.PORT || "5000", 10);

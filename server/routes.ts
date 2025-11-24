@@ -1,5 +1,4 @@
 import type { Express } from "express";
-import { createServer, type Server } from "http";
 import { db } from "./db";
 import { eq, desc, and } from "drizzle-orm";
 import {
@@ -20,7 +19,7 @@ import {
 import { signIn, signUp } from "./auth";
 import { logger } from "./logger";
 
-export async function registerRoutes(app: Express): Promise<Server> {
+export async function registerRoutes(app: Express): Promise<void> {
   // Auth routes
   app.post("/api/auth/signin", async (req, res) => {
     try {
@@ -526,7 +525,4 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
     }
   );
-
-  const httpServer = createServer(app);
-  return httpServer;
 }

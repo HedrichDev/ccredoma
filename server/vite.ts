@@ -40,9 +40,17 @@ export async function setupVite(app: Express, server: Server) {
     appType: "custom",
   });
 
+  // Use Vite's connect instance as middleware
   app.use(vite.middlewares);
+  
+  // Handle all routes - serve index.html for non-API routes
   app.use("*", async (req, res, next) => {
     const url = req.originalUrl;
+
+    // Skip API routes - let them be handled by Express routes
+    if (url.startsWith("/api")) {
+      return next();
+    }
 
     try {
       const clientTemplate = path.resolve(
@@ -52,7 +60,7 @@ export async function setupVite(app: Express, server: Server) {
         "index.html"
       );
 
-      // always reload the index.html file from disk incase it changes
+      // Always reload the index.html file from disk in case it changes
       let template = await fs.promises.readFile(clientTemplate, "utf-8");
       template = template.replace(
         `src="/src/main.tsx"`,
