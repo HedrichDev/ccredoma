@@ -39,7 +39,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { insertLocalComercialSchema } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
-import type { LocalComercial, TipoLocal, EstadoLocal } from "@shared/schema";
+import type { LocalComercial } from "@shared/schema";
 import { z } from "zod";
 
 const localFormSchema = insertLocalComercialSchema.extend({
@@ -66,7 +66,7 @@ export default function AdminLocales() {
   });
 
   const createLocalMutation = useMutation({
-    mutationFn: async (data: any) => {
+    mutationFn: async (data: z.infer<typeof localFormSchema>) => {
       return await apiRequest("POST", "/api/locales", data);
     },
     onSuccess: () => {
@@ -182,7 +182,7 @@ export default function AdminLocales() {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {centros?.map((centro: any) => (
+                            {centros?.map((centro) => (
                               <SelectItem key={centro.id} value={centro.id}>
                                 {centro.nombre}
                               </SelectItem>

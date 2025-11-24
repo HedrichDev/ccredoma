@@ -25,8 +25,6 @@ import OwnerMaintenanceRequestsPage from "./pages/owner/maintenance-requests";
 import DeveloperDashboard from "./pages/developer/dashboard";
 import NotFound from "./pages/not-found";
 
-
-
 // New component for public routes wrapped in PublicLayout
 function PublicRoutes() {
   return (

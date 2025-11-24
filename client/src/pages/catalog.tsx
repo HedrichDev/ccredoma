@@ -195,7 +195,7 @@ export default function CatalogPage() {
             </Link>
           </div>
           <p>© 2025 CC REDOMA. Todos los derechos reservados.</p>
-          <p>Development HedrichDev & Asociados</p> 
+          <p>Development HedrichDev & Asociados</p>
         </div>
       </footer>
     </div>

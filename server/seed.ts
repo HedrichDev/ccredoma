@@ -1,40 +1,34 @@
-import { drizzle } from "drizzle-orm/neon-http";
-import { neon } from "@neondatabase/serverless";
+import { db } from "./db";
 import * as schema from "../shared/schema";
-import { config } from "dotenv";
-import path from "path";
-
-// Load environment variables from .env file
-const envPath = path.resolve(process.cwd(), ".env");
-const result = config({ path: envPath });
-
-if (result.error) {
-  console.error("Error loading .env file:", result.error);
-  process.exit(1);
-}
-
-const connectionString = process.env.DATABASE_URL;
-
-if (!connectionString) {
-  console.error(
-    "Error: DATABASE_URL is not set in your .env file." +
-      "\n" +
-      "Please make sure your .env file exists in the project root and contains:" +
-      "\n" +
-      'DATABASE_URL="postgresql://user:password@host:port/dbname"'
-  );
-  process.exit(1);
-}
-
-const sql = neon(connectionString);
-const db = drizzle(sql, { schema });
+import { eq } from "drizzle-orm";
 
 async function main() {
   console.log("Seeding database...");
 
-  // 1. Create a default shopping center if it doesn't exist
+  // 1. Create default roles if they don't exist
+  const defaultRoles = [
+    { nombreRol: "CentroComercialAdmin", permisos: {} },
+    { nombreRol: "LocalOwner", permisos: {} },
+    { nombreRol: "VisitanteExterno", permisos: {} },
+    { nombreRol: "SystemDeveloper", permisos: {} },
+  ];
+
+  for (const roleData of defaultRoles) {
+    const existing = await db.query.roles.findFirst({
+      where: eq(schema.roles.nombreRol, roleData.nombreRol),
+    });
+
+    if (!existing) {
+      await db.insert(schema.roles).values(roleData);
+      console.log(`  -> Created role: ${roleData.nombreRol}`);
+    } else {
+      console.log(`  -> Role ${roleData.nombreRol} already exists. Skipping.`);
+    }
+  }
+
+  // 2. Create a default shopping center if it doesn't exist
   let centroComercial = await db.query.centrosComerciales.findFirst({
-    where: (table, { eq }) => eq(table.nombre, "CC REDOMA"),
+    where: eq(schema.centrosComerciales.nombre, "CC REDOMA"),
   });
 
   if (!centroComercial) {
@@ -58,7 +52,7 @@ async function main() {
 
   console.log(`Using shopping center: ${centroComercial.nombre}`);
 
-  // 2. Define example commercial spaces
+  // 3. Define example commercial spaces
   const localesDeEjemplo: (typeof schema.localesComerciales.$inferInsert)[] = [
     {
       centroComercialId: centroComercial.id,
@@ -120,12 +114,12 @@ async function main() {
     },
   ];
 
-  // 3. Insert the example spaces
+  // 4. Insert the example spaces
   console.log("Inserting example commercial spaces...");
   for (const local of localesDeEjemplo) {
     // Check if local already exists by codigoLocal
     const existing = await db.query.localesComerciales.findFirst({
-      where: (table, { eq }) => eq(table.codigoLocal, local.codigoLocal!),
+      where: eq(schema.localesComerciales.codigoLocal, local.codigoLocal!),
     });
 
     if (!existing) {

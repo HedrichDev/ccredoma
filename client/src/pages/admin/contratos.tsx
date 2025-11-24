@@ -15,12 +15,22 @@ import { FileText, Search } from "lucide-react";
 import { useState } from "react";
 import type { ContratoAlquiler, EstadoContrato } from "@shared/schema";
 
+type ContratoConDetalles = ContratoAlquiler & {
+  local: {
+    codigoLocal: string;
+    areaM2: number;
+    tipoLocal: string;
+  };
+  usuario: {
+    email: string;
+    datosPersonales: unknown;
+  };
+};
+
 export default function AdminContratos() {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { data: contratos, isLoading } = useQuery<
-    (ContratoAlquiler & { local: any; usuario: any })[]
-  >({
+  const { data: contratos, isLoading } = useQuery<ContratoConDetalles[]>({
     queryKey: ["/api/contratos"],
   });
 

@@ -3,8 +3,48 @@
   "WorkspaceRootPath": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\.env||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:.env||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\SETUP_SUPABASE.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SETUP_SUPABASE.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\server\\supabase.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\supabase.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\server\\routes.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\routes.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\server\\index.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\index.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\server\\diagnose.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\diagnose.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\server\\verify-env.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\verify-env.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\supabase-schema.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:supabase-schema.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\pages\\about.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:client\\src\\pages\\about.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\pages\\catalog.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:client\\src\\pages\\catalog.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\pages\\contact.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:client\\src\\pages\\contact.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -13,10 +53,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\pages\\rent-simulator.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:client\\src\\pages\\rent-simulator.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\.env||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:.env||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\design_guidelines.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
@@ -37,14 +73,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\attached_assets\\Pasted-quiero-realizar-este-proyecto-conectado-a-supabase-y-github-bien-implementado-ERP-Simplificado--1763078876934_1763078876945.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:attached_assets\\Pasted-quiero-realizar-este-proyecto-conectado-a-supabase-y-github-bien-implementado-ERP-Simplificado--1763078876934_1763078876945.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\pages\\catalog.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:client\\src\\pages\\catalog.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\SETUP_SUPABASE.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SETUP_SUPABASE.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\LICENSE||{8B382828-6202-11D1-8870-0000F87579D2}",
@@ -79,10 +107,6 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:postcss.config.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\supabase-schema.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:supabase-schema.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
     },
@@ -101,16 +125,20 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\main.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:client\\src\\main.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\supabase-schema.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:supabase-schema.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame"
     }
   ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
-      "VerticalTabListWidth": 168,
+      "VerticalTabListWidth": 100,
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 44,
           "Children": [
             {
               "$type": "Bookmark",
@@ -121,42 +149,73 @@
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:6:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "about.tsx",
-              "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\pages\\about.tsx",
-              "RelativeDocumentMoniker": "client\\src\\pages\\about.tsx",
-              "ToolTip": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\pages\\about.tsx",
-              "RelativeToolTip": "client\\src\\pages\\about.tsx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAKAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "routes.ts",
+              "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\server\\routes.ts",
+              "RelativeDocumentMoniker": "server\\routes.ts",
+              "ToolTip": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\server\\routes.ts",
+              "RelativeToolTip": "server\\routes.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-22T16:38:08.917Z",
+              "WhenOpened": "2025-11-24T20:15:21.139Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "diagnose.ts",
+              "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\server\\diagnose.ts",
+              "RelativeDocumentMoniker": "server\\diagnose.ts",
+              "ToolTip": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\server\\diagnose.ts",
+              "RelativeToolTip": "server\\diagnose.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-11-24T20:15:12.33Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "index.ts",
+              "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\server\\index.ts",
+              "RelativeDocumentMoniker": "server\\index.ts",
+              "ToolTip": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\server\\index.ts",
+              "RelativeToolTip": "server\\index.ts",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-11-24T20:15:10.171Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "verify-env.ts",
+              "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\server\\verify-env.ts",
+              "RelativeDocumentMoniker": "server\\verify-env.ts",
+              "ToolTip": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\server\\verify-env.ts",
+              "RelativeToolTip": "server\\verify-env.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-11-24T20:14:57.211Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "rent-simulator.tsx",
-              "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\pages\\rent-simulator.tsx",
-              "RelativeDocumentMoniker": "client\\src\\pages\\rent-simulator.tsx",
-              "ToolTip": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\pages\\rent-simulator.tsx",
-              "RelativeToolTip": "client\\src\\pages\\rent-simulator.tsx",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAAAMUAAAA9AAAAAAAAAA==",
+              "Title": "supabase.ts",
+              "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\server\\supabase.ts",
+              "RelativeDocumentMoniker": "server\\supabase.ts",
+              "ToolTip": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\server\\supabase.ts",
+              "RelativeToolTip": "server\\supabase.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-22T15:55:26.738Z",
+              "WhenOpened": "2025-11-24T20:13:36.932Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "catalog.tsx",
-              "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\pages\\catalog.tsx",
-              "RelativeDocumentMoniker": "client\\src\\pages\\catalog.tsx",
-              "ToolTip": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\pages\\catalog.tsx",
-              "RelativeToolTip": "client\\src\\pages\\catalog.tsx",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAAALMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T20:02:20.942Z"
             },
             {
               "$type": "Bookmark",
@@ -172,15 +231,7 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:4:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:5:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:6:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
             },
             {
               "$type": "Bookmark",
@@ -191,8 +242,96 @@
               "Name": "ST:1330110878:0:{83107a3e-496a-485e-b455-16ddb978e55e}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:7:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:8:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:9:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:10:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:11:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:12:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:13:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:14:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:15:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:16:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 10,
+              "Title": "contact.tsx",
+              "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\pages\\contact.tsx",
+              "RelativeDocumentMoniker": "client\\src\\pages\\contact.tsx",
+              "ToolTip": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\pages\\contact.tsx",
+              "RelativeToolTip": "client\\src\\pages\\contact.tsx",
+              "ViewState": "AgIAACMAAAAAAAAAAAAQwDQAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-11-22T16:40:57.523Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "about.tsx",
+              "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\pages\\about.tsx",
+              "RelativeDocumentMoniker": "client\\src\\pages\\about.tsx",
+              "ToolTip": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\pages\\about.tsx",
+              "RelativeToolTip": "client\\src\\pages\\about.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-11-22T16:38:08.917Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "rent-simulator.tsx",
+              "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\pages\\rent-simulator.tsx",
+              "RelativeDocumentMoniker": "client\\src\\pages\\rent-simulator.tsx",
+              "ToolTip": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\pages\\rent-simulator.tsx",
+              "RelativeToolTip": "client\\src\\pages\\rent-simulator.tsx",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAAAMUAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-11-22T15:55:26.738Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "catalog.tsx",
+              "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\pages\\catalog.tsx",
+              "RelativeDocumentMoniker": "client\\src\\pages\\catalog.tsx",
+              "ToolTip": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\pages\\catalog.tsx",
+              "RelativeToolTip": "client\\src\\pages\\catalog.tsx",
+              "ViewState": "AgIAABkAAAAAAAAAAAAQwD8AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-11-21T20:02:20.942Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
               "Title": "LICENSE",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\LICENSE",
               "RelativeDocumentMoniker": "LICENSE",
@@ -204,7 +343,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 19,
               "Title": "netlify.toml",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\netlify.toml",
               "RelativeDocumentMoniker": "netlify.toml",
@@ -216,7 +355,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 17,
               "Title": "Pasted-quiero-realizar-este-proyecto-conectado-a-supabase-y-github-bien-implementado-ERP-Simplificado--1763078876934_1763078876945.txt",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\attached_assets\\Pasted-quiero-realizar-este-proyecto-conectado-a-supabase-y-github-bien-implementado-ERP-Simplificado--1763078876934_1763078876945.txt",
               "RelativeDocumentMoniker": "attached_assets\\Pasted-quiero-realizar-este-proyecto-conectado-a-supabase-y-github-bien-implementado-ERP-Simplificado--1763078876934_1763078876945.txt",
@@ -229,7 +368,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 20,
               "Title": "tsconfig.json",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\tsconfig.json",
               "RelativeDocumentMoniker": "tsconfig.json",
@@ -241,7 +380,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 21,
               "Title": "tsconfig.node.json",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\tsconfig.node.json",
               "RelativeDocumentMoniker": "tsconfig.node.json",
@@ -253,7 +392,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 22,
               "Title": "vite.config.ts",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\vite.config.ts",
               "RelativeDocumentMoniker": "vite.config.ts",
@@ -265,7 +404,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 23,
               "Title": "vitest.config.ts",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\vitest.config.ts",
               "RelativeDocumentMoniker": "vitest.config.ts",
@@ -277,7 +416,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 24,
               "Title": "drizzle.config.ts",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\drizzle.config.ts",
               "RelativeDocumentMoniker": "drizzle.config.ts",
@@ -289,7 +428,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 25,
               "Title": "postcss.config.js",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\postcss.config.js",
               "RelativeDocumentMoniker": "postcss.config.js",
@@ -301,18 +440,18 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "supabase-schema.sql",
+              "DocumentIndex": 7,
+              "Title": "supabase-schema.sql ",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\supabase-schema.sql",
               "RelativeDocumentMoniker": "supabase-schema.sql",
-              "ToolTip": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\supabase-schema.sql",
-              "RelativeToolTip": "supabase-schema.sql",
+              "ToolTip": "supabase-schema.sql ",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-11-20T19:57:40.092Z"
+              "WhenOpened": "2025-11-20T19:57:40.092Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 26,
               "Title": "README.md",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\README.md",
               "RelativeDocumentMoniker": "README.md",
@@ -324,19 +463,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 1,
               "Title": "SETUP_SUPABASE.md",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\SETUP_SUPABASE.md",
               "RelativeDocumentMoniker": "SETUP_SUPABASE.md",
               "ToolTip": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\SETUP_SUPABASE.md",
               "RelativeToolTip": "SETUP_SUPABASE.md",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAGkAAAAAAAAAAAAAACYAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2025-11-20T19:52:03.684Z"
+              "WhenOpened": "2025-11-20T19:52:03.684Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 13,
               "Title": "design_guidelines.md",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\design_guidelines.md",
               "RelativeDocumentMoniker": "design_guidelines.md",
@@ -344,12 +484,11 @@
               "RelativeToolTip": "design_guidelines.md",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2025-11-20T19:49:16.158Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T19:49:16.158Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 14,
               "Title": "components.json",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\components.json",
               "RelativeDocumentMoniker": "components.json",
@@ -357,12 +496,11 @@
               "RelativeToolTip": "components.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-11-20T19:49:14.541Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T19:49:14.541Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 15,
               "Title": ".replit",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\.replit",
               "RelativeDocumentMoniker": ".replit",
@@ -370,12 +508,11 @@
               "RelativeToolTip": ".replit",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-11-20T19:49:11.919Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T19:49:11.919Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 16,
               "Title": ".gitignore",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\.gitignore",
               "RelativeDocumentMoniker": ".gitignore",
@@ -383,25 +520,24 @@
               "RelativeToolTip": ".gitignore",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF8SURBVDhPjVNLTgJBEG1lwpoFB3GNK9fieA48hD8iwT/ihwgSDAIHgAGXXsEV18CNzL/LquqZdsYM6kteXqcy3fWqpmpNRBgOhyABBEgpAFVKPIMUcYzUyOU\u002BXM/b2qtU3vkSfRjjZTCAMAw1A2LwzdFoBPP5HNqdzuL27n4juibWI\u002BUshBA1DIkhEx9iEorFotgslQqGYbxxAGFEqt1MxmPWJLbLZdZ\u002Bv89q5PMFPiTR6z2zdaxR0fXA0XTBcVywkb4fwHXjRteecIDNQ7UmExVYAdPcxYaqclN46na5WenMKjtlVnTYwcXlVYaDqImW9beD5N/TeGy32QHXm6hZ03ZgiSQHp2fnWQ4oBmJqWSqwAqZpZjt4aLXAD4J0VqyZsmoubfB8H2r1eoaD6NXZ9HcHO\u002BSA3f4AjifXl8rItOETM8ckB9WTWpYD9RdeZ1PWVWAHWXPQaDb59f/w8LiqHeh1pvGkCaP6qB8yXusoxmuNZ7XmII4O9vGuEF86osuDYRkpYQAAAABJRU5ErkJggg==",
-              "WhenOpened": "2025-11-20T19:49:10.668Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T19:49:10.668Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": ".env",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\.env",
               "RelativeDocumentMoniker": ".env",
               "ToolTip": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\.env",
               "RelativeToolTip": ".env",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAABCAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAABjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2025-11-22T01:33:13.378Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 27,
               "Title": "index.css",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\index.css",
               "RelativeDocumentMoniker": "client\\src\\index.css",
@@ -413,7 +549,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 28,
               "Title": "alert.tsx",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\components\\ui\\alert.tsx",
               "RelativeDocumentMoniker": "client\\src\\components\\ui\\alert.tsx",
@@ -425,7 +561,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 29,
               "Title": "schema.ts",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\shared\\schema.ts",
               "RelativeDocumentMoniker": "shared\\schema.ts",
@@ -437,7 +573,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 30,
               "Title": "main.tsx",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\src\\main.tsx",
               "RelativeDocumentMoniker": "client\\src\\main.tsx",
@@ -449,7 +585,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 11,
               "Title": "index.html",
               "DocumentMoniker": "C:\\Users\\HedrichZone\\source\\repos\\ccredoma\\client\\index.html",
               "RelativeDocumentMoniker": "client\\index.html",
@@ -457,8 +593,11 @@
               "RelativeToolTip": "client\\index.html",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-20T19:46:23.004Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T19:46:23.004Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:4:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
             },
             {
               "$type": "Bookmark",

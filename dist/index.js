@@ -18,15 +18,20 @@ var supabaseAdmin = createClient(
   {
     auth: {
       autoRefreshToken: false,
-      persistSession: false
-    }
+      persistSession: false,
+    },
   }
 );
 async function initializeDatabase() {
   try {
-    const { data: roles2, error: rolesError } = await supabase.from("roles").select("*").limit(1);
+    const { data: roles2, error: rolesError } = await supabase
+      .from("roles")
+      .select("*")
+      .limit(1);
     if (rolesError) {
-      console.log("Database tables might not exist yet. Please create them in Supabase.");
+      console.log(
+        "Database tables might not exist yet. Please create them in Supabase."
+      );
       console.log("Error:", rolesError.message);
     } else {
       console.log("\u2713 Successfully connected to Supabase database");
@@ -38,62 +43,107 @@ async function initializeDatabase() {
 
 // shared/schema.ts
 import { sql } from "drizzle-orm";
-import { pgTable, text, timestamp, decimal, jsonb, uuid } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  text,
+  timestamp,
+  decimal,
+  jsonb,
+  uuid,
+} from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 var roles = pgTable("roles", {
-  id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
+  id: uuid("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
   nombreRol: text("nombre_rol").notNull().unique(),
-  permisos: jsonb("permisos").notNull().default(sql`'{}'::jsonb`),
-  createdAt: timestamp("created_at").notNull().defaultNow()
+  permisos: jsonb("permisos")
+    .notNull()
+    .default(sql`'{}'::jsonb`),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 var usuarios = pgTable("usuarios", {
-  id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
+  id: uuid("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
   email: text("email").notNull().unique(),
   passwordHash: text("password_hash").notNull(),
-  rolId: uuid("rol_id").notNull().references(() => roles.id),
-  datosPersonales: jsonb("datos_personales").notNull().default(sql`'{}'::jsonb`),
+  rolId: uuid("rol_id")
+    .notNull()
+    .references(() => roles.id),
+  datosPersonales: jsonb("datos_personales")
+    .notNull()
+    .default(sql`'{}'::jsonb`),
   estado: text("estado").notNull().default("activo"),
-  createdAt: timestamp("created_at").notNull().defaultNow()
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 var centrosComerciales = pgTable("centros_comerciales", {
-  id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
+  id: uuid("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
   nombre: text("nombre").notNull(),
   direccion: text("direccion").notNull(),
   telefono: text("telefono").notNull(),
   emailContacto: text("email_contacto").notNull(),
-  configuraciones: jsonb("configuraciones").notNull().default(sql`'{}'::jsonb`),
+  configuraciones: jsonb("configuraciones")
+    .notNull()
+    .default(sql`'{}'::jsonb`),
   logoUrl: text("logo_url"),
-  createdAt: timestamp("created_at").notNull().defaultNow()
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 var localesComerciales = pgTable("locales_comerciales", {
-  id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
-  centroComercialId: uuid("centro_comercial_id").notNull().references(() => centrosComerciales.id),
+  id: uuid("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
+  centroComercialId: uuid("centro_comercial_id")
+    .notNull()
+    .references(() => centrosComerciales.id),
   codigoLocal: text("codigo_local").notNull().unique(),
   areaM2: decimal("area_m2", { precision: 10, scale: 2 }).notNull(),
   tipoLocal: text("tipo_local").notNull(),
   piso: text("piso").notNull(),
   estado: text("estado").notNull().default("disponible"),
-  caracteristicas: jsonb("caracteristicas").notNull().default(sql`'{}'::jsonb`),
-  fotosUrls: text("fotos_urls").array().notNull().default(sql`ARRAY[]::text[]`),
+  caracteristicas: jsonb("caracteristicas")
+    .notNull()
+    .default(sql`'{}'::jsonb`),
+  fotosUrls: text("fotos_urls")
+    .array()
+    .notNull()
+    .default(sql`ARRAY[]::text[]`),
   rentaMensual: decimal("renta_mensual", { precision: 10, scale: 2 }).notNull(),
-  createdAt: timestamp("created_at").notNull().defaultNow()
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 var contratosAlquiler = pgTable("contratos_alquiler", {
-  id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
-  localId: uuid("local_id").notNull().references(() => localesComerciales.id),
-  localOwnerId: uuid("local_owner_id").notNull().references(() => usuarios.id),
+  id: uuid("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
+  localId: uuid("local_id")
+    .notNull()
+    .references(() => localesComerciales.id),
+  localOwnerId: uuid("local_owner_id")
+    .notNull()
+    .references(() => usuarios.id),
   fechaInicio: timestamp("fecha_inicio").notNull(),
   fechaFin: timestamp("fecha_fin").notNull(),
   rentaMensual: decimal("renta_mensual", { precision: 10, scale: 2 }).notNull(),
-  depositoGarantia: decimal("deposito_garantia", { precision: 10, scale: 2 }).notNull(),
+  depositoGarantia: decimal("deposito_garantia", {
+    precision: 10,
+    scale: 2,
+  }).notNull(),
   estadoContrato: text("estado_contrato").notNull().default("activo"),
-  terminosEspeciales: jsonb("terminos_especiales").notNull().default(sql`'{}'::jsonb`),
+  terminosEspeciales: jsonb("terminos_especiales")
+    .notNull()
+    .default(sql`'{}'::jsonb`),
   documentoContratoUrl: text("documento_contrato_url"),
-  createdAt: timestamp("created_at").notNull().defaultNow()
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 var pagosAlquiler = pgTable("pagos_alquiler", {
-  id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
-  contratoId: uuid("contrato_id").notNull().references(() => contratosAlquiler.id),
+  id: uuid("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
+  contratoId: uuid("contrato_id")
+    .notNull()
+    .references(() => contratosAlquiler.id),
   mesAnio: text("mes_anio").notNull(),
   monto: decimal("monto", { precision: 10, scale: 2 }).notNull(),
   fechaVencimiento: timestamp("fecha_vencimiento").notNull(),
@@ -101,57 +151,68 @@ var pagosAlquiler = pgTable("pagos_alquiler", {
   estadoPago: text("estado_pago").notNull().default("pendiente"),
   metodoPago: text("metodo_pago"),
   comprobanteUrl: text("comprobante_url"),
-  createdAt: timestamp("created_at").notNull().defaultNow()
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 var solicitudesInformacion = pgTable("solicitudes_informacion", {
-  id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
+  id: uuid("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
   visitanteId: uuid("visitante_id").references(() => usuarios.id),
-  localId: uuid("local_id").notNull().references(() => localesComerciales.id),
+  localId: uuid("local_id")
+    .notNull()
+    .references(() => localesComerciales.id),
   nombreContacto: text("nombre_contacto").notNull(),
   emailContacto: text("email_contacto").notNull(),
   telefonoContacto: text("telefono_contacto"),
   mensaje: text("mensaje").notNull(),
   estadoSolicitud: text("estado_solicitud").notNull().default("nueva"),
   fechaContacto: timestamp("fecha_contacto"),
-  createdAt: timestamp("created_at").notNull().defaultNow()
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 var insertRolSchema = createInsertSchema(roles).omit({
   id: true,
-  createdAt: true
+  createdAt: true,
 });
 var insertUsuarioSchema = createInsertSchema(usuarios).omit({
   id: true,
-  createdAt: true
+  createdAt: true,
 });
 var insertCentroComercialSchema = createInsertSchema(centrosComerciales).omit({
   id: true,
-  createdAt: true
+  createdAt: true,
 });
 var insertLocalComercialSchema = createInsertSchema(localesComerciales).omit({
   id: true,
-  createdAt: true
+  createdAt: true,
 });
 var insertContratoAlquilerSchema = createInsertSchema(contratosAlquiler).omit({
   id: true,
-  createdAt: true
+  createdAt: true,
 });
 var insertPagoAlquilerSchema = createInsertSchema(pagosAlquiler).omit({
   id: true,
-  createdAt: true
+  createdAt: true,
 });
-var insertSolicitudInformacionSchema = createInsertSchema(solicitudesInformacion).omit({
+var insertSolicitudInformacionSchema = createInsertSchema(
+  solicitudesInformacion
+).omit({
   id: true,
-  createdAt: true
+  createdAt: true,
 });
 
 // server/routes.ts
 async function registerRoutes(app2) {
   app2.get("/api/locales", async (req, res) => {
     try {
-      const { data, error } = await supabase.from("locales_comerciales").select(`
+      const { data, error } = await supabase
+        .from("locales_comerciales")
+        .select(
+          `
           *,
           centroComercial:centros_comerciales(nombre)
-        `).order("created_at", { ascending: false });
+        `
+        )
+        .order("created_at", { ascending: false });
       if (error) throw error;
       res.json(data || []);
     } catch (error) {
@@ -162,31 +223,47 @@ async function registerRoutes(app2) {
   app2.post("/api/locales", async (req, res) => {
     try {
       const validatedData = insertLocalComercialSchema.parse(req.body);
-      const { data, error } = await supabaseAdmin.from("locales_comerciales").insert([{
-        centro_comercial_id: validatedData.centroComercialId,
-        codigo_local: validatedData.codigoLocal,
-        area_m2: validatedData.areaM2,
-        tipo_local: validatedData.tipoLocal,
-        piso: validatedData.piso,
-        estado: validatedData.estado,
-        renta_mensual: validatedData.rentaMensual,
-        caracteristicas: validatedData.caracteristicas,
-        fotos_urls: validatedData.fotosUrls
-      }]).select().single();
+      const { data, error } = await supabaseAdmin
+        .from("locales_comerciales")
+        .insert([
+          {
+            centro_comercial_id: validatedData.centroComercialId,
+            codigo_local: validatedData.codigoLocal,
+            area_m2: validatedData.areaM2,
+            tipo_local: validatedData.tipoLocal,
+            piso: validatedData.piso,
+            estado: validatedData.estado,
+            renta_mensual: validatedData.rentaMensual,
+            caracteristicas: validatedData.caracteristicas,
+            fotos_urls: validatedData.fotosUrls,
+          },
+        ])
+        .select()
+        .single();
       if (error) throw error;
       res.json(data);
     } catch (error) {
       console.error("Error creating local:", error);
-      res.status(400).json({ error: error instanceof Error ? error.message : "Error al crear local" });
+      res
+        .status(400)
+        .json({
+          error:
+            error instanceof Error ? error.message : "Error al crear local",
+        });
     }
   });
   app2.get("/api/contratos", async (req, res) => {
     try {
-      const { data, error } = await supabase.from("contratos_alquiler").select(`
+      const { data, error } = await supabase
+        .from("contratos_alquiler")
+        .select(
+          `
           *,
           local:locales_comerciales(codigo_local, area_m2, tipo_local),
           usuario:usuarios(email, datos_personales)
-        `).order("created_at", { ascending: false });
+        `
+        )
+        .order("created_at", { ascending: false });
       if (error) throw error;
       res.json(data || []);
     } catch (error) {
@@ -196,7 +273,10 @@ async function registerRoutes(app2) {
   });
   app2.get("/api/pagos", async (req, res) => {
     try {
-      const { data, error } = await supabase.from("pagos_alquiler").select("*").order("created_at", { ascending: false });
+      const { data, error } = await supabase
+        .from("pagos_alquiler")
+        .select("*")
+        .order("created_at", { ascending: false });
       if (error) throw error;
       res.json(data || []);
     } catch (error) {
@@ -206,10 +286,15 @@ async function registerRoutes(app2) {
   });
   app2.get("/api/solicitudes", async (req, res) => {
     try {
-      const { data, error } = await supabase.from("solicitudes_informacion").select(`
+      const { data, error } = await supabase
+        .from("solicitudes_informacion")
+        .select(
+          `
           *,
           local:locales_comerciales(codigo_local, tipo_local)
-        `).order("created_at", { ascending: false });
+        `
+        )
+        .order("created_at", { ascending: false });
       if (error) throw error;
       res.json(data || []);
     } catch (error) {
@@ -220,29 +305,48 @@ async function registerRoutes(app2) {
   app2.post("/api/solicitudes", async (req, res) => {
     try {
       const validatedData = insertSolicitudInformacionSchema.parse(req.body);
-      const { data, error } = await supabase.from("solicitudes_informacion").insert([{
-        local_id: validatedData.localId,
-        nombre_contacto: validatedData.nombreContacto,
-        email_contacto: validatedData.emailContacto,
-        telefono_contacto: validatedData.telefonoContacto,
-        mensaje: validatedData.mensaje,
-        estado_solicitud: "nueva"
-      }]).select().single();
+      const { data, error } = await supabase
+        .from("solicitudes_informacion")
+        .insert([
+          {
+            local_id: validatedData.localId,
+            nombre_contacto: validatedData.nombreContacto,
+            email_contacto: validatedData.emailContacto,
+            telefono_contacto: validatedData.telefonoContacto,
+            mensaje: validatedData.mensaje,
+            estado_solicitud: "nueva",
+          },
+        ])
+        .select()
+        .single();
       if (error) throw error;
       res.json(data);
     } catch (error) {
       console.error("Error creating solicitud:", error);
-      res.status(400).json({ error: error instanceof Error ? error.message : "Error al crear solicitud" });
+      res
+        .status(400)
+        .json({
+          error:
+            error instanceof Error ? error.message : "Error al crear solicitud",
+        });
     }
   });
   app2.patch("/api/solicitudes/:id", async (req, res) => {
     try {
       const { id } = req.params;
       const { estadoSolicitud } = req.body;
-      const { data, error } = await supabaseAdmin.from("solicitudes_informacion").update({
-        estado_solicitud: estadoSolicitud,
-        fecha_contacto: estadoSolicitud === "contactada" ? (/* @__PURE__ */ new Date()).toISOString() : void 0
-      }).eq("id", id).select().single();
+      const { data, error } = await supabaseAdmin
+        .from("solicitudes_informacion")
+        .update({
+          estado_solicitud: estadoSolicitud,
+          fecha_contacto:
+            estadoSolicitud === "contactada"
+              ? /* @__PURE__ */ new Date().toISOString()
+              : void 0,
+        })
+        .eq("id", id)
+        .select()
+        .single();
       if (error) throw error;
       res.json(data);
     } catch (error) {
@@ -252,7 +356,10 @@ async function registerRoutes(app2) {
   });
   app2.get("/api/centros", async (req, res) => {
     try {
-      const { data, error } = await supabase.from("centros_comerciales").select("id, nombre, direccion").order("nombre");
+      const { data, error } = await supabase
+        .from("centros_comerciales")
+        .select("id, nombre, direccion")
+        .order("nombre");
       if (error) throw error;
       res.json(data || []);
     } catch (error) {
@@ -264,7 +371,12 @@ async function registerRoutes(app2) {
     try {
       const { id } = req.params;
       const updates = req.body;
-      const { data, error } = await supabaseAdmin.from("locales_comerciales").update(updates).eq("id", id).select().single();
+      const { data, error } = await supabaseAdmin
+        .from("locales_comerciales")
+        .update(updates)
+        .eq("id", id)
+        .select()
+        .single();
       if (error) throw error;
       res.json(data);
     } catch (error) {
@@ -275,7 +387,10 @@ async function registerRoutes(app2) {
   app2.delete("/api/locales/:id", async (req, res) => {
     try {
       const { id } = req.params;
-      const { error } = await supabaseAdmin.from("locales_comerciales").delete().eq("id", id);
+      const { error } = await supabaseAdmin
+        .from("locales_comerciales")
+        .delete()
+        .eq("id", id);
       if (error) throw error;
       res.json({ success: true });
     } catch (error) {
@@ -289,10 +404,17 @@ async function registerRoutes(app2) {
       if (!authHeader) {
         return res.status(401).json({ error: "No autorizado" });
       }
-      const { data, error } = await supabase.from("contratos_alquiler").select(`
+      const { data, error } = await supabase
+        .from("contratos_alquiler")
+        .select(
+          `
           *,
           local:locales_comerciales(*)
-        `).eq("estado_contrato", "activo").limit(1).single();
+        `
+        )
+        .eq("estado_contrato", "activo")
+        .limit(1)
+        .single();
       if (error) throw error;
       res.json(data);
     } catch (error) {
@@ -306,7 +428,10 @@ async function registerRoutes(app2) {
       if (!authHeader) {
         return res.status(401).json({ error: "No autorizado" });
       }
-      const { data, error } = await supabase.from("pagos_alquiler").select("*").order("created_at", { ascending: false });
+      const { data, error } = await supabase
+        .from("pagos_alquiler")
+        .select("*")
+        .order("created_at", { ascending: false });
       if (error) throw error;
       res.json(data || []);
     } catch (error) {
@@ -320,19 +445,25 @@ async function registerRoutes(app2) {
         { count: totalUsers },
         { count: totalLocales },
         { count: totalContratos },
-        { count: totalPagos }
+        { count: totalPagos },
       ] = await Promise.all([
         supabase.from("usuarios").select("*", { count: "exact", head: true }),
-        supabase.from("locales_comerciales").select("*", { count: "exact", head: true }),
-        supabase.from("contratos_alquiler").select("*", { count: "exact", head: true }),
-        supabase.from("pagos_alquiler").select("*", { count: "exact", head: true })
+        supabase
+          .from("locales_comerciales")
+          .select("*", { count: "exact", head: true }),
+        supabase
+          .from("contratos_alquiler")
+          .select("*", { count: "exact", head: true }),
+        supabase
+          .from("pagos_alquiler")
+          .select("*", { count: "exact", head: true }),
       ]);
       res.json({
         totalUsers: totalUsers || 0,
         totalLocales: totalLocales || 0,
         totalContratos: totalContratos || 0,
         totalPagos: totalPagos || 0,
-        activeUsers: 0
+        activeUsers: 0,
       });
     } catch (error) {
       console.error("Error fetching system stats:", error);
@@ -358,44 +489,46 @@ var vite_config_default = defineConfig({
   plugins: [
     react(),
     runtimeErrorOverlay(),
-    ...process.env.NODE_ENV !== "production" && process.env.REPL_ID !== void 0 ? [
-      await import("@replit/vite-plugin-cartographer").then(
-        (m) => m.cartographer()
-      ),
-      await import("@replit/vite-plugin-dev-banner").then(
-        (m) => m.devBanner()
-      )
-    ] : []
+    ...(process.env.NODE_ENV !== "production" && process.env.REPL_ID !== void 0
+      ? [
+          await import("@replit/vite-plugin-cartographer").then((m) =>
+            m.cartographer()
+          ),
+          await import("@replit/vite-plugin-dev-banner").then((m) =>
+            m.devBanner()
+          ),
+        ]
+      : []),
   ],
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
       "@shared": path.resolve(import.meta.dirname, "shared"),
-      "@assets": path.resolve(import.meta.dirname, "attached_assets")
-    }
+      "@assets": path.resolve(import.meta.dirname, "attached_assets"),
+    },
   },
   root: path.resolve(import.meta.dirname, "client"),
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
-    emptyOutDir: true
+    emptyOutDir: true,
   },
   server: {
     fs: {
       strict: true,
-      deny: ["**/.*"]
-    }
-  }
+      deny: ["**/.*"],
+    },
+  },
 });
 
 // server/vite.ts
 import { nanoid } from "nanoid";
 var viteLogger = createLogger();
 function log(message, source = "express") {
-  const formattedTime = (/* @__PURE__ */ new Date()).toLocaleTimeString("en-US", {
+  const formattedTime = /* @__PURE__ */ new Date().toLocaleTimeString("en-US", {
     hour: "numeric",
     minute: "2-digit",
     second: "2-digit",
-    hour12: true
+    hour12: true,
   });
   console.log(`${formattedTime} [${source}] ${message}`);
 }
@@ -403,7 +536,7 @@ async function setupVite(app2, server) {
   const serverOptions = {
     middlewareMode: true,
     hmr: { server },
-    allowedHosts: true
+    allowedHosts: true,
   };
   const vite = await createViteServer({
     ...vite_config_default,
@@ -413,10 +546,10 @@ async function setupVite(app2, server) {
       error: (msg, options) => {
         viteLogger.error(msg, options);
         process.exit(1);
-      }
+      },
     },
     server: serverOptions,
-    appType: "custom"
+    appType: "custom",
   });
   app2.use(vite.middlewares);
   app2.use("*", async (req, res, next) => {
@@ -456,18 +589,20 @@ function serveStatic(app2) {
 
 // server/index.ts
 var app = express2();
-app.use(express2.json({
-  verify: (req, _res, buf) => {
-    req.rawBody = buf;
-  }
-}));
+app.use(
+  express2.json({
+    verify: (req, _res, buf) => {
+      req.rawBody = buf;
+    },
+  })
+);
 app.use(express2.urlencoded({ extended: false }));
 app.use((req, res, next) => {
   const start = Date.now();
   const path3 = req.path;
   let capturedJsonResponse = void 0;
   const originalResJson = res.json;
-  res.json = function(bodyJson, ...args) {
+  res.json = function (bodyJson, ...args) {
     capturedJsonResponse = bodyJson;
     return originalResJson.apply(res, [bodyJson, ...args]);
   };
@@ -501,11 +636,14 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
   const port = parseInt(process.env.PORT || "5000", 10);
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true
-  }, () => {
-    log(`serving on port ${port}`);
-  });
+  server.listen(
+    {
+      port,
+      host: "0.0.0.0",
+      reusePort: true,
+    },
+    () => {
+      log(`serving on port ${port}`);
+    }
+  );
 })();

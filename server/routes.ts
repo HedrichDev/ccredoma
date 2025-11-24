@@ -1,8 +1,15 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { supabase, supabaseAdmin } from "./supabase";
-import { z } from "zod";
+import { db } from "./db";
+import { eq, desc, and } from "drizzle-orm";
 import {
+  localesComerciales,
+  centrosComerciales,
+  contratosAlquiler,
+  pagosAlquiler,
+  solicitudesInformacion,
+  usuarios,
+  roles,
   insertLocalComercialSchema,
   insertSolicitudInformacionSchema,
 } from "@shared/schema";
@@ -11,23 +18,98 @@ import {
   requireRole,
   type AuthenticatedRequest,
 } from "./middleware/auth";
+import { signIn, signUp } from "./auth";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Auth routes
+  app.post("/api/auth/signin", async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      if (!email || !password) {
+        return res.status(400).json({ error: "Email y contraseña requeridos" });
+      }
+
+      const result = await signIn(email, password);
+      if (!result) {
+        return res.status(401).json({ error: "Credenciales inválidas" });
+      }
+
+      res.json({ user: result.user, token: result.token });
+    } catch (error) {
+      console.error("Error signing in:", error);
+      res.status(500).json({
+        error: error instanceof Error ? error.message : "Error al iniciar sesión",
+      });
+    }
+  });
+
+  app.post("/api/auth/signup", async (req, res) => {
+    try {
+      const { nombre, email, password } = req.body;
+      if (!nombre || !email || !password) {
+        return res
+          .status(400)
+          .json({ error: "Nombre, email y contraseña requeridos" });
+      }
+
+      await signUp(nombre, email, password);
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error signing up:", error);
+      res.status(400).json({
+        error: error instanceof Error ? error.message : "Error al registrarse",
+      });
+    }
+  });
+
+  app.get("/api/auth/me", authenticateUser, async (req: AuthenticatedRequest, res) => {
+    try {
+      if (!req.user) {
+        return res.status(401).json({ error: "No autorizado" });
+      }
+
+      const { getUserById } = await import("./auth");
+      const user = await getUserById(req.user.id);
+
+      if (!user) {
+        return res.status(404).json({ error: "Usuario no encontrado" });
+      }
+
+      res.json(user);
+    } catch (error) {
+      console.error("Error fetching current user:", error);
+      res.status(500).json({ error: "Error al obtener usuario" });
+    }
+  });
+
   // Public route for browsing locales
   app.get("/api/locales", authenticateUser, async (req, res) => {
     try {
-      const { data, error } = await supabase
-        .from("locales_comerciales")
-        .select(
-          `
-          *,
-          centroComercial:centros_comerciales(nombre)
-        `
+      const locales = await db
+        .select({
+          id: localesComerciales.id,
+          centroComercialId: localesComerciales.centroComercialId,
+          codigoLocal: localesComerciales.codigoLocal,
+          areaM2: localesComerciales.areaM2,
+          tipoLocal: localesComerciales.tipoLocal,
+          piso: localesComerciales.piso,
+          estado: localesComerciales.estado,
+          caracteristicas: localesComerciales.caracteristicas,
+          fotosUrls: localesComerciales.fotosUrls,
+          rentaMensual: localesComerciales.rentaMensual,
+          createdAt: localesComerciales.createdAt,
+          centroComercial: {
+            nombre: centrosComerciales.nombre,
+          },
+        })
+        .from(localesComerciales)
+        .innerJoin(
+          centrosComerciales,
+          eq(localesComerciales.centroComercialId, centrosComerciales.id)
         )
-        .order("created_at", { ascending: false });
+        .orderBy(desc(localesComerciales.createdAt));
 
-      if (error) throw error;
-      res.json(data || []);
+      res.json(locales);
     } catch (error) {
       console.error("Error fetching locales:", error);
       res.status(500).json({ error: "Error al obtener locales" });
@@ -43,26 +125,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         const validatedData = insertLocalComercialSchema.parse(req.body);
 
-        const { data, error } = await supabaseAdmin
-          .from("locales_comerciales")
-          .insert([
-            {
-              centro_comercial_id: validatedData.centroComercialId,
-              codigo_local: validatedData.codigoLocal,
-              area_m2: validatedData.areaM2,
-              tipo_local: validatedData.tipoLocal,
-              piso: validatedData.piso,
-              estado: validatedData.estado,
-              renta_mensual: validatedData.rentaMensual,
-              caracteristicas: validatedData.caracteristicas,
-              fotos_urls: validatedData.fotosUrls,
-            },
-          ])
-          .select()
-          .single();
+        const [newLocal] = await db
+          .insert(localesComerciales)
+          .values({
+            centroComercialId: validatedData.centroComercialId,
+            codigoLocal: validatedData.codigoLocal,
+            areaM2: validatedData.areaM2,
+            tipoLocal: validatedData.tipoLocal,
+            piso: validatedData.piso,
+            estado: validatedData.estado,
+            rentaMensual: validatedData.rentaMensual,
+            caracteristicas: validatedData.caracteristicas,
+            fotosUrls: validatedData.fotosUrls,
+          })
+          .returning();
 
-        if (error) throw error;
-        res.json(data);
+        res.json(newLocal);
       } catch (error) {
         console.error("Error creating local:", error);
         res.status(400).json({
@@ -80,19 +158,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
     requireRole("CentroComercialAdmin"),
     async (req, res) => {
       try {
-        const { data, error } = await supabase
-          .from("contratos_alquiler")
-          .select(
-            `
-          *,
-          local:locales_comerciales(codigo_local, area_m2, tipo_local),
-          usuario:usuarios(email, datos_personales)
-        `
+        const contratos = await db
+          .select({
+            id: contratosAlquiler.id,
+            localId: contratosAlquiler.localId,
+            localOwnerId: contratosAlquiler.localOwnerId,
+            fechaInicio: contratosAlquiler.fechaInicio,
+            fechaFin: contratosAlquiler.fechaFin,
+            rentaMensual: contratosAlquiler.rentaMensual,
+            depositoGarantia: contratosAlquiler.depositoGarantia,
+            estadoContrato: contratosAlquiler.estadoContrato,
+            terminosEspeciales: contratosAlquiler.terminosEspeciales,
+            documentoContratoUrl: contratosAlquiler.documentoContratoUrl,
+            createdAt: contratosAlquiler.createdAt,
+            local: {
+              codigoLocal: localesComerciales.codigoLocal,
+              areaM2: localesComerciales.areaM2,
+              tipoLocal: localesComerciales.tipoLocal,
+            },
+            usuario: {
+              email: usuarios.email,
+              datosPersonales: usuarios.datosPersonales,
+            },
+          })
+          .from(contratosAlquiler)
+          .innerJoin(
+            localesComerciales,
+            eq(contratosAlquiler.localId, localesComerciales.id)
           )
-          .order("created_at", { ascending: false });
+          .innerJoin(usuarios, eq(contratosAlquiler.localOwnerId, usuarios.id))
+          .orderBy(desc(contratosAlquiler.createdAt));
 
-        if (error) throw error;
-        res.json(data || []);
+        res.json(contratos);
       } catch (error) {
         console.error("Error fetching contratos:", error);
         res.status(500).json({ error: "Error al obtener contratos" });
@@ -107,13 +204,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     requireRole("CentroComercialAdmin"),
     async (req, res) => {
       try {
-        const { data, error } = await supabase
-          .from("pagos_alquiler")
-          .select("*")
-          .order("created_at", { ascending: false });
+        const pagos = await db
+          .select()
+          .from(pagosAlquiler)
+          .orderBy(desc(pagosAlquiler.createdAt));
 
-        if (error) throw error;
-        res.json(data || []);
+        res.json(pagos);
       } catch (error) {
         console.error("Error fetching pagos:", error);
         res.status(500).json({ error: "Error al obtener pagos" });
@@ -128,18 +224,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
     requireRole("CentroComercialAdmin"),
     async (req, res) => {
       try {
-        const { data, error } = await supabase
-          .from("solicitudes_informacion")
-          .select(
-            `
-          *,
-          local:locales_comerciales(codigo_local, tipo_local)
-        `
+        const solicitudes = await db
+          .select({
+            id: solicitudesInformacion.id,
+            visitanteId: solicitudesInformacion.visitanteId,
+            localId: solicitudesInformacion.localId,
+            nombreContacto: solicitudesInformacion.nombreContacto,
+            emailContacto: solicitudesInformacion.emailContacto,
+            telefonoContacto: solicitudesInformacion.telefonoContacto,
+            mensaje: solicitudesInformacion.mensaje,
+            estadoSolicitud: solicitudesInformacion.estadoSolicitud,
+            fechaContacto: solicitudesInformacion.fechaContacto,
+            createdAt: solicitudesInformacion.createdAt,
+            local: {
+              codigoLocal: localesComerciales.codigoLocal,
+              tipoLocal: localesComerciales.tipoLocal,
+            },
+          })
+          .from(solicitudesInformacion)
+          .leftJoin(
+            localesComerciales,
+            eq(solicitudesInformacion.localId, localesComerciales.id)
           )
-          .order("created_at", { ascending: false });
+          .orderBy(desc(solicitudesInformacion.createdAt));
 
-        if (error) throw error;
-        res.json(data || []);
+        res.json(solicitudes);
       } catch (error) {
         console.error("Error fetching solicitudes:", error);
         res.status(500).json({ error: "Error al obtener solicitudes" });
@@ -152,23 +261,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedData = insertSolicitudInformacionSchema.parse(req.body);
 
-      const { data, error } = await supabase
-        .from("solicitudes_informacion")
-        .insert([
-          {
-            local_id: validatedData.localId,
-            nombre_contacto: validatedData.nombreContacto,
-            email_contacto: validatedData.emailContacto,
-            telefono_contacto: validatedData.telefonoContacto,
-            mensaje: validatedData.mensaje,
-            estado_solicitud: "nueva",
-          },
-        ])
-        .select()
-        .single();
+      const [newSolicitud] = await db
+        .insert(solicitudesInformacion)
+        .values({
+          localId: validatedData.localId,
+          visitanteId: validatedData.visitanteId,
+          nombreContacto: validatedData.nombreContacto,
+          emailContacto: validatedData.emailContacto,
+          telefonoContacto: validatedData.telefonoContacto,
+          mensaje: validatedData.mensaje,
+          estadoSolicitud: "nueva",
+        })
+        .returning();
 
-      if (error) throw error;
-      res.json(data);
+      res.json(newSolicitud);
     } catch (error) {
       console.error("Error creating solicitud:", error);
       res.status(400).json({
@@ -188,21 +294,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const { id } = req.params;
         const { estadoSolicitud } = req.body;
 
-        const { data, error } = await supabaseAdmin
-          .from("solicitudes_informacion")
-          .update({
-            estado_solicitud: estadoSolicitud,
-            fecha_contacto:
-              estadoSolicitud === "contactada"
-                ? new Date().toISOString()
-                : undefined,
+        const [updated] = await db
+          .update(solicitudesInformacion)
+          .set({
+            estadoSolicitud,
+            fechaContacto:
+              estadoSolicitud === "contactada" ? new Date() : undefined,
           })
-          .eq("id", id)
-          .select()
-          .single();
+          .where(eq(solicitudesInformacion.id, id))
+          .returning();
 
-        if (error) throw error;
-        res.json(data);
+        if (!updated) {
+          return res.status(404).json({ error: "Solicitud no encontrada" });
+        }
+
+        res.json(updated);
       } catch (error) {
         console.error("Error updating solicitud:", error);
         res.status(400).json({ error: "Error al actualizar solicitud" });
@@ -213,13 +319,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Authenticated route for browsing centros comerciales
   app.get("/api/centros", authenticateUser, async (req, res) => {
     try {
-      const { data, error } = await supabase
-        .from("centros_comerciales")
-        .select("id, nombre, direccion")
-        .order("nombre");
+      const centros = await db
+        .select({
+          id: centrosComerciales.id,
+          nombre: centrosComerciales.nombre,
+          direccion: centrosComerciales.direccion,
+        })
+        .from(centrosComerciales)
+        .orderBy(centrosComerciales.nombre);
 
-      if (error) throw error;
-      res.json(data || []);
+      res.json(centros);
     } catch (error) {
       console.error("Error fetching centros:", error);
       res.status(500).json({ error: "Error al obtener centros" });
@@ -236,15 +345,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const { id } = req.params;
         const updates = req.body;
 
-        const { data, error } = await supabaseAdmin
-          .from("locales_comerciales")
-          .update(updates)
-          .eq("id", id)
-          .select()
-          .single();
+        const [updated] = await db
+          .update(localesComerciales)
+          .set(updates)
+          .where(eq(localesComerciales.id, id))
+          .returning();
 
-        if (error) throw error;
-        res.json(data);
+        if (!updated) {
+          return res.status(404).json({ error: "Local no encontrado" });
+        }
+
+        res.json(updated);
       } catch (error) {
         console.error("Error updating local:", error);
         res.status(400).json({ error: "Error al actualizar local" });
@@ -261,12 +372,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         const { id } = req.params;
 
-        const { error } = await supabaseAdmin
-          .from("locales_comerciales")
-          .delete()
-          .eq("id", id);
+        await db
+          .delete(localesComerciales)
+          .where(eq(localesComerciales.id, id));
 
-        if (error) throw error;
         res.json({ success: true });
       } catch (error) {
         console.error("Error deleting local:", error);
@@ -289,21 +398,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
             .json({ error: "No autorizado - ID de usuario no encontrado" });
         }
 
-        const { data, error } = await supabase
-          .from("contratos_alquiler")
-          .select(
-            `
-          *,
-          local:locales_comerciales(*)
-        `
+        const [contrato] = await db
+          .select({
+            id: contratosAlquiler.id,
+            localId: contratosAlquiler.localId,
+            localOwnerId: contratosAlquiler.localOwnerId,
+            fechaInicio: contratosAlquiler.fechaInicio,
+            fechaFin: contratosAlquiler.fechaFin,
+            rentaMensual: contratosAlquiler.rentaMensual,
+            depositoGarantia: contratosAlquiler.depositoGarantia,
+            estadoContrato: contratosAlquiler.estadoContrato,
+            terminosEspeciales: contratosAlquiler.terminosEspeciales,
+            documentoContratoUrl: contratosAlquiler.documentoContratoUrl,
+            createdAt: contratosAlquiler.createdAt,
+            local: localesComerciales,
+          })
+          .from(contratosAlquiler)
+          .innerJoin(
+            localesComerciales,
+            eq(contratosAlquiler.localId, localesComerciales.id)
           )
-          .eq("usuario_id", userId)
-          .eq("estado_contrato", "activo")
-          .limit(1)
-          .single();
+          .where(
+            and(
+              eq(contratosAlquiler.localOwnerId, userId),
+              eq(contratosAlquiler.estadoContrato, "activo")
+            )
+          )
+          .limit(1);
 
-        if (error) throw error;
-        res.json(data);
+        if (!contrato) {
+          return res.status(404).json({ error: "Contrato no encontrado" });
+        }
+
+        res.json(contrato);
       } catch (error) {
         console.error("Error fetching mi contrato:", error);
         res.status(500).json({ error: "Error al obtener contrato" });
@@ -326,27 +453,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
 
         // First, get the user's contract to identify the contract ID
-        const { data: contrato, error: contratoError } = await supabase
-          .from("contratos_alquiler")
-          .select("id")
-          .eq("usuario_id", userId)
-          .limit(1)
-          .single();
+        const [contrato] = await db
+          .select({ id: contratosAlquiler.id })
+          .from(contratosAlquiler)
+          .where(eq(contratosAlquiler.localOwnerId, userId))
+          .limit(1);
 
-        if (contratoError || !contrato) {
+        if (!contrato) {
           return res
             .status(404)
             .json({ error: "No se encontró un contrato para este usuario." });
         }
 
-        const { data, error } = await supabase
-          .from("pagos_alquiler")
-          .select("*")
-          .eq("contrato_id", contrato.id)
-          .order("created_at", { ascending: false });
+        const pagos = await db
+          .select()
+          .from(pagosAlquiler)
+          .where(eq(pagosAlquiler.contratoId, contrato.id))
+          .orderBy(desc(pagosAlquiler.createdAt));
 
-        if (error) throw error;
-        res.json(data || []);
+        res.json(pagos);
       } catch (error) {
         console.error("Error fetching mis pagos:", error);
         res.status(500).json({ error: "Error al obtener pagos" });
@@ -361,29 +486,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
     requireRole("CentroComercialAdmin", "SystemDeveloper"),
     async (req, res) => {
       try {
-        const [
-          { count: totalUsers },
-          { count: totalLocales },
-          { count: totalContratos },
-          { count: totalPagos },
-        ] = await Promise.all([
-          supabase.from("usuarios").select("*", { count: "exact", head: true }),
-          supabase
-            .from("locales_comerciales")
-            .select("*", { count: "exact", head: true }),
-          supabase
-            .from("contratos_alquiler")
-            .select("*", { count: "exact", head: true }),
-          supabase
-            .from("pagos_alquiler")
-            .select("*", { count: "exact", head: true }),
-        ]);
+        const [totalUsers] = await db
+          .select({ count: usuarios.id })
+          .from(usuarios);
+        const [totalLocales] = await db
+          .select({ count: localesComerciales.id })
+          .from(localesComerciales);
+        const [totalContratos] = await db
+          .select({ count: contratosAlquiler.id })
+          .from(contratosAlquiler);
+        const [totalPagos] = await db
+          .select({ count: pagosAlquiler.id })
+          .from(pagosAlquiler);
+
+        // Get actual counts
+        const usersCount = await db.select().from(usuarios);
+        const localesCount = await db.select().from(localesComerciales);
+        const contratosCount = await db.select().from(contratosAlquiler);
+        const pagosCount = await db.select().from(pagosAlquiler);
 
         res.json({
-          totalUsers: totalUsers || 0,
-          totalLocales: totalLocales || 0,
-          totalContratos: totalContratos || 0,
-          totalPagos: totalPagos || 0,
+          totalUsers: usersCount.length,
+          totalLocales: localesCount.length,
+          totalContratos: contratosCount.length,
+          totalPagos: pagosCount.length,
           activeUsers: 0,
         });
       } catch (error) {

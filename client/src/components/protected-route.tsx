@@ -7,7 +7,7 @@ import { Skeleton } from "./ui/skeleton";
 import type { RolNombre } from "@shared/schema";
 
 interface ProtectedRouteProps {
-  component: React.ComponentType<any>;
+  component: React.ElementType;
   requiredRol: RolNombre;
 }
 

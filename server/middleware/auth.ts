@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { supabase } from "../supabase";
+import { verifyToken, getUserById } from "../auth";
 
 export interface AuthenticatedRequest extends Request {
   user?: {
@@ -22,45 +22,24 @@ export async function authenticateUser(
     }
 
     const token = authHeader.substring(7);
+    const payload = verifyToken(token);
 
-    const {
-      data: { user },
-      error,
-    } = await supabase.auth.getUser(token);
-
-    if (error || !user) {
+    if (!payload) {
       return res.status(401).json({ error: "Token inválido" });
     }
 
-    const { data: userData, error: userError } = await supabase
-      .from("usuarios")
-      .select(
-        `
-        id,
-        email,
-        rol_id,
-        roles (nombre_rol)
-      `
-      )
-      .eq("email", user.email)
-      .single();
+    const user = await getUserById(payload.userId);
 
-    if (
-      userError ||
-      !userData ||
-      !userData.roles ||
-      !Array.isArray(userData.roles) ||
-      userData.roles.length === 0
-    ) {
+    if (!user) {
       return res
         .status(401)
         .json({ error: "Usuario no encontrado o sin rol asignado" });
     }
 
     req.user = {
-      id: userData.id,
-      email: userData.email,
-      rol: userData.roles[0].nombre_rol,
+      id: user.id,
+      email: user.email,
+      rol: user.rol,
     };
 
     next();

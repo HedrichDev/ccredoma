@@ -1,129 +1,137 @@
-import { sql } from "drizzle-orm";
 import {
-  pgTable,
+  sqliteTable,
   text,
-  varchar,
-  timestamp,
-  decimal,
-  jsonb,
-  uuid,
-} from "drizzle-orm/pg-core";
+  integer,
+  real,
+} from "drizzle-orm/sqlite-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
+import { randomUUID } from "crypto";
 
-export const roles = pgTable("roles", {
-  id: uuid("id")
+// Helper function to generate UUIDs
+const uuid = () => randomUUID();
+
+export const roles = sqliteTable("roles", {
+  id: text("id")
     .primaryKey()
-    .default(sql`gen_random_uuid()`),
+    .$defaultFn(uuid),
   nombreRol: text("nombre_rol").notNull().unique(),
-  permisos: jsonb("permisos")
+  permisos: text("permisos", { mode: "json" })
     .notNull()
-    .default(sql`'{}'::jsonb`),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
+    .default("{}"),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
 });
 
-export const usuarios = pgTable("usuarios", {
-  id: uuid("id")
+export const usuarios = sqliteTable("usuarios", {
+  id: text("id")
     .primaryKey()
-    .default(sql`gen_random_uuid()`),
+    .$defaultFn(uuid),
   email: text("email").notNull().unique(),
   passwordHash: text("password_hash").notNull(),
-  rolId: uuid("rol_id")
+  rolId: text("rol_id")
     .notNull()
     .references(() => roles.id),
-  datosPersonales: jsonb("datos_personales")
+  datosPersonales: text("datos_personales", { mode: "json" })
     .notNull()
-    .default(sql`'{}'::jsonb`),
+    .default("{}"),
   estado: text("estado").notNull().default("activo"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
 });
 
-export const centrosComerciales = pgTable("centros_comerciales", {
-  id: uuid("id")
+export const centrosComerciales = sqliteTable("centros_comerciales", {
+  id: text("id")
     .primaryKey()
-    .default(sql`gen_random_uuid()`),
+    .$defaultFn(uuid),
   nombre: text("nombre").notNull(),
   direccion: text("direccion").notNull(),
   telefono: text("telefono").notNull(),
   emailContacto: text("email_contacto").notNull(),
-  configuraciones: jsonb("configuraciones")
+  configuraciones: text("configuraciones", { mode: "json" })
     .notNull()
-    .default(sql`'{}'::jsonb`),
+    .default("{}"),
   logoUrl: text("logo_url"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
 });
 
-export const localesComerciales = pgTable("locales_comerciales", {
-  id: uuid("id")
+export const localesComerciales = sqliteTable("locales_comerciales", {
+  id: text("id")
     .primaryKey()
-    .default(sql`gen_random_uuid()`),
-  centroComercialId: uuid("centro_comercial_id")
+    .$defaultFn(uuid),
+  centroComercialId: text("centro_comercial_id")
     .notNull()
     .references(() => centrosComerciales.id),
   codigoLocal: text("codigo_local").notNull().unique(),
-  areaM2: decimal("area_m2", { precision: 10, scale: 2 }).notNull(),
+  areaM2: text("area_m2").notNull(), // Using text to maintain precision
   tipoLocal: text("tipo_local").notNull(),
   piso: text("piso").notNull(),
   estado: text("estado").notNull().default("disponible"),
-  caracteristicas: jsonb("caracteristicas")
+  caracteristicas: text("caracteristicas", { mode: "json" })
     .notNull()
-    .default(sql`'{}'::jsonb`),
-  fotosUrls: text("fotos_urls")
-    .array()
+    .default("{}"),
+  fotosUrls: text("fotos_urls", { mode: "json" })
     .notNull()
-    .default(sql`ARRAY[]::text[]`),
-  rentaMensual: decimal("renta_mensual", { precision: 10, scale: 2 }).notNull(),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
+    .default("[]"),
+  rentaMensual: text("renta_mensual").notNull(), // Using text to maintain precision
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
 });
 
-export const contratosAlquiler = pgTable("contratos_alquiler", {
-  id: uuid("id")
+export const contratosAlquiler = sqliteTable("contratos_alquiler", {
+  id: text("id")
     .primaryKey()
-    .default(sql`gen_random_uuid()`),
-  localId: uuid("local_id")
+    .$defaultFn(uuid),
+  localId: text("local_id")
     .notNull()
     .references(() => localesComerciales.id),
-  localOwnerId: uuid("local_owner_id")
+  localOwnerId: text("local_owner_id")
     .notNull()
     .references(() => usuarios.id),
-  fechaInicio: timestamp("fecha_inicio").notNull(),
-  fechaFin: timestamp("fecha_fin").notNull(),
-  rentaMensual: decimal("renta_mensual", { precision: 10, scale: 2 }).notNull(),
-  depositoGarantia: decimal("deposito_garantia", {
-    precision: 10,
-    scale: 2,
-  }).notNull(),
+  fechaInicio: integer("fecha_inicio", { mode: "timestamp" }).notNull(),
+  fechaFin: integer("fecha_fin", { mode: "timestamp" }).notNull(),
+  rentaMensual: text("renta_mensual").notNull(), // Using text to maintain precision
+  depositoGarantia: text("deposito_garantia").notNull(), // Using text to maintain precision
   estadoContrato: text("estado_contrato").notNull().default("activo"),
-  terminosEspeciales: jsonb("terminos_especiales")
+  terminosEspeciales: text("terminos_especiales", { mode: "json" })
     .notNull()
-    .default(sql`'{}'::jsonb`),
+    .default("{}"),
   documentoContratoUrl: text("documento_contrato_url"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
 });
 
-export const pagosAlquiler = pgTable("pagos_alquiler", {
-  id: uuid("id")
+export const pagosAlquiler = sqliteTable("pagos_alquiler", {
+  id: text("id")
     .primaryKey()
-    .default(sql`gen_random_uuid()`),
-  contratoId: uuid("contrato_id")
+    .$defaultFn(uuid),
+  contratoId: text("contrato_id")
     .notNull()
     .references(() => contratosAlquiler.id),
   mesAnio: text("mes_anio").notNull(),
-  monto: decimal("monto", { precision: 10, scale: 2 }).notNull(),
-  fechaVencimiento: timestamp("fecha_vencimiento").notNull(),
-  fechaPago: timestamp("fecha_pago"),
+  monto: text("monto").notNull(), // Using text to maintain precision
+  fechaVencimiento: integer("fecha_vencimiento", { mode: "timestamp" }).notNull(),
+  fechaPago: integer("fecha_pago", { mode: "timestamp" }),
   estadoPago: text("estado_pago").notNull().default("pendiente"),
   metodoPago: text("metodo_pago"),
   comprobanteUrl: text("comprobante_url"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
 });
 
-export const solicitudesInformacion = pgTable("solicitudes_informacion", {
-  id: uuid("id")
+export const solicitudesInformacion = sqliteTable("solicitudes_informacion", {
+  id: text("id")
     .primaryKey()
-    .default(sql`gen_random_uuid()`),
-  visitanteId: uuid("visitante_id").references(() => usuarios.id),
-  localId: uuid("local_id")
+    .$defaultFn(uuid),
+  visitanteId: text("visitante_id").references(() => usuarios.id),
+  localId: text("local_id")
     .notNull()
     .references(() => localesComerciales.id),
   nombreContacto: text("nombre_contacto").notNull(),
@@ -131,8 +139,10 @@ export const solicitudesInformacion = pgTable("solicitudes_informacion", {
   telefonoContacto: text("telefono_contacto"),
   mensaje: text("mensaje").notNull(),
   estadoSolicitud: text("estado_solicitud").notNull().default("nueva"),
-  fechaContacto: timestamp("fecha_contacto"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
+  fechaContacto: integer("fecha_contacto", { mode: "timestamp" }),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
 });
 
 export const insertRolSchema = createInsertSchema(roles).omit({

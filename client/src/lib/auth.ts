@@ -1,4 +1,3 @@
-import { supabase } from "./supabase";
 import type { RolNombre } from "@shared/schema";
 
 export interface AuthUser {
@@ -7,52 +6,50 @@ export interface AuthUser {
   rol: RolNombre;
   datosPersonales: {
     nombre?: string;
-    [key: string]: any;
+    [key: string]: unknown;
   };
+}
+
+const API_URL = import.meta.env.VITE_API_URL || "";
+
+async function apiRequest<T>(
+  endpoint: string,
+  options: RequestInit = {}
+): Promise<T> {
+  const token = localStorage.getItem("token");
+  const headers: HeadersInit = {
+    "Content-Type": "application/json",
+    ...options.headers,
+  };
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const response = await fetch(`${API_URL}${endpoint}`, {
+    ...options,
+    headers,
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({ error: "Error desconocido" }));
+    throw new Error(error.error || `Error: ${response.statusText}`);
+  }
+
+  return response.json();
 }
 
 export async function signIn(
   email: string,
   password: string
-): Promise<AuthUser | null> {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
+): Promise<AuthUser> {
+  const data = await apiRequest<{ token: string; user: AuthUser }>("/api/auth/signin", {
+    method: "POST",
+    body: JSON.stringify({ email, password }),
   });
 
-  if (error || !data.user) {
-    throw new Error(error?.message || "Error al iniciar sesión");
-  }
-
-  const { data: userData, error: userError } = await supabase
-    .from("usuarios")
-    .select(
-      `
-      id,
-      email,
-      datos_personales,
-      rol_id,
-      roles (nombre_rol)
-    `
-    )
-    .eq("email", email)
-    .single();
-
-  if (
-    userError ||
-    !userData ||
-    !Array.isArray(userData.roles) ||
-    userData.roles.length === 0
-  ) {
-    throw new Error("Usuario no encontrado o sin rol asignado");
-  }
-
-  return {
-    id: userData.id,
-    email: userData.email,
-    rol: userData.roles[0].nombre_rol as RolNombre,
-    datosPersonales: userData.datos_personales,
-  };
+  localStorage.setItem("token", data.token);
+  return data.user;
 }
 
 export async function signUp(
@@ -60,86 +57,28 @@ export async function signUp(
   email: string,
   password: string
 ): Promise<void> {
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
+  await apiRequest<{ success: boolean }>("/api/auth/signup", {
+    method: "POST",
+    body: JSON.stringify({ nombre, email, password }),
   });
-
-  if (error || !data.user) {
-    throw new Error(error?.message || "Error al registrarse");
-  }
-
-  // Get the default role for "VisitanteExterno"
-  const { data: roleData, error: roleError } = await supabase
-    .from("roles")
-    .select("id")
-    .eq("nombre_rol", "VisitanteExterno")
-    .single();
-
-  if (roleError || !roleData) {
-    throw new Error("No se pudo encontrar el rol de VisitanteExterno");
-  }
-
-  // Insert user data into the 'usuarios' table
-  const { error: insertError } = await supabase.from("usuarios").insert({
-    id: data.user.id,
-    email: data.user.email,
-    password_hash: "SET_BY_SUPABASE_AUTH", // Password is handled by Supabase Auth
-    rol_id: roleData.id,
-    datos_personales: { nombre },
-    estado: "activo", // Default status
-  });
-
-  if (insertError) {
-    throw new Error(
-      insertError.message || "Error al guardar los datos del usuario"
-    );
-  }
 }
 
-export async function signOut() {
-  const { error } = await supabase.auth.signOut();
-  if (error) {
-    throw new Error(error.message);
-  }
+export async function signOut(): Promise<void> {
+  localStorage.removeItem("token");
 }
 
 export async function getCurrentUser(): Promise<AuthUser | null> {
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      return null;
+    }
 
-  if (!user) {
+    const user = await apiRequest<AuthUser>("/api/auth/me");
+    return user;
+  } catch (error) {
+    console.error("Error fetching current user:", error);
+    localStorage.removeItem("token");
     return null;
   }
-
-  const { data: userData, error } = await supabase
-    .from("usuarios")
-    .select(
-      `
-      id,
-      email,
-      datos_personales,
-      rol_id,
-      roles (nombre_rol)
-    `
-    )
-    .eq("email", user.email)
-    .single();
-
-  if (
-    error ||
-    !userData ||
-    !Array.isArray(userData.roles) ||
-    userData.roles.length === 0
-  ) {
-    return null;
-  }
-
-  return {
-    id: userData.id,
-    email: userData.email,
-    rol: userData.roles[0].nombre_rol as RolNombre,
-    datosPersonales: userData.datos_personales,
-  };
 }

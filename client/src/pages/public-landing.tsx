@@ -12,7 +12,6 @@ import {
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -22,7 +21,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   Form,
@@ -43,7 +41,6 @@ import {
   Phone,
   Mail,
   Search,
-  Menu,
 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -83,17 +80,41 @@ export default function PublicLanding() {
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof contactFormSchema>) => {
+  const onSubmit = async (values: z.infer<typeof contactFormSchema>) => {
     if (!selectedLocal) return;
 
-    toast({
-      title: "Solicitud enviada",
-      description: "Nos pondremos en contacto contigo pronto.",
-    });
+    try {
+      const response = await fetch("/api/solicitudes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...values,
+          localId: selectedLocal,
+        }),
+      });
 
-    form.reset();
-    setDialogOpen(false);
-    setSelectedLocal(null);
+      if (!response.ok) {
+        throw new Error("Error al enviar la solicitud");
+      }
+
+      toast({
+        title: "Solicitud enviada",
+        description: "Nos pondremos en contacto contigo pronto.",
+      });
+
+      form.reset();
+      setDialogOpen(false);
+      setSelectedLocal(null);
+    } catch (error) {
+      console.error("Error submitting request:", error);
+      toast({
+        title: "Error",
+        description: "No se pudo enviar la solicitud. Inténtalo de nuevo.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleRequestInfo = (localId: string) => {

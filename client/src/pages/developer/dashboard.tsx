@@ -11,8 +11,16 @@ import {
 import { MetricCard } from "@/components/metric-card";
 import { Activity, Database, Users, AlertTriangle } from "lucide-react";
 
+type SystemStats = {
+  totalUsers: number;
+  totalLocales: number;
+  totalContratos: number;
+  totalPagos: number;
+  activeUsers: number;
+};
+
 export default function DeveloperDashboard() {
-  const { data: systemStats } = useQuery<any>({
+  const { data: systemStats } = useQuery<SystemStats>({
     queryKey: ["/api/system/stats"],
   });
 

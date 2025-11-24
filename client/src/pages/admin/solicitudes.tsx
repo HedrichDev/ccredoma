@@ -10,18 +10,22 @@ import {
 } from "@/components/ui/table";
 import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { MessageSquare, Mail, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import type { SolicitudInformacion, EstadoSolicitud } from "@shared/schema";
 
+type SolicitudConLocal = SolicitudInformacion & {
+  local: {
+    codigoLocal: string;
+    tipoLocal: string;
+  };
+};
+
 export default function AdminSolicitudes() {
   const { toast } = useToast();
 
-  const { data: solicitudes, isLoading } = useQuery<
-    (SolicitudInformacion & { local: any })[]
-  >({
+  const { data: solicitudes, isLoading } = useQuery<SolicitudConLocal[]>({
     queryKey: ["/api/solicitudes"],
   });
 

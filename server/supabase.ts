@@ -21,7 +21,7 @@ export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
 
 export async function initializeDatabase() {
   try {
-    const { data: roles, error: rolesError } = await supabase
+    const { error: rolesError } = await supabase
       .from("roles")
       .select("*")
       .limit(1);

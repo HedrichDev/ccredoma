@@ -59,9 +59,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg">Email</h3>
-                  <p className="text-muted-foreground">
-                    contacto@CCRedoma.com
-                  </p>
+                  <p className="text-muted-foreground">contacto@CCRedoma.com</p>
                 </div>
               </div>
             </div>
