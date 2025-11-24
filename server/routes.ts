@@ -18,6 +18,7 @@ import {
   type AuthenticatedRequest,
 } from "./middleware/auth";
 import { signIn, signUp } from "./auth";
+import { logger } from "./logger";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Auth routes
@@ -33,9 +34,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(401).json({ error: "Credenciales inválidas" });
       }
 
+      logger.debug(`Usuario autenticado: ${result.user.email}`, {
+        prefix: "AUTH",
+      });
       res.json({ user: result.user, token: result.token });
     } catch (error) {
-      console.error("Error signing in:", error);
+      logger.error("Error al iniciar sesión", error, { prefix: "AUTH" });
       res.status(500).json({
         error: error instanceof Error ? error.message : "Error al iniciar sesión",
       });
@@ -52,9 +56,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       await signUp(nombre, email, password);
+      logger.info(`Nuevo usuario registrado: ${email}`, { prefix: "AUTH" });
       res.json({ success: true });
     } catch (error) {
-      console.error("Error signing up:", error);
+      logger.error("Error al registrar usuario", error, { prefix: "AUTH" });
       res.status(400).json({
         error: error instanceof Error ? error.message : "Error al registrarse",
       });
@@ -76,7 +81,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       res.json(user);
     } catch (error) {
-      console.error("Error fetching current user:", error);
+      logger.error("Error al obtener usuario actual", error, { prefix: "AUTH" });
       res.status(500).json({ error: "Error al obtener usuario" });
     }
   });
@@ -110,7 +115,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       res.json(locales);
     } catch (error) {
-      console.error("Error fetching locales:", error);
+      logger.error("Error al obtener locales", error, { prefix: "API" });
       res.status(500).json({ error: "Error al obtener locales" });
     }
   });
@@ -139,9 +144,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           })
           .returning();
 
+        logger.info(`Local creado: ${newLocal.codigoLocal}`, { prefix: "API" });
         res.json(newLocal);
       } catch (error) {
-        console.error("Error creating local:", error);
+        logger.error("Error al crear local", error, { prefix: "API" });
         res.status(400).json({
           error:
             error instanceof Error ? error.message : "Error al crear local",
@@ -190,7 +196,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
         res.json(contratos);
       } catch (error) {
-        console.error("Error fetching contratos:", error);
+        logger.error("Error al obtener contratos", error, { prefix: "API" });
         res.status(500).json({ error: "Error al obtener contratos" });
       }
     }
@@ -210,7 +216,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
         res.json(pagos);
       } catch (error) {
-        console.error("Error fetching pagos:", error);
+        logger.error("Error al obtener pagos", error, { prefix: "API" });
         res.status(500).json({ error: "Error al obtener pagos" });
       }
     }
@@ -249,7 +255,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
         res.json(solicitudes);
       } catch (error) {
-        console.error("Error fetching solicitudes:", error);
+        logger.error("Error al obtener solicitudes", error, { prefix: "API" });
         res.status(500).json({ error: "Error al obtener solicitudes" });
       }
     }
@@ -273,9 +279,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         })
         .returning();
 
+      logger.info(`Nueva solicitud creada: ${newSolicitud.id}`, {
+        prefix: "API",
+      });
       res.json(newSolicitud);
     } catch (error) {
-      console.error("Error creating solicitud:", error);
+      logger.error("Error al crear solicitud", error, { prefix: "API" });
       res.status(400).json({
         error:
           error instanceof Error ? error.message : "Error al crear solicitud",
@@ -307,9 +316,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           return res.status(404).json({ error: "Solicitud no encontrada" });
         }
 
+        logger.info(`Solicitud actualizada: ${id}`, { prefix: "API" });
         res.json(updated);
       } catch (error) {
-        console.error("Error updating solicitud:", error);
+        logger.error("Error al actualizar solicitud", error, { prefix: "API" });
         res.status(400).json({ error: "Error al actualizar solicitud" });
       }
     }
@@ -329,7 +339,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       res.json(centros);
     } catch (error) {
-      console.error("Error fetching centros:", error);
+      logger.error("Error al obtener centros comerciales", error, {
+        prefix: "API",
+      });
       res.status(500).json({ error: "Error al obtener centros" });
     }
   });
@@ -354,9 +366,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           return res.status(404).json({ error: "Local no encontrado" });
         }
 
+        logger.info(`Local actualizado: ${id}`, { prefix: "API" });
         res.json(updated);
       } catch (error) {
-        console.error("Error updating local:", error);
+        logger.error("Error al actualizar local", error, { prefix: "API" });
         res.status(400).json({ error: "Error al actualizar local" });
       }
     }
@@ -375,9 +388,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           .delete(localesComerciales)
           .where(eq(localesComerciales.id, id));
 
+        logger.info(`Local eliminado: ${id}`, { prefix: "API" });
         res.json({ success: true });
       } catch (error) {
-        console.error("Error deleting local:", error);
+        logger.error("Error al eliminar local", error, { prefix: "API" });
         res.status(400).json({ error: "Error al eliminar local" });
       }
     }
@@ -431,7 +445,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
         res.json(contrato);
       } catch (error) {
-        console.error("Error fetching mi contrato:", error);
+        logger.error("Error al obtener contrato del usuario", error, {
+          prefix: "API",
+        });
         res.status(500).json({ error: "Error al obtener contrato" });
       }
     }
@@ -472,7 +488,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
         res.json(pagos);
       } catch (error) {
-        console.error("Error fetching mis pagos:", error);
+        logger.error("Error al obtener pagos del usuario", error, {
+          prefix: "API",
+        });
         res.status(500).json({ error: "Error al obtener pagos" });
       }
     }
@@ -501,7 +519,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           activeUsers: 0,
         });
       } catch (error) {
-        console.error("Error fetching system stats:", error);
+        logger.error("Error al obtener estadísticas del sistema", error, {
+          prefix: "API",
+        });
         res.status(500).json({ error: "Error al obtener estadísticas" });
       }
     }
