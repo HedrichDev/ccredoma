@@ -5,6 +5,10 @@ import type { ToastActionElement, ToastProps } from "@/components/ui/toast";
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1000000;
 
+function genId() {
+  return Math.random().toString(36).substring(2, 9);
+}
+
 type ToasterToast = ToastProps & {
   id: string;
   title?: React.ReactNode;

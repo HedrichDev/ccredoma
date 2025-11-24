@@ -22,9 +22,10 @@ export function LocalCard({
   onRequestInfo,
   showActions = true,
 }: LocalCardProps) {
+  const fotosUrls = Array.isArray(local.fotosUrls) ? local.fotosUrls : [];
   const imageUrl =
-    local.fotosUrls && local.fotosUrls.length > 0
-      ? local.fotosUrls[0]
+    fotosUrls.length > 0
+      ? fotosUrls[0]
       : "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop";
 
   const tipoLocalLabels: Record<string, string> = {

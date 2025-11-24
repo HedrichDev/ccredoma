@@ -9,7 +9,6 @@ import {
   pagosAlquiler,
   solicitudesInformacion,
   usuarios,
-  roles,
   insertLocalComercialSchema,
   insertSolicitudInformacionSchema,
 } from "@shared/schema";
