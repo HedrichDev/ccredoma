@@ -52,9 +52,9 @@ CCredoma ha sido diseñado pensando en la usabilidad y una estética moderna:
 
 La seguridad de sus datos es nuestra máxima prioridad. CCredoma implementa:
 
-- **Autenticación Robusta:** Gestión de usuarios a través de Supabase Auth, incluyendo confirmación por correo electrónico.
+- **Autenticación Robusta:** Gestión de usuarios mediante JWT (JSON Web Tokens) con hash de contraseñas usando bcrypt.
 - **Control de Acceso Basado en Roles (RBAC):** Permisos finos que aseguran que cada usuario solo pueda acceder a la información y funcionalidades pertinentes a su rol.
-- **Seguridad a Nivel de Fila (RLS):** Protección de datos directamente en la base de datos, garantizando que solo los usuarios autorizados puedan ver o modificar registros específicos.
+- **Base de Datos Local Segura:** SQLite con validación de esquemas y protección de claves foráneas.
 
 ---
 
@@ -62,9 +62,75 @@ La seguridad de sus datos es nuestra máxima prioridad. CCredoma implementa:
 
 Construido sobre un stack tecnológico moderno y escalable para garantizar rendimiento, seguridad y facilidad de mantenimiento:
 
-- **Backend:** Desarrollado con **Express.js** en TypeScript, utilizando **Supabase** como nuestra robusta base de datos (PostgreSQL), sistema de autenticación y almacenamiento de archivos.
+- **Backend:** Desarrollado con **Express.js** en TypeScript, utilizando **SQLite** como base de datos local con **Drizzle ORM** para una gestión de datos eficiente y type-safe.
+- **Autenticación:** Sistema de autenticación JWT con hash de contraseñas mediante **bcrypt**.
 - **Frontend:** Una interfaz de usuario dinámica y responsiva creada con **React**, aprovechando la eficiencia de **Vite** para el desarrollo rápido.
 - **Alojamiento y Despliegue:** Optimizado para **Netlify**, garantizando despliegues continuos y un rendimiento global excepcional.
+
+---
+
+## 🛠️ Instalación y Configuración
+
+### Requisitos Previos
+
+- Node.js 18+ y npm
+- Git
+
+### Pasos de Instalación
+
+1. **Clonar el repositorio:**
+   ```bash
+   git clone <url-del-repositorio>
+   cd ccredoma
+   ```
+
+2. **Instalar dependencias:**
+   ```bash
+   npm install
+   ```
+
+3. **Configurar variables de entorno:**
+   
+   Crea un archivo `.env` en la raíz del proyecto:
+   ```env
+   DATABASE_URL=./database.sqlite
+   JWT_SECRET=tu-clave-secreta-aqui
+   JWT_EXPIRES_IN=7d
+   PORT=5000
+   VITE_API_URL=http://localhost:5000
+   ```
+
+4. **Crear la base de datos:**
+   ```bash
+   npm run db:push
+   ```
+
+5. **Poblar con datos de ejemplo:**
+   ```bash
+   npm run db:seed
+   ```
+
+6. **Iniciar el servidor de desarrollo:**
+   ```bash
+   npm run dev
+   ```
+
+El servidor estará disponible en `http://localhost:5000`
+
+### Comandos Útiles
+
+- `npm run dev` - Inicia el servidor de desarrollo
+- `npm run build` - Construye la aplicación para producción
+- `npm start` - Inicia el servidor en modo producción
+- `npm run db:push` - Crea/actualiza las tablas de la base de datos
+- `npm run db:seed` - Pobla la base de datos con datos de ejemplo
+- `npm run db:check` - Verifica la conexión a la base de datos
+- `npm run db:diagnose` - Ejecuta diagnósticos de la base de datos
+- `npm run verify-env` - Verifica las variables de entorno
+
+### Migración desde Supabase
+
+Si estás migrando desde una versión anterior que usaba Supabase, consulta el archivo `MIGRATION_GUIDE.md` para instrucciones detalladas.
 
 ---
 

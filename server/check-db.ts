@@ -1,5 +1,4 @@
-
-import { Client } from "pg";
+import { db, initializeDatabase } from "./db";
 import { config } from "dotenv";
 import path from "path";
 
@@ -7,35 +6,24 @@ import path from "path";
 const envPath = path.resolve(process.cwd(), ".env");
 config({ path: envPath });
 
-const connectionString = process.env.DATABASE_URL;
-
-if (!connectionString) {
-  console.error(
-    "Error: DATABASE_URL is not set in your .env file."
-      +
-      "\n" +
-      "Please make sure your .env file exists in the project root and contains:"
-      +
-      "\n" +
-      'DATABASE_URL="postgresql://user:password@host:port/dbname"'
-  );
-  process.exit(1);
-}
-
-const client = new Client({
-  connectionString: connectionString,
-});
-
 async function checkDatabase() {
   try {
-    await client.connect();
-    console.log("✅ Successfully connected to the database.");
-    const res = await client.query("SELECT NOW()");
-    console.log("✅ Successfully executed a query. Current time from DB:", res.rows[0].now);
+    await initializeDatabase();
+    console.log("✅ Successfully connected to SQLite database.");
+    
+    // Try a simple query
+    const { roles } = await import("@shared/schema");
+    const result = await db.select().from(roles).limit(1);
+    console.log("✅ Successfully executed a query.");
+    
+    if (result.length > 0) {
+      console.log("✅ Database contains data.");
+    } else {
+      console.log("ℹ️  Database is empty. Run 'npm run db:seed' to populate it.");
+    }
   } catch (err) {
     console.error("❌ Error connecting to the database:", err);
-  } finally {
-    await client.end();
+    process.exit(1);
   }
 }
 

@@ -1,11 +1,9 @@
 {
   "ExpandedNodes": [
-    "",
     "\\attached_assets",
     "\\client",
-    "\\client\\src",
-    "\\client\\src\\pages"
+    "\\client\\src\\pages",
+    "\\server"
   ],
-  "SelectedNode": "\\client",
   "PreviewInSolutionExplorer": false
 }

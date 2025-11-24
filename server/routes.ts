@@ -486,24 +486,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     requireRole("CentroComercialAdmin", "SystemDeveloper"),
     async (req, res) => {
       try {
-        const [totalUsers] = await db
-          .select({ count: usuarios.id })
-          .from(usuarios);
-        const [totalLocales] = await db
-          .select({ count: localesComerciales.id })
-          .from(localesComerciales);
-        const [totalContratos] = await db
-          .select({ count: contratosAlquiler.id })
-          .from(contratosAlquiler);
-        const [totalPagos] = await db
-          .select({ count: pagosAlquiler.id })
-          .from(pagosAlquiler);
-
-        // Get actual counts
-        const usersCount = await db.select().from(usuarios);
-        const localesCount = await db.select().from(localesComerciales);
-        const contratosCount = await db.select().from(contratosAlquiler);
-        const pagosCount = await db.select().from(pagosAlquiler);
+        const [usersCount, localesCount, contratosCount, pagosCount] =
+          await Promise.all([
+            db.select().from(usuarios),
+            db.select().from(localesComerciales),
+            db.select().from(contratosAlquiler),
+            db.select().from(pagosAlquiler),
+          ]);
 
         res.json({
           totalUsers: usersCount.length,
